@@ -1,0 +1,634 @@
+		
+~~~~~~~~~~~~~~~~~~~~~~~
+Day 2: 14th July 2024
+~~~~~~~~~~~~~~~~~~~~~~~			
+	
+	
+	Introduction to Cloud Platform 
+	
+	AWS Free Tier Account 
+	
+	Login to AWS Console
+	
+	Create EC2 Instances(Virtual Machines)
+	
+	Linux 
+	
+
+
+	On-premises Environments
+	
+		Servers,Storage,Networking,Dbase
+	
+		Software - Cost 
+		
+	Cloud Environments :::
+	
+		Core Linux Administration :::
+		
+			Linux Machine 
+			
+			Hypervisor & VMs - 16 GB of RAM 2CPU 
+			
+			
+			Create AZURE / AWS - Account 
+			
+				Create VMs 
+				
+				
+			Telecomm - SP1 -- Introduce a new service to their customers -> ASAP! IT Services
+								Build Servers/Test Servers/Deployment servers
+								
+			SP2 
+			
+			
+	
+	AWS Free Tier Account -- https://aws.amazon.com/console/
+	
+		Active Email_ID & Mobile Number 
+		Active Credit/Debit Card - enabled with International Trancsaction
+		12 Months free tier account - 
+		
+		
+	
+	Login to AWS Console
+	
+	Create EC2 Instances(Virtual Machines)
+	
+	Linux 
+	
+
+	AWS Account Creation Process!
+	
+	https://aws.amazon.com/console/
+	
+	
+	Login to AWS Console :::
+	
+		- Login as a root user (Using Email_ID & Password)		# Default
+		
+			(or)
+			
+		- IAM User 												# Not Now!
+			
+	In AWS Cloud platform :::
+
+		Regions 	(Locations)
+		
+			Availability Zones (Data Centers)
+				
+				
+	Upon Login to AWS Console 
+		- Choose set AWS Region.
+		- Create the resources within that regions
+		
+		
+	Billing Management :::
+	
+		Free Tier ::
+		
+		
+	Create EC2 Instances(Virtual Machines) :::
+	
+	Select EC2 Service 
+	
+	From EC2 Dashboard - Select Launch Instance
+	
+	
+	How to Access the remote service?
+	
+	www.gmail.com
+	
+		- Web Browser 
+		- Authentication - UserName & Password 
+		
+		
+	AWS Platform 
+		EC2 Instance (Virtual Machine) 
+		
+		- SSH Connection Protocol
+		
+		- Authentication Types :
+			- Password Based Authentication
+			- Token Based Authentication
+			- Key Based Authentication
+				- Public key and private key 
+			- Passwordless Authentication
+	
+	
+		1 VM == 750 Hrs/Month
+
+		10 VMs == 75 Hrs/Month
+		
+		It is always recommended to STOP the EC2 Instance if it is not in use!
+	
+	
+	AMI 
+	
+		Choose : Ubuntu v22.04 LTS AMI
+		
+		
+		Windows 
+		Linux 
+		Mac 
+		
+		
+		Linux based AMI :::
+		
+			Linux Open-Source Operating System :
+				
+				UNIX OS
+				
+				- Linux Distribution 
+										Package Manager (Used to Install/Uninstall/Upgrade the packages)
+					Debian/Ubuntu			apt-get / apt 
+					Centos/RHEL				yum 
+					Fedora					dnf
+					Previous version of Fedora uses yum package manager
+					
+					
+				Window OS --> 
+				
+					- Windows Installer! -> Package Manager for Windows OS 
+											- Used to Install/Uninstall/Upgrade the packages ad
+
+
+
+
+		Created the Instance :::
+		
+		Running 
+		
+			Instance ID (Uniquely Generated)
+			
+			Name/Tag (We assign)
+			
+			Host Name :
+
+				Public IP Address	(Will Change everytime we restart the Instance)
+
+				Private IP Address 	(Constant IP Address, exist till you terminate the Instance)
+
+
+
+	How to Connect to  EC2 Instances :::
+	
+
+		- Authentication Types :
+			- Password Based Authentication
+			- Token Based Authentication
+			- Key Based Authentication
+				- Public key and private key 
+			- Passwordless Authentication	
+			
+			
+		Host_Name 
+		User_Name 
+		Credentials 
+	
+		-	EC2 Instance Connect (Thru Browser - AWS Console) 
+		
+		-	SSH Agents :	(Tool installed in the client machine to access Linux VMs)
+				MobaXterm	- 	https://mobaxterm.mobatek.net/download.html 
+							https://mobaxterm.mobatek.net/download-home-edition.html - Choose Installer Edition
+							Download *.zip
+							Extract & run the exec file
+		
+							Open MobaXterm Tool 
+							Select Session - Setting
+								- Remote Host :Public IP Address 
+								- User Name : ubuntu
+								- Advanced Setting 
+									- Choose Private key check box 
+										- browse thru the *.pem from downloads folder
+				Putty 
+			
+		-	Terminal :		# Ubuntu/Mac Users 
+		
+		
+		Create AWS Account 
+		
+		Login to AWS Console as a root 
+		
+		Goto EC2 Instance Dashboard 
+		
+		Create EC2 Instance 
+			- Create Key Pair 
+			
+		Connect to EC2 Instance using EC2 Instance Connect (Thru Browser - AWS Console) 
+			
+		
+Fundamentals of Linux Operating System ::
+
+Overview of Linux
+Linux Architecture
+Linux Distributions
+Basic Linux Commands
+File Permission Management
+User Creation
+Shell Scripts
+SSH and VI Utility - Remote Server Access
+			
+			
+
+	Operating System ::
+	
+		What is an Operating System ???
+		
+			- Is an interface between the user application and the Hardware.
+			
+		Windows
+		Linux 
+		Mac 
+		
+		Android 
+		
+		High End computation Servers 
+		
+			- Reliable OS
+			- Linux Based OS 
+			
+			OS Architecture ::
+			
+				Linux - Kernel is the core of Linux 
+				
+				Manage the Underlying Hardware, User Applications, External Resources,  
+				
+				It create the process 
+				Each and every process runs in its own address space/volume 
+				Dedicated/Isolated path
+				
+					OS Kernel 
+						Namespace 
+						Control Group 
+						
+						
+				Executed as Command Line Utilities 
+				
+				Traditional Linux are CUI (Command User Interface) Based  
+				
+				Windows are GUI (Graphical User Interface) based  
+		
+		Linux Distribution :::
+			
+			AWS Cloud --> Ubuntu v22.04			===> 	Azure --> Ubuntu v22.04
+			
+			
+			
+			- Linux Distribution 
+									Package Manager (Used to Install/Uninstall/Upgrade the packages)
+				Debian/Ubuntu			apt-get / apt 
+				Centos/RHEL				yum 
+				Fedora					dnf
+				Previous version of Fedora uses yum package manager	
+
+				All the package Manager should be executed as a root user.
+				
+				
+			
+		Basic Linux Commands :::
+		
+		
+		sudo -i			# To elevate the access to root level
+		hostname -i
+		clear
+		ls 
+		pwd 			# present working directory
+		
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+Day 3: 20th July 2024
+~~~~~~~~~~~~~~~~~~~~~~~			
+			
+Fundamentals of Linux Operating System ::
+
+Overview of Linux
+Linux Architecture
+Linux Distributions
+Basic Linux Commands
+File Permission Management
+User Creation
+Shell Scripts
+SSH and VI Utility - Remote Server Access
+
+
+
+	- Linux Distribution 
+							Package Manager (Used to Install/Uninstall/Upgrade the packages)
+		Debian/Ubuntu			apt-get / apt 
+		Centos/RHEL				yum 
+		Fedora					dnf
+		Previous version of Fedora uses yum package manager	
+		
+	Why we need Linux ???
+	
+		Linux OS 
+		
+			Install and Manage all the DevOps Tools on Linux Machines  
+			
+			Open-Source DevOps Tools :
+			
+				git,jenkins,docker,kubernetes/Prometheus/Grafana,ansible,terraform
+				
+				
+	
+	What is your role here ???
+	
+	
+		1. Install the DevOps Tools 
+		2. Manage the Tools -- Periodically Clean-up/Upgrade the tools
+		3. Remote access to the servers 
+					Client - Server Architecture
+					
+					Server 
+						- Client1,2,3,4,5
+						
+		4. DevOps Team can Administrate the Linux Machines 
+		
+			1. Package Management - install/uninstall/upgrade
+			2. File Management 
+			3. User Management 
+			4. Access Management 
+			5. Remote Server Management 
+			6. Process Automation 
+			
+	Working with Linux OS :
+
+	- Basic Linux Commands
+			
+			clear 
+			
+			root user will have complete admin access to Linux Machine.
+
+	- Linux Distribution 
+			Package Manager (Used to Install/Uninstall/Upgrade the packages)
+		Debian/Ubuntu			apt-get / apt 
+		Centos/RHEL				yum 
+		Fedora					dnf
+		Previous version of Fedora uses yum package manager				
+
+
+	1. Package Management - install/uninstall/upgrade		
+		clear 				# Clean the Command 
+		sudo -i				# to elevate the access to root level
+								Used to execute package manager 
+						
+		apt update -y 		# used to update the default packages 
+		
+		git,maven,docker,jenkin,ansible
+		
+		apt install git -y
+
+		git --version 
+		
+		apt install maven -y
+		
+		apt install tree -y
+		
+		apt install nginx -y
+		
+		apt remove git -y 
+
+		apt upgrade git -y
+		
+		
+	File related commands :::
+	
+	2. File Management 	
+	
+	Directory 		# Is folder - collections of files & sub-folders
+		- File Access Mode
+			- Read/Write/Execute
+	
+	
+	For any user in Linux, will have a home directory
+	
+	pwd 			# show Present working directory
+	
+	cd 				# Change Directory 
+
+	cd /			# Control will be take to the root directory at the system level 
+	
+	cd ~			# Control will be taken to the home directory of the user level
+	
+	exit 			# Used to logout from a user 
+
+	ls 				# Used to List the files and directories of the current path
+	
+	echo 			# Used to print the message on terminal/Console
+	
+	Create the files :::
+	
+		1. 	echo "Hello Everyone" >> file1.txt		# Create the file 
+			echo "Session1" > file.txt 
+			
+			cat file1.txt 							# To print the content of the file 
+			
+		2. touch file2.txt 							# Used to create empty file 
+		
+		3. vi file3.txt								# Create or edit a file using vi editor
+		
+		
+			Press i 								# goto insert mode 
+			Type the file contents
+			
+			Press ===>		esc key 
+			Type 	===>  	:wq						# Save and Exit from vi editor 
+			Type 	===>  	:q!						# Exit from vi editor without saving the changes
+			
+		
+	ll				# Long List
+			
+	mkdir 			# Make / Create Directory
+	
+	cd ..			# go back to previous directory
+	
+	
+	Working with Directories ::::
+	
+		Hidden Files/Directories --> 
+		
+		all the hidden files/directories will be prefixed with .
+		
+		
+	echo "rec1" >> .s1.txt				# Create a hidden file 
+	
+	mkdir .dir2							# Create Hidden Directory
+	
+	mv s1.txt payment.text				# Rename a file 
+			
+	mv s2.txt subdir1/					# Move the file from one dir to another
+	
+	cp s1.txt subdir1/					# Copy the file from one dir to another
+	
+	rm -rf subdir1/						# Remove the folder 
+	
+	rm file1.txt						# Remove the file 
+	
+	rm *.java 							# Remove Multiple files using wild-card symbol *
+	
+	rm file1.txt file2.txt 				# Remove multiple files 
+	
+	
+	
+	What is Deployment ??
+	
+		Copying the artifacts from one machine to another machine 
+		
+		Dev Server 		*.war
+		
+		Test Server 	*.war
+	
+	
+
+	ll				# Long List
+	
+		First 1 character are used to identify the type of component and its access level 
+		
+		
+	Project Folder -- Source Code & Program to execute
+	
+	
+	Owner	
+	
+	Group of Users 
+	
+	Public/Common User 
+	
+	
+	User: Dev 	- Group: Development Team
+	
+	
+	drwxrwxr-x 2 ubuntu ubuntu 4096 Jul 20 06:35 dir1/
+	
+	
+	drwxrwxr-x
+	
+	----------
+
+	-							# Used to identify the type of component - file/directory  	
+								# Possibel values are ====> '-' and 'd'
+								
+	 ---						# Owner : Possible values are rwx	 Read / Write / Execute 						
+	 
+	    ---						# User Group : Possible values are rwx	 Read / Write / Execute
+		
+		   ---					# Possible values are rwx	 Read / Write / Execute
+
+
+	Eg.:
+	
+	payment.java 
+	
+	
+	-rwx------					# Owner of the file can have Read / Write / Execute access.
+
+	-rw-------					# Owner of the file can have Read and  Write access.
+
+	-rwxr-----					# Owner of the file can have Read / Write / Execute access.
+								# User Group can just read the file 
+								
+	-rwxrw-r--					# Owner of the file can have Read / Write / Execute access.	
+								# User Group can just read & Write the file 
+								# Common user can just read the file content 
+								
+								
+	chmod 
+	
+	https://chmod-calculator.com/
+	
+	
+	
+	User Management :::
+	
+		- How to create Users on linux Machine 
+		
+		- How to login to that user 
+		
+		- Setup the Access to that user 
+		
+		- Define ownership 
+		
+		
+	DevOps :::
+	
+		Create some Virtual Machines :::
+		
+			server (VM)
+				Clients (VM) 1,2,3,4,5 
+				
+				
+		Create : devopsadmin user 
+		
+		Remote Server :::
+		
+			SSH Protocol :
+			
+				Host Name 
+				
+				User Name 
+				
+				User Credentials
+	
+
+
+		ls -a				# Used to get the list of all components including hidden files and directories
+
+
+		Is SSH ::
+		
+			By Default :
+			
+				Key based authentication :::
+				
+					Public Key 
+					
+					Private Key 
+					
+			Password based authentication :::
+			
+			
+		cd /etc				# Directory maintains all the packages and system properties 
+		
+		cat /etc/passwd		# Used to get the list of users 
+		
+		cat /etc/group 		# Used to get the list of user groups 
+		
+		
+		user1 
+		
+		user2 
+		
+		dev_group
+		
+		Install Docker -- Container Engine 
+		
+		docker group 
+		
+		devopsadmin 
+		
+		Group level Access
+		
+		
+		Create New Linux User :::
+
+			Excute these commands as a root user:	
+
+			#useradd devuser1
+			
+			useradd devuser2 -s /bin/bash -m -d /home/devuser2		# Create User 
+			
+			su - devuser2											# Login to that user
+			
+		How to create password for Linux users 
+				
+				passwd <user_id>
+				
+				passwd devuser2										# Create Password 
+				
+				New Password :									 	# Is a Hidden field Enter valid password 			
+				
+				Re-Type New Password : 								# Is a Hidden field re-type & confirm password 
+		
+		
