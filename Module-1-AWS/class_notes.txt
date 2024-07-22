@@ -440,3 +440,135 @@ Next :
 	Used the EC2 Instances 
 	
 	AWS IAM Services 
+
+
+
+######################
+Day 4: 22nd July 2024
+######################
+
+
+	Connect to EC2 Instances 
+	
+	Used the EC2 Instances 
+	
+	AWS IAM Services
+	
+	Create EC2 Instances :
+	
+		Ubuntu Machine :
+		
+		Login to Ubuntu Machine ?
+		
+		EC2 Instance :
+		
+			Host Name : IP Address 
+			
+				Public IP Address 	==> Is Used to access the VM from external network
+										Public IP Address will change whenever we restart the EC2 Instance
+						
+				Private IP Address 	==> Is used to access the VM within the Network
+										Private IP Address will never change 
+										
+										
+				Elastic IP Address 	==> Is a static IP Address 
+										Can be assigned to VM
+	
+		2 EC2 Instances :
+		
+			VM1 & VM2 
+			
+		AWS Cloud platform ::			AZURE Cloud Platform
+		
+			EC2 Instance1					Virtual Machine1
+
+			EC2 Instance2 					Virtual Machine2
+
+
+		
+		Network Protocol 
+		
+			SSH Protocol 
+				Enable SSH(Secure SHell) Connection
+			
+				--> Host Name 			--> Public IP Address fo the Node	
+				--> User Name 			--> User_Name 	Default User Name for Ubuntu OS: ubuntu
+				--> User Credentials	--> Private Key
+				
+				
+			Key Pair :	Used to Securely connect to your instance.
+				Public Key 
+				Private Key	==> *.pem
+				
+			SSH Authentication Types :::
+			
+				Password based Authentication
+				
+				Key Based Authentication
+					Public Key 
+					Private Key	==> *.pem					
+				
+				Token Based Authentication
+				Passwordless Authentication
+				
+				
+			To Access Gmail Server :
+				Host Name : www.gmail.com 
+				User ID 
+				Password 
+				
+	Connect to EC2 Instances :::
+	
+		EC2 Instance Connect Option 		# Done through Browser Window 
+		
+		SSH Agents(Tool installed in the Local Windows Machine to connect to EC2 Instances)
+			Windows Users :
+			
+				Install MobaXterm 		#	https://mobaxterm.mobatek.net/download-home-edition.html
+		
+		Terminal (Mac/Linux/Windows Users)
+		
+		
+
+IAM Service :::
+
+	Identity and Access Management Service :
+	
+		- Used to Create User IDs 
+		- Create User Groups
+		- Define User Access Level
+		- Create User Roles & Policies to access other aws resources 
+		
+		
+		root user 	- Complete Access to AWS Resources
+		
+		Infra-Structure Management Team 
+		
+		dev user 	- Wants to create EC2 Instance ?
+		Testing Teams 
+		
+		
+		
+
+	How to access AWS Console as a IAM User ?
+	
+	
+	AWS ACCOUNT :
+	
+		root user account			# Default Account with full Administrator/Owner Access!
+									# This will be at the Enterprise level
+									# Using Email_ID and Password we can login.
+	
+	
+		Dev_Team 					# User1 & Password and allow them to access the AWS Console with limited access.
+		
+		Testing Team 
+		
+		Infra-Structure Mgmt Team	
+		
+		
+		
+	AWS Console :
+	
+		root user 				# Admin User
+		
