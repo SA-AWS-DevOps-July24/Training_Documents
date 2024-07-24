@@ -572,3 +572,270 @@ IAM Service :::
 	
 		root user 				# Admin User
 		
+######################
+Day 5: 23rd July 2024
+######################	
+
+Module 1 (I) 
+
+Identity and access management
+Introduction to IAM
+IAMFeatures
+Protect your AWS by different authentication system
+AWS User Account and Groups in detail Associating policies
+to the user and groups Introduction about Roles and its Use
+Multi Factor Authentication AWS
+Organization
+IAM Product Demonstration (LAB)
+Knowledge Check
+
+IAM Service :::
+
+	Identity and Access Management Service : 
+	
+	- Global Service
+	
+		- Used to Create User IDs 
+		- Create User Groups
+		- Define User Access Level
+		- Create User Roles & Policies to access other aws resources 
+		
+		
+		root user 	- Complete Access to AWS Resources
+		
+		Infra-Structure Management Team 
+		
+		dev user 	- Wants to create EC2 Instance ?
+		Testing Teams 
+		
+		
+		
+
+	How to access AWS Console as a IAM User ?
+	
+	
+	AWS ACCOUNT :
+	
+		root user account			# Default Account with full Administrator/Owner Access!
+									# This will be at the Enterprise level
+									# Using Email_ID and Password we can login.
+	
+	
+		Dev_Team 					# User1 & Password and allow them to access the AWS Console with limited access.
+		
+		Testing Team 
+		
+		Infra-Structure Mgmt Team	
+		
+		
+		
+	AWS Console :
+	
+		root user 				# Admin User
+		
+		
+		
+	AWS Account :
+	
+		root Account 
+			- It is used to setup the Account/ Administration activities 
+			
+			
+		IAM Account 
+		
+		
+	AWS User Management :
+
+		We use IAM Service to Create and Manage the Users on AWS Platform
+		
+		IAM User Names are create by the Root User.
+		
+		Authentication :
+		
+			Who can Access ? using valid user credentials.
+		
+		www.gmail.com ==> Email Server ?
+		
+			valid email_id & Credential
+			
+			send/recv/delete -- Actions?
+		
+		
+		Authorization :
+		
+			What can be done?
+		
+			send/recv/delete -- Actions?	
+
+
+		RBAC :	Role Based Access Control :
+		
+		Server :
+		
+		Application Development Server :
+		
+			User : Sam wants to access the Application Development Server 
+			Developer
+			
+				Valid User Name/Password 
+				
+				Logged In.		Successful		# Authentication
+				
+				Sam wants to Install a development Tool - 
+				We never allow any developer to install any tool on this server. 
+				Means, Developers are NOT-Authorized to Install any tool.
+					
+		
+		
+			Developers					
+			
+			Administrators ::
+			
+			User : John --> Admin user can able to login and install or manage any packages on this server.
+			Means, only Admins are Authorized to install the tools
+			
+			RBAC : 
+			
+				Administrators
+				
+				Developers
+				
+				Testers 
+				
+			
+			Server1 :
+			
+				Should be accessible only the Developers 
+				
+				developer1 --> allow access 
+				developer2 --> allow access
+			
+				1000 developers -- looking for access ?
+				
+				We always manage the users as a group.
+				
+				As a best practise, it is always recommended to manage the users a group.
+				
+			
+		
+		
+		
+		user1			user2				user3				user4					user5
+		
+									sec grp
+			ADMIN Group							DEVELOPER GROUP			
+			
+			
+		The User Group is used to maintain the list of Users.
+		The User Group will not any any group within that group. i.e., there is no sub-group concept in RBAC.
+		
+		User can be part of more than one group.
+		
+		
+		Authentication:
+		
+			IAM Authentication Methods 
+			
+				- Password 
+				
+				- Access Token / Secret Keys 
+				
+				- MFA - Multi-Factor Authentication
+				
+				
+		User Access :
+		
+		Resource Access :  We need to configure IAM 
+		
+		
+		EC2 Instance :
+		
+			Linux Box :
+			
+				Storage/Database Service
+				
+				
+				
+	How to Create User 
+
+	How to Create User Group & Add Users to that User Group 
+	
+	How to setup the previleges to that user based on Group level access 
+	
+	Role 
+	
+	Security Policies 
+	
+	
+	1. Login to AWS Console as a root user
+	
+	
+	User Groups :::
+
+			- Used to maintain the set of users for easy management
+			
+			Steps: 
+			
+			- Create User Group
+			- Assign any policy(Permission) to that group 
+			- Add Users to that group 
+			
+			
+	
+	Users :::
+		
+			- Any individual who seek access to AWS Account 
+			
+			Steps:
+			
+			- Create User 
+			- Assign the user to one or more user group
+				Note: As a best practise, user should be part of a group.
+			- The User permissions will be automatically assigned to that user through the user group.
+			
+	
+	Roles :::
+	
+			- Role are set of credentials/access to any other resource
+
+			- Create Role 
+			- Attach the Policy that role 
+	
+	
+	
+	Policies :::
+
+			Is the permission defined for any user/group or service.
+			
+			
+	Infra-Structure Management Team :
+	
+		IAC Tools like Cloudformation 
+		
+			- To Create Policies
+			- To Customise Policies and Roles 
+			
+	Cloudformation
+	
+	
+	Next :
+	
+		IAM User Login Process and Authentication
+
+			Authentication:
+			
+				IAM Authentication Methods 
+				
+					- Password 
+					
+					- Access Token / Secret Keys 
+					
+					- MFA - Multi-Factor Authentication
+				
+
+		
+		
+		Resources and its roles and policies 
+	
+	
+	
