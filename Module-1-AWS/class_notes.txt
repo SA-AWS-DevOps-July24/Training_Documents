@@ -838,4 +838,238 @@ IAM Service :::
 		Resources and its roles and policies 
 	
 	
+
+				
+######################
+Day 6: 25th July 2024
+######################	
+
+	IAM Roles / Policies 
 	
+	
+	Purpose of Creating the Roles ???
+	
+	Which Resource / Use Cases ?
+	
+	How to Attach ?
+	
+	
+	Standards :
+	
+		User-Level
+		Credentials 
+		Server Level 
+		Tools 
+		
+	Tags are additional label that we assign to any AWS Resource 
+	
+	User Name : user1,user2,user3 
+
+	department : dev 
+	
+	As a best practise, it is recommented to tag any resource we create.
+	loksai_002
+	
+	
+	Create Policy using GUI Mode :
+	Using Visual Editor 
+	
+	
+		
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        }
+    ]
+}	
+	
+	
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        }
+    ]
+}
+	
+				
+				
+				
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:Describe*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "elasticloadbalancing:Describe*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudwatch:ListMetrics",
+                "cloudwatch:GetMetricStatistics",
+                "cloudwatch:Describe*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "autoscaling:Describe*",
+            "Resource": "*"
+        }
+    ]
+}				
+				
+			
+AWS Account Management :
+
+	root user				# Infra-Structure Team 	--> Admin_User - ID & Password	
+	
+	User_Group :
+		Admin_User_Group 
+			Dev_Admin_User1
+			Test_Admin_User1
+			RL_Admin_User1
+			
+	dev_group :
+			Dev_Admin_User1
+			dev_user1
+			dev_user2
+			
+	
+Dev Team
+
+	Create an Dev_Admin_user
+	
+	Dev_Admin_User1 - this user can have access to create other users within the dev_group
+
+1 - 100 Users
+
+Test Team 
+
+	Create an Test_Admin_user
+
+	Test_Admin_User1 - this user can have access to create other users within the test_group
+	
+1 - 100 Users
+
+
+Release Mgmt Team 
+
+	RL_Admin_User1 - this user can have access to create other users within the rl_group
+	
+	Create an RL_Admin_user
+	
+1 - 100 Users
+	
+		
+	
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "*"
+        }
+    ]
+}
+
+S3 : Simple Storage service 		# Google Drive 	
+
+
+
+Always Login to AWS Console as a IAM User:
+
+To do this :
+
+	Create a IAM User 
+	Attach the AdministratorAccess 
+	Create MFA
+
+
+EC2/S3//////////	
+	
+	IAM Services needed to this use case ???
+	
+	
+	Root User Creates IAM User				# User / User Group(Attach the required policy at the group level) 
+	
+	IAM User Create EC2 Instance 			# This previlege will be assigned thru User group
+	
+	EC2 Instance can have access to S3 Bucket to save the files		# IAM Role(Attach the required policy(S3:*) to this role)
+	
+	
+	user/user_groups/roles/policies 
+	
+	password 
+	MFA
+	Access_Key & Secret_Keys
+	
+	Access the console as a IAM User 
+	
+	How to attach a role to the EC2 Instance 
+	
+	aws cli 
+	
+	
+	AWS CLI :::
+	
+		Is a command line utility to access aws resources using command prompt/terminal 
+		
+		Create some no. of test servers(ec2 instances)
+		
+		- Using AWS Consoel if we create EC2 Instance , it is manual process.
+		
+		
+	Create some automation scripts :::
+	
+	shell script / python script 
+	
+	
+	aws cli 
+	
+	Install AWS CLI on the local machine(Window/Linux/Mac)
+	Using AWS Cli we can do the process automation 
+	
+	aws configure 
+	
+		ACCESS Key
+		SECRET KEY 
+		Region 
+	
+	Server/VM :::		Server is accessible using its IP Address :
+					z.z.z.z
+	
+		Application1 	==> Port 8080					z.z.z.z:8080
+		Application2	==> Port 80						z.z.z.z:80
+		Application3 	==> Port 3000					z.z.z.z:3000
+
+		InBound Rules :::
+		
+		OutBound Rules :::
+			
+			
+	How manage the service Packages on the EC2 Instance.
+		The Services can be accessible using its' port number
+		
+		
+		
+		
+			
