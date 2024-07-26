@@ -1070,6 +1070,177 @@ EC2/S3//////////
 		The Services can be accessible using its' port number
 		
 		
+######################
+Day 7: 26th July 2024
+######################		
+
+
+	IAM 
+	
+	EC2 Instances 
+	
+	S3 
+	
+	EBS 
+	
+	aws cli ::
+	
+	aws configure ::
+	
+	
+	How to access AWS Resources using aws cli
+	
+		
+		
+	EC2 Service :::		To Create Virtual Machines!( Computing Device )
+	
+		- AMI - Amazon Machine Images 											# Server Template - Operating System
+		
+		- Instance Type 														# CPU / RAM 
+		
+		- Key Pair 
+		
+		- Security Group 														# Like a Firewall to Virtual Machines  
+		
+		- VPC/Subnet/Route Table/Route Associations/Internet Gateways			# Networking components 
+		
+		- EBS Volumes	/ S3 Buckets											# External Storage 
+		
+		- IAM Roles																# To Access any other Service 
+		
+		- User Data 															# For Bootstraping - Startup Task
+		
+		
+		- Web Applications :
+
+		- IP Address to Access the Application
+		
+		- Auto-Scaling Group 
+		
+		- Load Balancing 
+		
+		- Deployment Group
+	
+	(VM) www.amazon.com / www.onlineticketbookingsystem.com	==> Network Traffic is as expected 
+																			50000 users 
+																			100000 Users	
+	EC2 Instances :::
+	
+		Trouble shooting ::::
+	
+	
+	- AMI - Amazon Machine Images 
+	
+		- It is server Template:
+		
+		- Used to quickly spin-up the EC2 Instances
+		
+		
+		- AMI Should be completely scanned as per company's security policies and compliances.
+		
+		- The AMI should be save and free from all external issues.
+		
+		How to Create AMI ???
+		
+		Purpose of Creating AMI ???
+		
+			
+			
+			
+	Testing Team :
+	
+		- Requirement is to test the application.
+		
+		
+		Computing Device / Virtual Machine 
+		
+			using - amazon linux ami, with 2 CPU, 4GB RAM 
+			
+			create one instance - ( Test Server)
+			
+			Install the required Testing Tools 
+				- TestNG 
+				- Selenium
+				- Reporting Tools 
+				
+			Enable for testing.
+			
+			Yes. Now The Testing Team can test the application
+			
+			Once Testing is completed, That Application can be moved to production environment. (JULY Release) - LIVE 
+			
+			
+			create application - test application - deploy to production environment - Terminate the test servers
+			
+			Before we terminate the instance take a copy of that ami.
+			
+			ami - amazon linux 2					new-testserver-ami
+			Install the required Testing Tools 
+				- TestNG 
+				- Selenium
+				- Reporting Tools 			
+			
+			
+		
+		Next Release - (Aug Release)
+			
+			create application - test application - deploy to production environment
+			
+			
+			Create Test Server using new-testserver-ami
+			
+			
+			Based on Existing EC2 Instance we can create New AMI and use that ami for further Instance Creations
+			
+			
+			
+		- Instance Type 														# CPU / RAM 
+		
+			--> 
+						
+				
+				
+		- Security Group 	
+
+
+			VM - 
+			
+				Web Application1 : 		<VM_Ip_address>:<application_port>
+				Web Application2 :
+				Web Application3 :
+				
+				User can Access the Applications running in VM using Security Group Inbound Rules
+				
+				
+				Inbound Rules 
+				Outbound Rules 
+
+Tasks: 
+				
+Login to AWS Console 
+
+Create IAM User with AdministratorAccess
+
+Create EC2 Instance - Linux based AMI - eligible for free tier & t2.micro 
+
+Login to that instance using Mobaxterm/Terminal 
+
+IAM Service 
+
+	create user/group/policies/roles 
+	
+AMI 
+
+	Launch new instance using AMI 
+	
+	Create AMI based on the instance 
+	
+	Explore other AMIs avaialable 
+	
+Instance Type :
+	
+	Explore various types of Instance - t2.micro/......
+	Explore how to change the instance type 		
 		
 		
 			
