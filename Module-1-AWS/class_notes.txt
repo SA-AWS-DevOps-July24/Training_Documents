@@ -1243,4 +1243,382 @@ Instance Type :
 	Explore how to change the instance type 		
 		
 		
+				
+######################
+Day 8: 29th July 2024
+######################					
+
+
+	S3 Bucket :::
+	
+	amazon linux  default user name : ec2-user
+	
+	ubuntu linux  default user name : ubuntu
+	
+	S3 Bucket :::
+	
+	AMI :::
+	
+	
+	
+AWS DevOps Services :::
+
+	Code Commit :		-- gihub
+	
+	Code Build :	Build the source code : Create Artifacts 
+	
+	The Artifacts are saved in s3 Bucket 
+	
+	Code Deploy :
+	
+	
+	Code Pipeline : Used to orchestrate builds and deployments 
+		
+	Developer :
+	
+		Write a Java Program :(source code)
+		
+		Compile the code!
+		
+		Create Artifacts
+		
+		Tested 	
+		
+		
+Environments :
+
+	Non-Prod Environments													Prod Environments
+
+		Dev Environment
+		
+		Build Environment
+			Build : is a process of compiling the source code and create artifacts(Binaries - *.war/*.jar/*.exec/*.dll)
+			
+			
+		
+		Test Environment
+			QA - Quality Assurance Testing 
+			UAT - User Acceptance Testing 		===============>				Production Servers  
+			
+		
+Host my website:
+
+in AWS 	
+
+Create web components :
+
+Application Components: Java/C#/
+
+resources :
+	- html 
+	- js
+	- css
+	- images 
+	
+	
+3 - tier application Architecture :::
+
+	- Front-End Layer - User Interface Design
+	
+	- Application Layer - Business Logic
+	
+	- Back-End Layer - Database 
+	
+	
+Eg.: 
+
+	User Registration Process :
+	
+	User Login Process :
+	
+	
+S3 Bucket :
+
+EBS Volumes :
+
+Elastic Block Store - Volumes :;
+
+	Hard-disk - > partitioned as c: /d: 
+	External Storage 
+	
+	
+	Back-up and restore:
+	
+	EC2 Instance :::
+	
+		30 GB of EBS Volume :
+		
+		
+		EBS Volumes ::
+		
+		Persistant Volumes :
+		
+		
+			Backup - Snapshot of the volume
+			
+			Recovery
+		
+	Routing the Request to the corressponding service!		
+
+		Host Based Routing 
+		
+		Path based Routing 
+	
+		www.google.com 			VPC
+			- gdrive
+			- translate
+			- maps
+			
+		url : www.google.com
+
+		Host Based Routing
+		
+		translate : www.translate.google.com 
+		maps: www.maps.google.com
+		
+		
+		www.gmail.com 
+		
+		Path based Routing :
+			
+			www.gmail.com/inbox 
+			
+			www.gmail.com/sent
+		
+		www.console.aws.amazon.com
+		
+		www.amazon.com 
+		
+		www.primevideos.com 
+		
+		
+				
+######################
+Day 9: 31st July 2024
+######################			
+	
+	AWS Cloud Services :::
+	
+	Environments ::::
+	
+Environments :
+
+	Non-Prod Environments													Prod Environments
+
+	Dev Environment
+	
+	Build Environment
+		Build : is a process of compiling the source code and create artifacts(Binaries - *.war/*.jar/*.exec/*.dll)
+		
+		
+	
+	Test Environment
+		QA - Quality Assurance Testing 
+		UAT - User Acceptance Testing 		===============>				Production Servers  
+		
+		
+	AWS Services ::::
+
+	Infra-Structure Admin Perspective 
+	
+		AWS Solutions Architects - Associate 	
+	
+	DevOps Perspective 
+	
+		DevOps Associate
+		
+		
+	- It is used to automate the Continous Integration, Continous Deployment of IT Services.
+	
+		- Continous Integration is the capability of the dev team to Continously integrate their changes to further testing without impacting others.
+		
+		- Continous Deployment is the automated of Application Deployment to Production Environment without any manual intervension.
+	
+		- Deployment/Promotion is a process of copying the artifacts from one environment to another enviroment  
+	
+Environments : What is all about?
+
+	Non-Production Environments	(VM)													Production Environments (LIVE Environment)
+	
+		Development Environment (VM)	Java Progam (High-level language)
+		
+			- completely owned by Dev Team 
+			- Create the Source Code 
+			
+		Build Environment (VM)	
+			- Application Build is the process of compiling the code and creating the artifacts(Binaries)
+				- Low-Level Language(Artifacts)
+		
+			- Compile the Source Code 
+			- Create Artifacts ( Binaries/Executables - *.war/*.jar/*.exec )
+	
+				Artifacts will be promoted to Test Environment for further testing 
+					
+				When you download a software thru internet?
+					- *.exec file 
+	
+		Testing Environments	
+			- This is owned by the Testing Team.
+			- Testing Team will create Test Scenarios/Test Cases 
+			
+			QA Environment (VM) 	- QA Testing Team  *.war
+				Funtional/Regression/Performance,....
+				
+				- Quality Assurance Testing 
+				- Perform Automated QA Testing
+		
+			UAT Environment	(VM)			*.war						================>	Production Servers (VM) - *.war
+				- User Acceptance Testing														For MobaXTerm, User Laptop/Desktop is the LIVE Environment 
+				- Perform UAT Testing 
+				- UAT Testing are done the by Business Users
+				- UAT Testing will be done based on the real time production/customer data
+
+			Eg.: 
+			
+				Tele-Comm Domain:
+				
+				Tele-Comm Service Providers 
+				
+				Tele-Comm SP1 - Introduce a new feature to their customers 
+
+								for initial 1 or 2 months 	==> Release this new service to end-users - Mobile-App/Web Appln.
+								Beta Testing 
+								
+								Business Users 
+
+
+The Need for Environments ????	
+
+	Tools:
+
+		
+		Non-Production Environments	(VM)	
+		
+			Dev Environment
+				IDEs - Eclipse Based IDEs / 
+				Integrated Development Environment - using this tool, developers will develop the source code 
+			
+			Build Environment
+				Build Tools 
+					- Maven/Gradle
+					
+			Testing 
+			
+				Testing Tools 
+				
+					TestNG
+					Selenium					
+					
+		Production Environment - LIVE Environment 			
+		
+			- Web Application Server - Used to run the web application
+				- httpd
+				- Tomcat 
+				- Nginx 
+		
+		
+		
+		
+		EC2 Instance : DEV 
+			- Create Application 
+			
+		EC2 Instance : BUILD 
+			- Build Application 
+			
+		EC2 Instance : TEST 
+			- Test Application
+			
+		EC2 Instance : PROD
+			- Deploy Application
+			
+		
+		
+		Setup the Non-Prod Environments :::
+				What should be the availability of the Non-Prod Environments ??
+						- Non-Prod Environments should be available only during business hours.
+							- 8AM - 10PM - Business Hours 
+				
+			VPC :
+				Subnets :
+				
+					EC2 Instance1 : DEV 
+						- Create Application 
+						
+					EC2 Instance2 : BUILD 
+						- Build Application 
+						
+					EC2 Instance3 : TEST 
+						- Test Application
+
+			
+		Setup the Prod-Environments ::: LIVE Environments
+				What should be the availability of the Prod Environments ??	
+					- Prod Environments should be available 24/7.
+					- Zero - Downtime!
+					
+			How to ensure High Availability of Production Environments
+										
+			VPC:	
+				Subnet :
+					EC2 Instance : PROD
+						- Deploy Application
+						
+						
+					Deployment Group :
+					
+						Group of Servers using for production deployment 
+						
+						Deployment_Group 
+								- VM1,2,3,4,5
+								
+						www.amazon.com 	- E_Commerce 
+						
+						Online Ticket Booking System -- Train Tickets
+						
+							Deployment_Group - Is the replica of servers 
+								How to create the replicas of servers - using the image copy 
+								- VM1,2,3,4,5,6,7,8,9,10	
+								
+							Auto-Scaling Group : 
+							Minimum & Maximum Limit
+							
+								Minimum 10 VM should be up and running
+								Miximum 500 VMs should be up and running
+
+								Scale-up 	===> Adding more VMs 
+								Scale-Down	===> Removing the VMs 
+
+								Storage : Initially we have assigned 1TB of EBS
+								CPU :
+								RAM :
+								Network traffic :
+								
+								
+								Database : --> RDS Service 
+								
+										1000 users access this machine
+										
+										50000
+						
+						
+DEV 
+
+BUILD 
+
+Test Environment :::
+
+- Create and setup a dedicated Test Environment ::
+
+	Create VPC
+	Create Subnet
+	Create Route Table 
+	Create Route Table Association 
+	Create Internet gateway
+	Create Security Group 
+	Create EC2 Instance using all the above components 
+	
+	Login to that EC2 Instance 
+	
+	Install the required Web Application Server like tomcat/nginx 
+	Execute the Web Application using tomcat/nginx 
 			
