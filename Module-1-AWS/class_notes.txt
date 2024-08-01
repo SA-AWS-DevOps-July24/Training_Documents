@@ -1621,4 +1621,106 @@ Test Environment :::
 	
 	Install the required Web Application Server like tomcat/nginx 
 	Execute the Web Application using tomcat/nginx 
+
+######################
+Day 10: 1st Aug. 2024
+######################		
+
+	Test Environment :::
+
+	- Create and setup a dedicated Test Environment ::
+
+		Create VPC
+		Create Subnet
+		Create Route Table 
+		Create Route Table Association 
+		Create Internet gateway
+		Create Security Group 
+		Create EC2 Instance using all the above components 
+		
+		Login to that EC2 Instance 
+		
+		Install the required Web Application Server like tomcat/nginx 
+		Execute the Web Application using tomcat/nginx 
+
+		How to save that data/file from ec2 instance to the s3 bucket
+		
+		
+	VPC : Virtual Private Cloud 
+	
+		Virtual Private Data Centre :
+		
+		
+		During AWS Account Creation process :
+		
+			Default VPC -> 
 			
+		Dedicated VPC :
+			Subnet : Is used to provide certain range of IP Address to the VPC 
+			Route Table : Is used route the request from external user to Subnet using Internet gataways.
+			Security Group
+			EC2 Instances 
+			Install the required tools 
+			
+			
+			
+
+		
+		Front-End Layer  	- User Interface 
+
+		Application Layer 	- Business Logic 
+		
+		Back-End Layer 		- Database
+			
+			
+
+		0. Create AWS ACCOUNT
+			- Create IAM User with AdministratorAccess
+			- Login to AWS Console as IAM User 
+			
+		1. Create VPC :::
+			- 
+			
+			Identify the range of IP address to be assigned to VPC and Subnet.
+			
+			CIDR - Classless Inter-Domain Routing 
+			
+				It is just a IP Addr allocation method to improve the routing capabilities between the nodes!
+
+			VPC CIDR : 100.0.0.0/16
+				
+				
+				VPC can have more than one subnet 
+			
+		2. Create Subnets :::
+			Use the availability zones to ensure high availability 
+			
+			Refer the existing vpc to create public and private subnets
+			
+			VPC CIDR : 100.0.0.0/16
+			
+			Subnet1 : 100.0.1.0/24
+			
+			Subnet2 : 100.0.2.0.24
+			
+		3. Create Internet-Gateway
+		
+			Create IGW and attach it to VPC
+
+		4. Create Route Table 
+			
+			- Attach the subnet 
+			
+			- Create Route 
+				for public set 0.0.0.0
+					& igw
+					
+				for private no need to set any global route.
+				
+		5. Security Group 
+			
+			- Create security Group and update the inbound and outbound rule for any EC2 Instance 
+			
+		
+		6. Create EC2 Instance 
+			- Attach the newly created VPC,Subnet and Security Group to this Ec2 Instance.
