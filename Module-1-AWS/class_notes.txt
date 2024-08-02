@@ -1724,3 +1724,167 @@ Day 10: 1st Aug. 2024
 		
 		6. Create EC2 Instance 
 			- Attach the newly created VPC,Subnet and Security Group to this Ec2 Instance.
+
+
+			
+######################
+Day 11: 2nd Aug. 2024
+######################
+
+	IAC Tools :
+	
+		Terraform & Cloudformation is used to provision/Create the AWS Cloud Resources 
+		
+		Install the required Web Application Server like tomcat/nginx 
+		Execute the Web Application using tomcat/nginx 
+				
+		How to install and setup the required tools in the EC2 Instances :::
+		
+		Package 
+		
+		EC2 Instances :	Linux/Windows/Mac 
+		
+		Linux Operating System 
+		
+			- Is a Open-Source
+			
+			- CUI Based. 
+		
+		Linux Distributions :::
+			- There are various types/flavors of Linux OS
+			
+				- Debian/Ubuntu 
+				
+				- Centos / RHEL 
+				
+				- Fedora
+				
+				On AWS :
+				
+				- Amazon Linux
+				
+				
+			To Install and manage any package in Linux Machines, we use Package Managers 
+			
+			Install/Upgrade/Uninstall
+			
+			Windows Installer! - Is a package manager for Windows OS.
+			
+			For Linux OS :
+			
+			Package Managers :
+			
+				The Package Manager can be executed as a root user only!
+			
+			
+				- Debian/Ubuntu 		==> apt-get / apt
+				
+				- Centos / RHEL 		==> yum 
+				
+				- Fedora				==> dnf(If Latest version of fedora)
+											yum(If it is previous version of fedora)
+				
+				On AWS :
+				
+				- Amazon Linux			==> dnf(Latest version of Amazon Linux ami)
+											yum(Previous version of Amazon Linux ami)
+											
+											
+			Connect to EC2 Instance
+			
+			Login 
+			
+			Use the package manager to manage the package 
+			
+			
+		Create EC2 Instance :
+		
+			1. EC2 Instances- ubuntu											# user_Name - ubuntu
+			2. Previous version of Amazon Linux -- same as centos/rhel			# user_Name - ec2-user
+			
+		Connect - using SSH Agent/Terminal/EC2 Instance Connect option
+		
+		Login to Instance 
+		
+		Use the Package Manager to Install/Upgrade/Uninstall the Packages 
+		
+		Package :
+		
+			- Package can run as a stand-alone tool/task
+
+			- Package can run as a service
+				- The Service run on specific port
+				- To run any service package we need enable the corresponding port.
+				
+		How to Install the packages on Linux Machines ?
+			- tool 
+				Eg.: git/ansible/
+			- service 
+				Eg.: jenkins/docker/
+				
+		As a best practise, use :
+		
+			Elevate the access level to root access level
+			
+			clear					# Clear the screen
+			sudo -i 				# Elevate to root access level
+			apt update -y 			# Update the default packages provided by the service provider
+			
+		
+		Then, install the required packages :
+		
+			It is always recommended to use offical documentation to manage the packages.
+		
+		
+			git 					# SCM Tool - for managing source code.
+			
+			sudo -i 
+			
+			apt update -y 
+			
+			apt install git -y 		# Install git 		https://git-scm.com/downloads
+			
+			apt remove git -y		# Unstall git 
+			
+			git --version			# Check the install git version 
+			
+			
+		Install nginx Service on Ubuntu :::		https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/
+		
+			sudo -i
+			apt update -y 
+			apt install nginx -y
+		
+			nginx -v 				# Verify the version 
+			
+			systemctl status nginx	# To Check the status of nginx service 
+
+			systemctl stop nginx	# To stop nginx service 
+
+			systemctl start nginx	# To start nginx service 
+
+			systemctl restart nginx	# To restart nginx service 
+			
+			systemctl enable nginx	# To setup the nginx as a startup task. Whenever we restart the EC2 Instance, nginx will start automatically
+
+			
+		To Access nginx or any service through web browser;
+		
+		Use the <public_ip_address>:<application_port_number>
+			
+			
+			Eg.: 
+			
+			65.1.94.74:80
+			
+		
+		Locate the Web Application :
+		
+		cd /usr/share/nginx
+		
+		index.html 
+			
+			
+			
+			
+	
