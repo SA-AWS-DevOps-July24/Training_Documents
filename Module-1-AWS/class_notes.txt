@@ -1884,7 +1884,162 @@ Day 11: 2nd Aug. 2024
 		
 		index.html 
 			
+
+######################
+Day 12: 5th Aug. 2024
+######################	
+
+	EC2 Instances - Test Environment!
+	
+	EC2 Instance ::: 
+		- Virtual Machine! - Computing Device
+		
+	awscli - agent using to interact with aws services.
+	
+	IAM User ????
+	
+	
+	
+	What are all the purpose of EC2 Instance ??
+	
+The Need for Environments ????	
+
+	Tools:
+
+Environments :
+
+	Non-Prod Environments													Prod Environments
+
+		Dev Environment
+		
+		Build Environment
+			Build : is a process of compiling the source code and create artifacts(Binaries - *.war/*.jar/*.exec/*.dll)
 			
+			
+		
+		Test Environment
+			QA - Quality Assurance Testing 
+			UAT - User Acceptance Testing 		===============>				Production Servers  
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+		
+		Non-Production Environments	(VM)	
+		
+			Dev Environment
+				IDEs - Eclipse Based IDEs / 
+				Integrated Development Environment - using this tool, developers will develop the source code 
+			
+			Build Environment
+				Build Tools 
+					- Maven/Gradle
+					
+			Testing 
+			
+				Testing Tools 
+				
+					TestNG
+					Selenium					
+					
+		Production Environment - LIVE Environment 			
+		
+			- Web Application Server - Used to run the web application
+				- httpd
+				- Tomcat 
+				- Nginx 
+~~~~~~~~~~~~~~~~~~~~~~~
+	
+	Mobile Phones!
+	
+	--> Storage Services like 
+			- S3 Buckets
+			- EBS Volumes 
+				- Hard-disk!
+				
+			- These Storage Volumes can be shared with any other users/services
+			
+	EC2 :
+		- Develop the Applications 
+		- Build the Applications
+		- Run/Deploy the Applications
+			Target Server -> QA/UAT/PROD - Servers
+		- Manage DBServers
+		- Manage Monitoring Servers
+		- Proxy/Load Balancing Servers
+		
+	While launcing the EC2 Instance, attach S3 Bucket to EC2 Instance.
+
+		Using IAM Role 
+		
+		1. Create S3 Buckets
+		2. Create IAM Role using S3fullAdminAccess/ReadAccess policies 
+		3. Attach IAM Role to EC2 Instance while launching
+		4. What next ??
+		
+	Build Server - EC2 Instance: VM 
+
+		1. Compile the Application Source Code 
+		2. Create the Application Artifacts 	- mywebapp.war 
+		3. Artifacts are archieved to External Artifactory Library - S3 Bucket/app-dir 
+		
+
+	QA Environment - Target Server - EC2 Instance: VM
+		1. Connect to S3 Bucket/app-dir 
+		2. Copy - mywebapp.war from S3 Bucket into the EC2 Instance  
+
+	UAT Environment - Target Server - EC2 Instance: VM
+		1. Connect to S3 Bucket/app-dir 
+		2. Copy - mywebapp.war from S3 Bucket into the EC2 Instance  
+
+	PROD Environment - Target Server - EC2 Instance: VM
+		1. Connect to S3 Bucket/app-dir 
+		2. Copy - mywebapp.war from S3 Bucket into the EC2 Instance  		
+	
+	
+
+Environment:
+
+	Dev-Server		--> mywebapp.java 
+	
+	Build-Server	--> Used to compile mywebapp.java and create aritifacts
+						mywebapp.war
+						copy mywebapp.war from build-server to any external storage volume like s3 Bucket 
+						
+	
+	Test-Servers
+		QA_Server	--> Download/copy mywebapp.war from S3 Bucket to QA Server
+		UAT-Server  --> Download/copy mywebapp.war from S3 Bucket to QA Server
+	
+	Prod-Server 	-->	Download/copy mywebapp.war from S3 Bucket to QA Server
+	
+	
+	ACCESS KEY and Secret Key?
+
+	
+	
+	aws configure 
+	
+	awscli --> Is a command line utility used to interact with AWS Services.
+	
+	
+	
+	sudo -i
+	
+	apt update -y
+	
+	apt install awscli
+	
+	aws configure
+	
+	s3 is one of the aws services 
+
+	aws s3 ls 											# List all buckets 
+	
+	aws s3 ls s3://sa-aws-s3-b2							# List files and folders from specific bucket
+	
+	aws s3 cp sa-mywebapp.war s3://sa-aws-s3-b2			# Copy file from EC2 Instance to S3 Bucket
+	aws s3 cp sa-mywebapp.war s3://sa-aws-s3-b2/dir1
+														
 			
 			
 	
