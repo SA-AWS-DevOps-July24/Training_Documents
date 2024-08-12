@@ -2041,5 +2041,536 @@ Environment:
 	aws s3 cp sa-mywebapp.war s3://sa-aws-s3-b2/dir1
 														
 			
+
+											
+######################
+Day 13: 8th Aug. 2024
+######################	
+
+	EC2 Instance : - VM 
+	
+	3 Tier Application Architecture
+	
+		- Front-End 
+		- Application 
+		- DataBase - DataBase Services!
+		
+		
+	RDS 
+		
+		
+		- Huge volume of Transactional data!
+		
+		ATM Transaction --> 
+		
+		/min - how many users do this transaction ?
+		
+	Transaction :
+	
+	Data that is being storage:
+	
+	What is Data ?
+		- Just a raw fact without any meaning!
+		
+		INDIA ?
+	
+	What is Information ?
+		- It is a processed Data!
+		
+		- INDIA is a Country 
+		
+	Database:
+	
+	
+	Sequential Read 	-- File System - Sequential Access 
+	
+	Random Read 
+	
+	DataBase System :
+	
+		Here the Data are stored in the form of Tables - Rows and Columns
+	
+	DataBase Management System - DBMS 
+	
+	Relational DBMS 
+		
+	Customer_Database-Table :
+	
+	Cust_No		Cust_Name		Cust_Mobile_Number		Cust_Email_ID
+	1001		xxxxx			1000000000				kkkkkkkkk@xyz.com
+	1002		xxxasdasxx		200000000				kksdfkkkk@xyz.com
+	1003		xasdxsdaxxx		3000000000				kkkkkasdkk@xyz.com
+	1004		xxsdaasxxx		4000000000				afkkkkkkkk@xyz.com
+	1005		xasdxxxx		5000000000				kkkkasdfkkk@xyz.com
+	1006		xsdxxxx			0000000000				0098098098
+
+	Database	- Collection of Tables 
+		Tables 	- Collection of Rows and Columns
+		
+	SQL - Structured Query Language 
+	
+	
+	
+	Auto Scaling Group !
+	
+	- Production Environment:
+	
+		prod_server1,2,3,4,5,........200
+		D2_Instance1,2,3,4,5
+		EBS_Volumes1,2,3,4,5
+		
+		
+	Load Balancer Service!
+	
+	Application :
+	
+		Monolith Applications?
+			- E_Commerce Application 
 			
+				
+		
+		Micro-Service Applications?
+		- Entire Application is divided into various micro services 
+		
+
+######################
+Day 14: 9th Aug. 2024
+######################	
+
+	- Server Provisioning 
+	
+		- Process of Creating the AWS Resources(EC2 - Instance)
+		
+		Create using Console.
+		
+		EC2 - t2.micro - ubuntu 20.04 
+		
+	Test Environments :
+	
+		- 20 Test Servers 
+			- 2 - ubuntu 
+			- 2 windows 
+			- 2 amazon linux 
+			- 2 ubuntu - t2.micro 
+	
+
+	IAC --> Infra-Structure As Code 
+			
+	Using IAC Tool we can automate the Infra-Structure Provisioning and Configurations 
+		- Cloudformation - is for AWS Resource 
+			- are used to provision the aws resources
+		
+			Cloudformation Templates are written using json file format 
+			
+				- json/yaml --> declarative scripts 
+				
+					- Composed of Key:Value Pairs
+		
+		- Terraform 
+			- Used to provision/Create resource in any cloud platform or on-premise enviroments
+		
+
+	Scripting Languages :::
+		- These are used to perform some process automation
+	
+		groovy scripts/shell scripting /python scripting/yaml 
+	
+	Programming Languages :::
+		- These are used to create the business applications
+	
+		C,C++,Java,C#
+	
+
+	Infra-Structure Provision Team :
+	
+		Create some Infra-Structure 
+		
+		Create some in-house scripts - shell scripting language
+		
+		
+		script to create ec2 instance :
+		
+			ec2-create.sh -- execute the script 
+		
+		
+	IAC - are the simplified version of core scripting
+	
+		- It uses declarative scripting 
+		
+			key:value 
+		
+		
+	CF Templates should be reusable
+		
+aws solutions architect
+aws admin
+aws developer
+
+
+		
+
+*.json 
+
+
+
+
+
+
+
+
+CloudFront Service:
+
+	Content Delivery!
+
+	
+
+
+
+
+
+
+
+
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Creating a new S3 bucket",
+  "Resources": {
+    "s3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "s3-loksaietas3bucket01"
+      }
+    }
+  }
+}
+
+
+
+
+
+			
+{
+  "Resources": {
+    "Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": {
+          "Fn::Sub": "${AWS::StackName}-bucket-${AWS::AccountId}"
+        },
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "aws:kms",
+                "KMSMasterKeyID": "alias/aws/s3"
+              }
+            }
+          ]
+        },
+        "PublicAccessBlockConfiguration": {
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
+      }
+    },
+    "BucketBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "Bucket"
+        },
+        "PolicyDocument": {
+          "Id": "RequireEncryptionInTransit",
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Principal": "*",
+              "Action": "*",
+              "Effect": "Deny",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "Bucket",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Sub": "${Bucket.Arn}/*"
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": "false"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "myInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Metadata": {
+        "AWS::CloudFormation::Init": {
+          "config": {
+            "packages": {
+              "yum": {
+                "httpd": []
+              }
+            },
+            "files": {
+              "/var/www/html/index.html": {
+                "content": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "This is created by cfn-init"
+                    ]
+                  ]
+                },
+                "mode": "000644",
+                "owner": "root",
+                "group": "root"
+              }
+            },
+            "commands": {
+              "StratApache": {
+                "command": "service httpd start"
+              }
+            }
+          }
+        }
+      },
+      "Properties": {
+        "KeyName": "may20-keypair",
+        "ImageId": "ami-067aaeea6813afbde",
+        "InstanceType": "t2.micro",
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -ex\n",
+                "yum install -y aws-cfn-bootstrap\n",
+                "# Install the files and packages from the metadata\n",
+                "/opt/aws/bin/cfn-init -v ",
+                "         --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                "         --resource myInstance ",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n",
+                "# Signal the status from cfn-init\n",
+                "/opt/aws/bin/cfn-signal -e $? ",
+                "         --stack ",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                "         --resource myInstance",
+                "         --region ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\n"
+              ]
+            ]
+          }
+        }
+      },
+      "CreationPolicy": {
+        "ResourceSignal": {
+          "Timeout": "PT5M"
+        }
+      }
+    }
+  }
+}
+
+
+Storage Services :::
+
+
+	S3 Bucket 
+
+	Elastic Block Store 
+
+	EFS 
+		- It is same a Elastic Block Store 
+		- It is very quick when it comes to scalability
+		
+		
+		
+	github ::::
+	
+	
+	Route 53 --> Domain Name Registration Service
+	
+	Domain Name :
+	
+	nginx - web application - <ip_addr>:80
+
+	DNS --> URL eg.: www.gmail.com 
+	
+	
+	Types :
+	
+		WebSite - Is a Collection Web Pages 
+		
+		
+		Static Web Page 
+			- blog site 
+			- article 
+			- NEWS Feeds
+		
+		Dynamic Web Page 
+			- E_Commerce 
+			- User Login 
+			- User Registration 
+			
+			
+			
+			
+#######################
+Day 15: 12th Aug. 2024
+#######################
+
+	AWS :
+	
+	Assignments :
+	
+	AWS FAQs : 
+	
+	
+	VPC & Elastic Block Store 
+		Virtual Private Cloud !
+		
+			- Dedicated Virtual Data Center!
+				Servers/Storage/Networks/Database/Secrity/
+				
+				EBS Volumes -> External Storage.
+					Persistant Data.
+				
+		
+	Regions 
+
+		- Availability Zones 
+			- Data_Center(Servers)
+	
+	Cloud Watch 
+		- AWS Monitor Tool 
+			- Used to Monitor the Infra-Structure
+				CPU Utilization / Memory Utilization / Network Traffic 
+	
+	Cloud Trail 
+	
+	
+	Environments :::
+	
+	Non-Prod-Environments							Prod-Environments (Servers)- LIVE Environment
+															www.gmail.com - Web Application
+																- 24/7
+														CPU 	--> 100% - we cannot start any new task 
+														Memory 	--> 16GB of RAM
+
+														Monitoring Tools :
+															Prometheus/Dyna-trace/Nagios/Splunk - open source tools 
+															
+															AWS - Cloud Watch 
+															
+															Graphical representations of the monitoring metrix
+															
+															Alarm Features 
+															Webhook Features 
+															Notification Features 
+															Create Visualization 
+															
+															TL - CPU = 75%  Memory = 80% 
+															
+															Network Traffic Monitoring!
+															
+															10000 Users!
+															50000 users!
+	
+	
+	L5. Tomcat
+	
+	Tomcat Installation :::
+	
+		Install Pre-requisites
+		
+		Install Actual Tool
+		
+		Post Installation Actions
+	
+	
+	Install Tomcat :
+	
+		What is tomcat & Why it is needed ?
+		
+			Tomcat is a Web Application Server(WAS)
+			Used to run the Web Applications
+			
+			Properties of Tomcat :
+			- It run as a service on the host machines 
+			- Tomcat runs in port 8080 by default 
+				- Enable port 8080 for that instance using Security Group 
+			
+			Pre-requisites :
+			
+				Install JDK
+				Instal Tomcat
+			
+		Security Group >??
+		 By Default Tomcat WAS Runs in Port 8080
+			That is the reason to enable port 8080 in the inbound rule of secrity Group.
+		 Inbound Rules are used to define the incoming traffic to the EC2-Instance to allow access/deny to access to Ec2 Instance.
+	
+		Tomcat  - Port 8080
+		Nginx   - Port 80
+		
+		Download and t install tomcat 
+		
+
+#####################Install TOMCAT Application Server on Ubuntu :::
+
+
+Install Tomcat ::  https://tomcat.apache.org/download-80.cgi
+
+Launch an AWS Ubuntu v22.04 VM
+Add port 8080 to inbound rule of that instance 
+Login to this EC2 Instance using MobaXterm/Putty/EC2 Instance Connect 
+sudo -i
+apt update -y
+apt-get install default-jdk -y
+java --version
+
+cd /opt/
+wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.99/bin/apache-tomcat-8.5.99.tar.gz
+tar -xvzf /opt/apache-tomcat-8.5.99.tar.gz
+mv apache-tomcat-8.5.99 tomcat
+cd tomcat/bin/
+./startup.sh			# Used to Start the Tomcat Server 
+
+
+
+
+Open web browser :
+
+http://<Public_IP_Address>:8080/
+
+E.g.: http://3.110.160.226:8080/
+
+
+
 	
