@@ -1,0 +1,224 @@
+#######################
+Day 16: 14th Aug. 2024
+#######################
+
+Fundamentals of Linux :::
+
+1. Overview of Linux
+2. Linux Architecture
+3. Linux Distributions
+4. Basic Linux Commands
+5. File Permission Management
+6. User Creation
+7. Shell Scripts
+8. SSH and VI Utility
+
+
+Operating System :::
+
+	Fundamentals of Linux Operating System 
+	
+		- Windows 
+		- Mac 
+		- Linux 
+		
+	Linux Operating System 
+		- Open-Source 
+		- Is Secured 
+		- Linux OS was created based on the Unix Operating System 
+		- Is an interface between the user applications and underlying Hardware.
+		- Linux OS is based on the Command User Interface
+		- Core of Linux OS is called kernel!
+			Components of Linux OS Architecture
+				- Networking 
+				- Storage 
+				- IPC - Inter Process Communication
+				- User Management 
+				- Security Management 
+				- Control Groups 
+				- Namespace 
+				- Process 
+			
+		- Command Line Interface 
+		
+		- Linux Distributions :::
+		
+			- Flavors of Linux OS 
+			
+				- Centos / RHEL 
+				- Debian / Ubuntu 
+				- Fedora
+				
+			Package Management - Package Managers :::
+				- Package Managers are used to install/Uninstall/Upgrade the Packages/software 
+			
+					- Centos / RHEL 		===> 	yum package Manager 
+					- Debian / Ubuntu 		===>	apt/apt-get package Manager 
+					- Fedora				===>	dnf (Latest Version of Fedora)
+													yum (Previous Version of Fedora)
+													
+				- Package Managers can be executed only by the root user on Linux
+				
+					- TO work with Package Manager :
+						- Elevate the Access to Root Level 
+							- sudo -i			# This Command is used to elevate the access to root level
+				
+	Learn Linux on DevOps Perspectives :
+	
+		What the Role of DevOps Team/Engineer on Linux.
+		
+			- All the DevOps Tools can be installed and Managed in Linux Machines 
+		
+		What is your role here ????
+		
+			- Install all the DevOps Tools 
+			- Package Management - Periodically Upgrade/Uninstall - Backup of the Tools
+			- Managing Remote Servers 
+				- Client Server Architecture 
+				- Server1 (VM)
+					- Client1,2,3,4,5,6
+					
+			- As a DevOps Team we can Manage the Linux Machines
+			
+				- Package Management 
+				- File Management 
+				- User Management 
+				- Access Management 
+				- Remote Servers Management 
+				- Process Automation(Shell Scripting)
+				
+				
+	Working with Linux ::
+
+		- Basic Linux Commands 
+		
+			Package Manager - apt/yum/dnf ==> can e executed as a root user.
+			
+		- Linux Distributions 
+				
+			Packages can be managed based on the Distributions 
+			
+		
+		- Package Management :::
+
+			- Package Managers are used to install/Uninstall/Upgrade the Packages/software 
+		
+				- Centos / RHEL 		===> 	yum package Manager 
+				- Debian / Ubuntu 		===>	apt/apt-get package Manager 
+				- Fedora				===>	dnf (Latest Version of Fedora)
+												yum (Previous Version of Fedora)
+												
+			- Package Managers can be executed only by the root user on Linux
+			
+				- TO work with Package Manager :
+					- Elevate the Access to Root Level 
+						- sudo -i			# This Command is used to elevate the access to root level
+		
+			- To Install any tool/package :
+			
+				Install Pre-requisites	
+				Install Actual Tool
+				Post Installation Actions				
+		
+					Eg.: Tomcat :::: 
+					
+						Install Pre-requisites			===> jdk 
+						
+						Install Actual Tool				===> Installed Tomcat 
+						
+						Post Installation Actions		===> Started Tomcat 
+		
+		
+			How to Install/Manage Packages ? :::
+			
+			- Elevate the Access to Root Level
+				sudo -i 					# This Command is used to elevate the access to root level
+				
+			- apt update 					# Used update the default packages
+			
+			- apt install openjdk-11		# Install Java Package 
+			
+			- Linux Application Service(nginx/Jenkins) 		
+			
+				- Start / Stop / Enable / Status / restart 
+				
+				systemctl status nginx 
+				
+				systemctl start nginx
+				
+				systemctl stop nginx
+				
+				systemctl enable nginx		# Used to define the service as as start up service
+		
+				systemctl disable nginx		# Used to remove the service from the start-up task list
+				
+				systemctl restart nginx 
+				
+			- apt install git				# Install git 
+			
+			- apt remove git 				# Uninstall git 
+			
+			- apt upgrade git 				# Used to upgrade git
+		
+		
+			Package :
+			
+				- Stand-alone Tool			Eg.: git
+				- Service					Eg.: tomcat/nginx/jenkins/docker 
+		
+			which nginx						# Used to get the path of installation ?
+			
+			which get 
+			
+			git --version
+		
+		
+		
+		- File Management 	
+
+			- sudo -i 
+			
+			- exit 				# Logout from current linux user 
+
+			- ls 				# Is to List the files and Directories 
+			
+			- ll 				# Long Listing - to get the full property of the directory
+			
+			- ls -a				# List All(List all the files, including hidden files and directories)
+			
+			
+			Navigate to Directories :::
+
+				- pwd				# Get the Present Working Directory
+
+				- cd				# Change Directory
+				
+				- cd <dir_name> 	# Change to a specific directory				
+				
+				- cd /				# This command will take to the root directory			
+			
+				- cd ~				# This command will take to the home directory(Default Directory) of the specific linux user
+									Eg.: 	ubuntu 	===> /home/ubuntu 
+		
+									root	===> /root
+Next :::		
+			
+			- Create a Directory(Folder)
+				- Is a collection of files and directories
+				
+			- Create a File 
+			
+			- Edit the files 
+			
+			- Delete the files
+
+			- Delete the Directories 
+			
+			- Copy the files/Directories 
+			
+			- Move the Files/Directories 
+			
+			- Rename the Files/Directories 
+			
+			Create File Access Control
+			
