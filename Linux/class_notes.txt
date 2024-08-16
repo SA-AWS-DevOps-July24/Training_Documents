@@ -222,3 +222,191 @@ Next :::
 			
 			Create File Access Control
 			
+#######################
+Day 17: 15th Aug. 2024
+#######################		
+			
+			
+			- Create a Directory(Folder)
+				- Is a collection of files and directories
+				
+			- Create a File 
+			
+			- Edit the files 
+				- Using File Editors - (vi editor / nano editor)
+			
+			- Delete the files
+
+			- Delete the Directories 
+			
+			- Copy the files/Directories 
+			
+			- Move the Files/Directories 
+			
+			- Rename the Files/Directories 
+			
+			Create File Access Control
+			
+		- File Management 	
+
+			- sudo -i 
+			
+			- exit 				# Logout from current linux user 
+
+			- ls 				# Is to List the files and Directories 
+			
+			- ll 				# Long Listing - to get the full property of the directory
+			
+			- ls -a				# List All(List all the files, including hidden files and directories)
+			
+			
+			Navigate to Directories :::
+
+				- pwd				# Get the Present Working Directory
+
+				- cd				# Change Directory
+				
+				- cd <dir_name> 	# Change to a specific directory				
+				
+				- cd /				# This command will take to the root directory			
+			
+				- cd ~				# This command will take to the home directory(Default Directory) of the specific linux user
+									Eg.: 	ubuntu 	===> /home/ubuntu 
+		
+									root	===> /root				
+	
+			
+				clear 				# Clear the Screen
+				
+				
+				mkdir <dir_name>	# used to Creae Directory 
+				
+				cd <dir_name>		# Change the directory
+				
+				cd ..				# Take the control back to previous directory
+	
+			Create Files :
+				
+					- touch <file_name>		# used to create an empty file 
+					
+					- echo "Record1" >> <file_name>		# To create a file with a record
+					
+					- echo "rec1" >> file1.txt	
+							# Used to add more record to the specific file 
+							
+					- echo "rec1" > file1.txt	
+							# Used to replace the file content with the new record 
+							
+					- vi <file_name>		# Used to Create / edit a file using vi editor
+					
+					
+			Read the file content :
+				
+					cat <file_name>			# Read the Content of a file
+					
+					
+					- vi <file_name>		# Used to Create / edit a file using vi editor
+
+					Eg.: 
+					
+						vi file1.txt 
+						
+							press i 		# goto insert mode 
+							
+							#type some contents
+							#type some contents				
+							
+							press esc :wq	# Save and Exit from a file 
+	
+							press esc :q!	# Exit from a file without saving it. 
+							
+			Rename File or Directory :::
+					
+						mv file1 file-new-name
+						
+						mv dir1 new-dir-name
+						
+			Delete a file or Directory :::
+					
+						rm <file_Name>			# Remove File  
+						
+						rm file1.txt 
+						
+						rm *.txt
+						
+						rm -r <dir_Name>		# Remove Directory
+						
+						rm -rf <dir_name>		# Forceful Deletion of Directory
+						
+						
+			Copy files from one directory to another :::
+			
+						cp <source_file> <Target_Dir>	# Used to copy a file to target folder 
+						
+						mv <source_file> <Target_Dir>	# Used to move a file to target folder 
+			
+						mv file1 file-new-name			# To Rename a file
+						mv dir1 new-dir-name			# To Rename a directory
+						
+						
+			File Access ::::
+			
+				Who can Access the file ?
+				
+					- By Default Owner will have complete access. 
+			
+    1  sudo -i
+    2  clear
+    3  clear
+    4  sudo -i
+    5  clear
+    6  apt update
+    7  sudo -i
+    8  clear
+    9  sudo -i
+   10  pwd
+   11  cd /
+   12  ls
+   13  cd home/
+   14  ls
+   15  cd ubuntu/
+   16  pwd
+   17  cd /home/
+   18  ls
+   19  cd ubuntu/
+   20  pwd
+   21  cd /
+   22  ls
+   23  tree
+   24  clear
+   25  ls
+   26  cd home
+   27  cd ubuntu/
+   28  lpwd
+   29  clear
+   30  pwd
+   31  sudo -i
+   32  pwd
+   33  cd /root/
+   34  cd /
+   35  clear
+   36  ls
+   37  pwd
+   38  cd home/
+   39  pwd
+   40  cd ubuntu/
+   41  pwd
+   42  c d/
+   43  cd /
+   44  ls
+   45  cd home/ubuntu/
+   46  pwd
+   47  ls
+   48  pwd
+   49  ls
+   50  sudo -i
+   51  clear
+   52  sudo -i
+   53  clear
+   54  history
+			
