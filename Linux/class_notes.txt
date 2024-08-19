@@ -410,3 +410,200 @@ Day 17: 15th Aug. 2024
    53  clear
    54  history
 			
+			
+#######################
+Day 18: 19th Aug. 2024
+#######################		
+	
+		
+	- File Management 
+	- User Management 
+	- Access Management 
+	
+	- Remote Servers Management 
+	
+	- Process Automation(Shell Scripting)	
+	
+	
+	Access Management :::
+	
+		
+		File :
+		
+			script 
+			program 
+			artifacts 
+			
+			
+			>> ll 						# Long Listing 
+			
+		
+		drwxrwxr-x  2 ubuntu ubuntu 4096 Aug 16 14:49 dir4/
+		-rw-rw-r--  1 ubuntu ubuntu    0 Aug 16 14:54 file1.txt
+		
+		
+		----------
+		
+		-									# Denote dir or file (Possible value:  d or - )
+												'd'  Denotes Directory
+												'-'  Denotes File 
+												
+												
+		 ---								# Denote the Owner Level Access 
+												Possible Values: r / w /x 
+												r - Read only Access 
+												w - Write Access 
+												x - Execute Access 
+		
+			---								# Denote the Group Level Access
+												Possible Values: r / w /x 
+												r - Read only Access 
+												w - Write Access 
+												x - Execute Access
+
+			   ---							# Denote the Public User Level Access
+												Possible Values: r / w /x 
+												r - Read only Access 
+												w - Write Access 
+												x - Execute Access
+												
+		
+		User 
+		
+		Group 
+		
+		RBAC --> User_ID --> Group
+
+			dev_user1
+			Developer_grp 
+			
+			Test_User1 
+			Tester_Grp
+			
+		drwxrwxr-x  2 dev_user1 Developer_grp 4096 Aug 16 14:49 dir4/
+		-rw-rw-r--  1 Test_User1 Tester_Grp    0 Aug 16 14:54 file1.txt
+		
+		https://chmod-calculator.com/
+		
+		chmod <Access_Level> <File/Directory_Name>
+		
+		chmod 600 myjavaproject1/*
+		
+		Access Mode :::
+			r - Read only Access 
+			w - Write Access 
+			x - Execute Access	
+			
+
+	User Management ::::::
+	
+		Create Linux Users :::
+		
+			ubuntu user 
+			
+			root user 
+			
+			devopsadmin
+			
+		
+		Linun Machine uses SSH(Secure SHell) Connection
+			--> Host_Name,User_Name,Credentials
+		
+		How to Create Linux User?
+			- devopsadmin 
+
+		User Authentication?
+			SSH Authentication Methods :
+			
+				- Password Based Authentication
+				- Token Based Authentication
+				- Key Based Authentication
+					- Public Key/Private Key 
+				- Passwordless 
+			
+		
+		User Authorization?
+			--> Ownership 
+			
+		Create Linux User with SSH Keys :::
+		
+			useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+
+			su - devopsadmin
+
+			ssh-keygen -t ecdsa -b 521										#ubuntu 22.04 or higher version of ubuntu				
+
+			cd .ssh
+			
+			ls ~/.ssh 
+
+			#You should see following two files:
+
+			#id_ecdsa - private key
+			#id_ecdsa.pub - public
+			
+			
+			cat id_ecdsa.pub > authorized_keys			# authorized_keys this file name should be same.
+			
+			authorized_keys :::
+				It is the copy of Public Key.
+				
+				Always the private key will be compared with the authorized_keys
+				
+			chmod 600 /home/devopsadmin/.ssh/*					# Used to Change the Access Mode of Files or Directories
+			
+			chown -R devopsadmin:devopsadmin /opt/tomcat/		# Used to Change the Ownership of Files or Directories
+			
+			
+		Get the List of Linux Users ::::
+			cat /etc/passwd
+		
+		Get the list of Linux User Groups :::: 
+			cat /etc/group
+	
+	
+		Create Password to any Linux User:
+		
+			As a root user ::
+			
+				passwd <user_name>
+				
+		root@ip-172-31-46-175:~# passwd devopsadmin
+		New password:
+		Retype new password:
+		passwd: password updated successfully
+		
+Next :::
+		
+	Remote Server Access :::
+	
+		AWS Cloud :
+		
+			VM1	
+			
+			VM2 
+					
+		1. Establish Connection to Remote Server  
+		2. Login to the Remote Server 
+		3. Copy the Files from one server to another server
+			using SCP
+		4. Manage the Remote Server - Install any package/Uninstall/Upgrade 
+		
+		Pre-requisites for Remote Server :::
+		
+			- Launch 2 VMs (VM1-Source & VM2-Target)
+			
+			- Ensure that Port 22 is enabled 
+			
+			- Create User in both the VMs 
+			
+			- Create SSH-Key in one server(VM1)
+			
+			- Use the public_Key as a authorized_keys in the target server(VM2)
+			
+			- Establish SSH Connection & Login to VM2(Target_Machine)
+			
+			- Copy Files from VM1 to VM2(Target_Machine)
+
+
+	SHELL Scripting!	
