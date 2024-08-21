@@ -607,3 +607,182 @@ Next :::
 
 
 	SHELL Scripting!	
+
+
+#######################
+Day 19: 21st Aug. 2024
+#######################				
+
+	Remote Server Access :::
+	
+		AWS Cloud :
+		
+			VM1	(Server)
+			
+			VM2 (Client)
+					
+		1. Establish Connection to Remote Server  
+		2. Login to the Remote Server 
+		3. Copy the Files from one server to another server
+			using SCP
+		4. Manage the Remote Server - Install any package/Uninstall/Upgrade 
+		
+		Pre-requisites for Remote Server :::
+		
+			- Launch 2 VMs (VM1-Source & VM2-Target)
+			
+			- Ensure that Port 22 is enabled 
+			
+			- Create User in both the VMs 
+			
+			- Create SSH-Key in one server(VM1)
+			
+			- Use the public_Key as a authorized_keys in the Client Machine(VM2)
+			
+			- Establish SSH Connection & Login to VM2(Client_Machine)
+			
+			- Copy Files from VM1 to VM2(Client_Machine)
+
+
+Client_Machine ::::
+	
+useradd adminuser1 -s /bin/bash -m -d /home/adminuser1
+
+su - adminuser1	
+
+mkdir .ssh 
+
+cd .ssh 
+
+vi authorized_keys
+
+#paste the id_ecdsa.pub of devopsadmin user from Server machine to authorized_keys file in Client Machine 
+
+chmod 600 /home/adminuser1/.ssh/*
+	
+	
+	From Server execute this Command as a devopsadmin user :
+	
+	ssh adminuser1@172.31.1.144
+			
+			
+	- Copy Files from VM1 to VM2(Client_Machine)	
+
+
+		Server Machine ::::		
+			/home/devopsadmin/mywebappfile1.txt 
+			
+		Client Machine ::::
+			/home/adminuser1/mywebappfile1.txt
+	
+		#cp  /home/devopsadmin/mywebappfile1.txt home/devopsadmin/dir1/
+		
+		scp /home/devopsadmin/mywebappfile1.txt adminuser1@172.31.1.144:/home/adminuser1
+			
+		#nohup scp 
+		
+		
+		To Add Any User to a Group :
+		
+		usermod -aG <group_name> <user_name>
+		
+		usermod -aG docker devopsadmin
+		
+SHELL Scripting :::
+
+	Process Automation using shell scripting!
+	
+	Fundamentals of Shell Scripting!
+	
+	Scripting Languages ?
+		- Are used to perform some process automation/validations
+		- Light-weight 
+		- Eg.: java scripts / shell scripts / yaml script / groovy / python 
+			(vs)
+	Progamming Language ?
+		- Are used to create some business applications 
+		- Huge Collection of Programming components
+		- Eg.: Java/.Net Framework/Python/Ruby/Cobol/C
+		
+	
+	Shell Scripting Language :
+	
+		- Shell Scripting is a collection shell commands 
+		- Shell Script file should be saved as *.sh (Extention should be .sh)
+		
+	Install git ?
+	
+		Install all these packages in 200 VMs :::
+	
+		apt install openjdk11 -y
+		apt install git -y 
+		apt install maven -y 
+		apt install docker.io -y
+		apt install ansible -y 
+		
+		Shell Script :
+		
+installbuildtools.sh 
+#!/bin/bash
+sudo apt install openjdk11 -y
+sudo apt install git -y 
+sudo apt install maven -y 
+sudo apt install docker.io -y
+#sudo apt install ansible -y 
+
+save the script as installbuildtools.sh 
+
+/home/devopsadmin/scripts/$ ls 
+installbuildtools.sh	
+
+/home/devopsadmin/scripts/$ ./installbuildtools.sh		# Run the Shell Script!
+
+Any Scripting/Programming Languages :::
+
+
+	Data !!!
+	
+	Variable_Name to store data 
+	Type of Data - Data Type !
+	
+	var1 = 10001 
+	var2 = "asdfasdf"
+	var3 = 'a'
+	
+	Stud_Number = '101'	
+
+	
+	Validation / Conditional Statements 
+	
+		IF Conditions
+		SwitchCase Statements
+		
+	Stud_Number[5];		# Array Variable 		
+		==> {1,2,3,4,5}
+		
+	Looping Contructs 
+	
+		- for loop
+		- while loop
+		- do-while 
+	
+	Functions 
+		- String function
+		
+	Keyword 
+	
+	File Handling :
+	
+		- Create/Read/Write/Update/Delete the Files
+		
+	DataBase Handling using Programming Language 
+	
+	Remote Server Handling 
+	
+Next :::
+
+	Working with Shell Scripting!
+		
+		
+	
+	
