@@ -784,5 +784,97 @@ Next :::
 	Working with Shell Scripting!
 		
 		
+#######################
+Day 20: 22nd Aug. 2024
+#######################				
+
+#Install JDK 
+
+java --version
+
+cd /usr/lib/jvm/
 	
+	/usr/lib/jvm/java-21-openjdk-amd64/bin
+
+#edit /etc/profile & add JAVA_HOME
+
+vi /etc/profile
+
+
+export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64/bin"
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+source /etc/profile
+	
+	
+	Fundamentals of Shell Scripting!	
+	
+	Software Application ?
+	
+		- Collection of Programs.
+			
+	Program / Script?
+		- To Solve a problem.
+		- To Provide a Solution.
+	
+		- How to write a program?
+		- What are the pre-requisites to write a program?
+		
+		Problem Statement:
+		
+		The Requirement
+		
+		SDLC 
+		
+		Requirement Analysis Phase 
+		Design/Document 
+		Code/Programming 
+		Test 
+		Implementation
+		
+		Program 
+		
+		Algorithm :
+		
+			- The Step-by-step process to provide the solution/Task 
+			- It is written is high-level language 
+			
+			- Based on the algorithm, we create Source Code using Programming/Scripting Languages
+			
+		Problem Statement :
+		
+		Calculate sum of two numbers and print the result :
+		
+S1: Take two integers as input
+S2: Add the two integers 
+S3: Print the result
+
+
+int a; 
+int b;
+int c;
+pub=a,b,c;
+a=b+c;
+print a;
+
+1)int a=8 
+2)int b=7 
+3)int c=a+b 
+then 
+print c.
+
+
+ 5 + 5 	= ?
+ 
+ 30 + 30 = ?
+		
+ 20000000000000 + 3000000000000000 = ?
+ 
+ 222222222.55534 + 2342342.123123 = ?
+	
+	
+	Logical Thinking! 
+	
+	
+
 	
