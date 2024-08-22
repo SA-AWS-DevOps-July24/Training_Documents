@@ -875,6 +875,534 @@ print c.
 	
 	Logical Thinking! 
 	
-	
+
+Scripting :::
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to print Hello World on terminal using echo command
+
+Source Code:
+
+#!/bin/bash
+#
+echo "Hello World"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to print the calender month by default.
+
+Source Code:
+
+#!/bin/bash
+#	     
+echo "The Month is"
+cal # cal command displays current month by default
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to read user input and perform operations with them.
+
+Source Code:
+
+#!/bin/bash
+echo -n "Enter number 1 : " # -n option supresses newline
+read NUM1 # Read the user input from Standard Input and store in Variable NUM1
+
+echo -n "Enter number 2 : "
+read NUM2
+
+SUM=$(($NUM1 + $NUM2)) # Arithmetic expansion using double parentheses
+echo "The sum is $SUM"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show usage of if condition
+
+#Operators :: 6 Operators
+
+Source Code:
+
+
+#!/bin/bash
+
+NUM1=5 # variabe assignment
+NUM2=2
+
+if [ $NUM1 -gt $NUM2 ] # -gt is to test integer numbers
+then
+    echo "NUM1 > NUM2"
+fi
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show usage of if else condition
+
+Source Code:
+
+#!/bin/bash
+
+NUM1=2 # Variabe assignment
+NUM2=5
+
+if [ $NUM1 -lt $NUM2 ]  # -lt is to test intiger numbers
+then
+    echo "NUM1 < NUM2"
+else
+    echo "NUM1 > NUM2"
+fi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show usage of else if condition
+
+Source Code:
+
+#!/bin/bash
+#
+
+echo -n "Enter a number: "
+read NUM
+
+if [ $NUM -gt 0 ]
+then
+    echo "$NUM is +ve"
+elif [ $NUM -lt 0 ]
+then
+    echo "$NUM is -ve"
+else
+    echo "$NUM is 0"
+fi
+
+echo "done"
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to demonstrate case statement
+
+Source Code:
+
+#!/bin/bash
+
+echo -n "Enter a character: "
+read CHAR							# A , a ,e,i,o,u l
+
+case $CHAR in
+	a) echo "You entered $CHAR which is a vowel";;  # ;; Terminates each option
+	e) echo "You entered $CHAR which is a vowel";;
+	i) echo "You entered $CHAR which is a vowel";;
+	o) echo "You entered $CHAR which is a vowel";;
+	u) echo "You entered $CHAR which is a vowel";;
+	*) echo "You entered $CHAR which is not a vowel";; # Defaults to everything else
+esac
+
+echo "What if you enter upper case letters!!?, Check the next example"
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to demonstrate case statement
+
+Source Code:
+
+#!/bin/bash
+
+echo -n "Enter a character: "
+read CHAR
+
+case $CHAR in
+	a | A) # Test for both Lower or Upper case letter
+		# You may write commands in this fashion too!!, means multiline commands
+		echo "You entered $CHAR which is a vowel"
+		;; # Terminates each option
+	e | E) 
+		echo "You entered $CHAR which is a vowel"
+		;;
+	i | I) 
+		echo "You entered $CHAR which is a vowel"
+		;;
+	o | O) 
+		echo "You entered $CHAR which is a vowel"
+		;;
+	u | U) 
+		echo "You entered $CHAR which is a vowel"
+		;;
+	*)  # Defaults to everything else
+		echo "You entered $CHAR which is not a vowel"
+		;;
+esac
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to demonstrate case statement
+
+Source Code:
+
+#!/bin/bash
+
+echo -n "Oceans are larger than lakes (True or False) : "
+read USER_INPUT
+
+case $USER_INPUT in
+	"TRUE"| "True" | "true")
+		echo "Yes you are right"
+		;; # Terminates each option
+	"FALSE" | "Fasle" | "false")
+		echo "No your are wrong"
+		;;
+	*)  # Defaults to everything else
+		echo "Please enter either True or False"
+		;;
+esac
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to show usage of string compare operator == and !=
+
+Source Code:
+
+#!/bin/bash
+
+STR1="Hello"
+STR2="Hello"
+
+if [ ${STR1} == ${STR2} ]
+then
+    echo "Strings match"
+else
+    echo "Strings don't match"
+fi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to show usage of string compare operator -z and -n
+
+Source Code:
+
+#!/bin/bash
+
+STR1="Hello"
+STR2="Hello"
+
+if [ -z "${STR1}" ]
+then
+    echo "String1 is empty"
+else
+    echo "String1 is NOT empty"
+fi
+
+echo ":$STR:"
+if [ -n "${STR2}" ]
+then
+    echo "String2 is NOT empty"
+else
+    echo "String2 is empty"
+fi
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to show usage of logical operators
+
+Source Code:
+
+#!/bin/bash
+
+echo -n "Enter a NUM: "
+read NUM
+
+# Check whether a number is between 10 and 20 (Using AND -a operator)
+if [ $NUM -ge 10 -a $NUM -le 20 ]
+then
+    echo "$NUM is between 10 and 20"
+else
+    echo "$NUM is NOT between 10 and 20"
+fi
+
+echo -n "Enter another NUM: "
+read NUM
+
+# Check whether a number is between 10 and 20 (Using OR -o operator)
+if [ $NUM -lt 10 -o $NUM -gt 20 ]
+then
+    echo "$NUM is NOT between 10 and 20"
+else
+    echo "$NUM is between 10 and 20"
+fi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to show usage while loop
+
+Source Code:
+
+#!/bin/bash
+#
+
+COUNT=0
+
+while [ $COUNT -lt 5 ]
+do
+    echo "Loop count is ${COUNT}"
+    COUNT=$((COUNT + 1))
+done
+
+echo "Done"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sum of N natural numbers using while loop
+
+Source Code:
+
+#!/bin/bash
+#
+
+echo -n "Enter a number: "
+read NUM
+
+let SUM=0; 
+let I=1
+while [ $I -le $NUM ]
+do
+	SUM=`expr $SUM + $I`
+	I=$((${I} + 1))
+done
+
+echo "The sum of the first $NUM numbers is: $SUM"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to demonstarte for loop [ Bash syntax ]
+
+Source Code:
+
+#!/bin/bash
+#
+
+COUNT=0
+
+for i in 0 1 2 3 4
+do
+    echo "Loop count is ${COUNT}"
+    COUNT=$((COUNT + 1))
+done
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple script to demonstarte for loop [ C syntax ]
+
+Source Code:
+
+#!/bin/bash
+
+COUNT=0
+
+for ((i = 0; i < 5; i++))
+do
+    echo "Loop count is ${COUNT}"
+    COUNT=$((COUNT + 1))
+done
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show the usage of command line arguments, Here we access positional arguments using $1, $2 …
+
+Source Code:
+
+#!/bin/bash
+
+echo "Total no. of argument: $#"
+
+echo "Program name: $0"
+echo "1st argument: $1"
+echo "2nd argument: $2"
+echo "3rd argument: $3"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ A script to show the usage of command line arguments, Here we access arguments by iterating over $@
+
+Source Code:
+
+#!/bin/bash
+
+echo "Total no. of argument: $#"
+echo "Argument list: $@" # Commonly used
+echo "Argument list: $*"
+
+# Iterate over arguments ($@)
+for ARG in $@
+do
+    echo $ARG
+done
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show the usage of function
+
+Source Code:
+
+
+print_hello#!/bin/bash
+
+# Function definition
+function print_hello()
+{
+    	echo "====="
+    	echo "Hello"
+    	echo "====="
+}
+
+# Call the function - print_hello
+print_hello
+
+print_hello
+print_hello
+print_hello
+print_hello
+
+
+#print_hello
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show the usage of function and how to pass arguments
+
+Source Code:
+
+#!/bin/bash
+
+# Function definition
+function find_sum()
+{
+    SUM=`expr $1 + $2`
+    echo $SUM
+}
+
+# Pass arguments 10 and 20 to find_sum function
+find_sum 10 20 # 30
+
+# Save the output of function in a variable
+RESULT=`find_sum 100 200`
+echo $RESULT	# 300
+
+
+num1=5
+num2=5
+
+
+sample1.sh
+
+#!/bin/bash
+num1=$1
+num2=$2
+
+num3=$num1 + $num2
+
+num3=$1 + $2 + $3 
+
+echo $num3 
+
+sh sample1.sh 34 45 43
+
+
+
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show the usage of function and how to pass arguments Inside function:
+$# – Gives no. of arguments
+$@ – Contains the arguments to function
+Accessing function arguments is similar to accessing command line arguments
+
+Source Code:
+
+#!/bin/bash
+
+# Function definition
+function find_sum()
+{
+    echo "Arg count: $#"
+    echo "Arg list: $@"
+    SUM=0
+    # Iterate over function arguments
+    for ARG in $@
+    do
+	SUM=`expr $ARG + $SUM`
+    done
+
+    echo $SUM
+}
+
+# Call find_sum with many arguments
+find_sum 1 2 3 4 5
+
+find_sum 10 20
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to show how to declare an array and access its elements
+
+Source Code:
+
+#!/bin/bash
+
+# Declare an array
+FRUITS=(apple mango banana orange)
+
+# Print value of each element
+echo "element 0: ${FRUITS[0]}"
+echo "element 1: ${FRUITS[1]}"
+echo "element 2: ${FRUITS[2]}"
+echo "element 3: ${FRUITS[3]}"
+
+# Print size / length of array
+echo "Length: ${#FRUITS[@]}"
+echo "Whole array: ${FRUITS[@]}"
+echo "Whole array: ${FRUITS[*]}"
+
+echo "Looping over array elements"
+# Iterate over array elements
+for ITEM in ${FRUITS[@]}
+do
+    echo $ITEM
+done
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to store all cmd line arguments to a array and prints
+
+Source Code:
+
+#!/bin/bash
+
+ARG=($*)
+
+echo ${ARG[0]}
+echo ${ARG[1]}
+echo ${ARG[2]}
+echo ${ARG[3]}
+echo ${ARG[4]}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to demonstrate different types of array access
+
+Source Code:
+
+#!/bin/bash
+#
+
+array=(zero one two three four five)
+
+# Element 0   1   2    3   4   5
+echo ${array[0]}       #  zero
+echo ${array:0}        #  zero, Parameter expansion of first element,+ starting at position # 0 (1st character).
+echo ${array:1}        #  ero, Parameter expansion of first element, + starting at position # 1 (2nd character).
+echo "--------------"
+echo ${#array[0]}      #  4, Length of first element of array.
+echo ${#array}         #  4, Length of first element of array. (Alternate notation)
+echo ${#array[1]}      #  3, Length of second element of array. Arrays in Bash have zero-based indexing.
+echo ${#array[*]}      #  6, Number of elements in array.
+echo ${#array[@]}      #  6, Number of elements in array.
+echo "--------------"
+
+# Quoting permits embedding whitespace within individual array elements.
+array2=([0]="first element" [1]="second element" [3]="fourth element")
+
+echo "The ${array2[0]}"   # first element
+echo "The ${array2[1]}"   # second element
+echo "The ${array2[2]}"   # Skipped in initialization, and therefore null.
+echo "The ${array2[3]}"   # fourth element
+echo "The lenght of ${array2[0]} ${#array2[0]}" 	   # 13 (length of first element)
+echo "The number of elements in the array ${#array2[*]}"  # 3  (number of elements in array)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A script to demostrate usage of sed command
+
+Source Code:
+
+#!/bin/bash
+
+# Basic text substitution using sed
+echo "Bash Scripting Bash Language" | sed 's/Bash/Perl/'
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 
 	
