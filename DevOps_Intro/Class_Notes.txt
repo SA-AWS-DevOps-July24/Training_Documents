@@ -1,0 +1,329 @@
+#######################
+Day 21: 23rd Aug. 2024
+#######################		
+	
+	Introduction to DevOps 
+		
+1. Evolution of Waterfall, Agile, and DevOps
+2. What is DevOps
+3. Why DevOps
+4. Benefits of DevOps
+5. DevOps Stages
+6. DevOps Lifecycle
+7. Various Automation in DevOps
+8. Overview of CICD	
+
+
+	DevOps :::
+	
+	What is DevOps ????
+	
+	
+	IT 
+	
+	Develop the Software Applications :::
+	
+	SDLC - Software Development Life Cycle ::
+	
+	
+	Software - Any Computer Application
+	
+		Desktop Applications
+		
+		Web Applications
+		
+		Mobile Applications
+		
+		Embedded Applications
+	
+	SDLC - Software Development Life Cycle ::
+	
+		Desktop Application ::
+			- SuperMarket Billing System  
+				Functions :
+					- User Interface Design 
+					- Stock_Maintainence 
+					- Payment Module 
+						- Cash
+						- Card 
+					- Billing 
+					- Print_Bills
+			
+	Stages of SDLC ::
+	
+		Requirement Analysis
+		Design/Document
+		Code/Develop
+		Test 
+		Implementation 
+		Monitor/Maintain
+		
+	
+	Waterfall Model ::
+			- Top-Down Approach
+			- It is linear in fashion 
+			- It was used for Monolith Application Architecture
+	
+		Core_Project 	
+			Requirement Analysis			===> 12 Months 
+				- SuperMarket Billing System  
+					Functions :
+						- User Interface Design 
+						- Stock_Maintainence 
+						- Payment Module 
+							- Cash
+							- Card 
+						- Billing 
+						- Print_Bills
+			Design/Document
+			Code/Develop						7th Month 	==> Add New Feature - UPI Payment Feature 
+			Test 
+			Implementation 
+			Monitor/Maintain
+			
+		Enhancement_Project 	==> Add New Feature - UPI Payment Feature 
+		
+			Requirement Analysis
+			Design/Document
+			Code/Develop
+			Test 
+			Implementation 
+			Monitor/Maintain
+			
+		
+	AGILE Methodologies :::
+				- SuperMarket Billing System  
+					Functions/Modules ==> Iterations :
+						- User Interface Design 
+						- Stock_Maintainence 
+						- Payment Module 
+							- Cash
+							- Card 
+						- Billing 
+						- Print_Bills
+						
+		Iteration 1 :	User Interface Design				
+		
+			Requirement Analysis
+			Design/Document
+			Code/Develop
+			Test 
+			Implementated to Production with proper approval
+			Monitor/Maintain
+
+		Iteration 2 :	Stock_Maintainence				
+		
+			Requirement Analysis
+			Design/Document
+			Code/Develop
+			Test 
+			Implementated to Production with proper approval
+			Monitor/Maintain
+
+		Iteration 3 :	Payment Module	- CASH 			
+		
+			Requirement Analysis
+			Design/Document
+			Code/Develop
+			Test 
+			Implementated to Production with proper approval
+			Monitor/Maintain
+
+
+		Iteration 4 :	Payment Module	- CARD 			
+		
+			Requirement Analysis
+			Design/Document
+			Code/Develop
+			Test 
+			Implementated to Production with proper approval
+			Monitor/Maintain
+		
+		Iteration nth :	Payment Module	- UPI  			
+		
+			Requirement Analysis
+			Design/Document
+			Code/Develop
+			Test 
+			Implementated to Production with proper approval
+			Monitor/Maintain
+			
+			Using AGILE Methodologies ::
+				We can achieve :
+				
+					- Continuous Development
+					- Continuous Integration 
+					- Continuous Testing 
+					- Continuous Delivery 
+						- Here For any production release, manual approvals are required
+					
+				We cannot achieve :
+					- Continuous Deployment 
+						- Here No Manual Approvals Need for Production Release 
+						
+						
+	DevOps :::
+	
+		DevOps is a Software Development Strategy which helps to promote the collaboration between the Teams like Development Team and Operations Team to achieve Continuous Development, Continuous Integration, Continuous Testing, Continuous Delivery, Continuous Deployment, Continuous Monitoring in more automated fashion.
+		
+	How to Implement DevOps ?
+	
+		Teams involved in the overall SDLC Process :
+		
+			DevOps Team 
+				Infra-Structure Management Team 
+				Application Development Team 
+				Testing Team
+				Release Management Team
+				Production Support Team 
+				Production Monitoring Team 
+				IT Security Team 
+		
+		Environments :::
+		
+			Non-Prod Environments					Production Environments
+			
+				Dev 
+				Build 
+				Test 
+					QA 
+					UAT 			============>		Production Servers
+		
+		DevOps Stages :::
+
+			Continuous Development :
+				- It is the capabililty of Application Development Team to Continously Develop/Create the Application Source Code.
+				- The main objective of this process is to improve Developers' Productivity 
+			
+				What is the role/responsibility of Developer?
+
+					- Create Application Source Code 
+					
+					- Build the code - Compile and create artifacts 					
+					- Unit Testing 					
+					- Promote the Application to higher testing Environment					
+					- Notify the Testing Team 
+					
+					
+				Using DevOps Approach ::
+					Developers :
+					-- Create Application Source Code 
+					-- Commit the Source Code to Source Code Repository like github
+					
+					Using DevOps Process :
+					Automate ::
+
+					- Build the code - Compile and create artifacts 					
+					- Unit Testing 					
+					- Promote the Application to higher testing Environment					
+					- Notify the Testing/Development Team 	
+
+				Tools :::
+				
+					- Eclipse based IDEs - like Eclipse for Java,Pycharm,Intellij, Visual Studio, Visual Studio Code
+					- Source Code Management Tool - like github/AWS Code Commit/Azure Repos 
+					
+					
+			Continuous Integration :
+				- It is the capabililty of Application Development Team to Continously Integrate the Code Changes for further Testing, without impacting others.
+				
+				Tools :
+					- Eclipse based IDEs - like Eclipse for Java,Pycharm,Intellij, Visual Studio, Visual Studio Code
+					- Source Code Management Tool - like github/AWS Code Commit/Azure Repos 
+					- Jenkins/AWS Code Pipeline/Azure Pipeline, Docker, Kubernetes, Ansible 
+			
+			Continuous Testing :
+				- It is the capabililty of Testing Team to Continously Test the Code Changes without impacting others.		
+				
+				Tools :
+					- Jenkins/AWS Code Pipeline/Azure Pipeline
+					- Junit/TestNG/Selenium 
+					
+			
+			Continuous Delivery / Deployment :
+				- Both are used perform the Production Releases
+				
+				Continuous Delivery :::
+				
+					- It expects manual approvals for production release 
+					- It is a manual process 
+					- Expect Downtime during production release 
+
+				Continuous Deployment :::
+				
+					- This approach is used to automate the production releases without any manual intervension. 
+					- It is the automated process 
+					- The New Deployments/Relase can be done without any Downtime during production release 
+					
+				Tools :
+					
+				- GIT, Jenkins/AWS Code Pipeline/Azure Pipeline, Docker, Kubernetes, Ansible 
+					
+			Continuous Monitoring :
+				- It is used to monitor the infra-structure and Applications based on the monitorig frequency
+				
+				- Infra-Structure Monitoring
+					- Prometheus/Grafana/Dyna-trace/Nagios/Splunk
+					- Used ot Monitor the CPU/Memory utilizations
+					
+				- Application Monitoring 
+				
+					- AppDynamics / DataDog
+					
+					
+					
+			Infra-Structure Perspective:::
+			
+				- Provisioning/Creating the Resources 
+					- Terraform/Cloudformation				
+				
+				- Configure the Resources 
+					- Configuration Management Tools:
+							- Ansible 
+
+
+		Monolith Application Architecture :::
+		
+			- Application is tightly coupled.
+			- It is not easy to split and deploy any function independently 
+			
+			- Only Continuous Delivery can be possible with the Monolith Application Architecture
+			
+		Micro-Service Based Application Architecture ::
+		
+			- Application is loosely coupled.
+			- The functions/Modules are called as microservice 
+			- Each Micro-Service can be independently created, test, and deployed to prod, without any manual intervension
+			
+			- Continuous Deployment can be possible with the Micro-Service Based Application Architecture
+
+		
+		DevOps LifeCycle ::::
+
+			Developer Create Source Code 
+						|
+						|
+			Commit the Code to Source Code Repository (Github/Az-Repo)
+						|
+						|
+			Automated Build 
+						|
+						|
+			Automated Code Promotion to Test Environment
+						|
+						|
+			Automated Testing 
+						|
+						|
+			Automated Code Promotion to Production Environments
+						|
+						|
+			Production Testing 
+						|
+						|
+			Continuous Monitoring 
+						|
+						|
+			Feedback from Customers/Business Users
+							
+		
