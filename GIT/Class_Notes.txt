@@ -1,0 +1,224 @@
+#######################
+Day 22: 26th Aug. 2024
+#######################
+
+	Version Control System Using GIT ::::
+	
+	Version Control System :::
+		
+	Application Developer !
+	
+	Web Application Developer :
+	
+	<html>
+	----
+	---
+	-
+	-
+	--
+	-----
+	----
+	</html>
+	
+	save as index.html  &  test the functions
+
+	<html>
+	----
+	---
+	-
+	-xxxx
+	--
+	-----
+	----
+	adfasdf
+	asdfasdffasdf
+	</html>		
+	
+	save as index.html
+	
+	<html>
+	----ddddd
+	---yyyyyyyyyyy
+	-
+	-xxxx
+	--yyyyyyyy
+	--sdszzxcvzxcv---
+	-----------
+	adfasdf
+	asdfasdffasdf
+	</html>		
+	
+	save as index.html	
+
+
+	Version Control System :::
+		
+		- Used to Version Control the Source Code Changes
+		- Used to Track the Source Code Changes
+	
+		
+	<html>
+	----
+	---
+	-
+	-
+	--
+	-----
+	----
+	</html>
+	
+	save as index.html:v1.0(Version Number/Tag/Commit_ID)	# 		Using VCS 
+		
+	<html>
+	----
+	---
+	-sadfasd
+	-dsfasd
+	--asdfasd
+	-----
+	----
+	</html>					
+					
+	save as index.html:v1.1				# 		Using VCS 			
+	save as index.html:v1.2				# 		Using VCS 
+	save as index.html:v1.3				# 		Using VCS 
+	save as index.html:v1.4				# 		Using VCS 
+	save as index.html:v1.5				# 		Using VCS 
+	save as index.html:v1.6				# 		Using VCS 
+	
+	
+	Types of Version Control System :::
+	
+		Local VCS 
+		 
+		Centralized VCS 
+		 
+		Distributed VCS 
+		
+		
+	GIT :::
+	
+		- Git is Open-Source Distributed Version Control System 
+		- Used to Version Control the Source Code Changes
+		- Used to Track the Source Code Changes		
+		- Used to perform Parallel Development(Using Branching Techiques)
+		
+	Working with GIT :::
+
+
+	Application Developers' Workload / Project Type ?? ! :
+	
+
+		- Enhancement Project / Bugfixing Project 
+		
+		- New Project Development 
+		
+		
+
+	GIT File Workflow :::
+	
+		Local Machine 																				Remote Server 
+		
+		Working Directory 				Staging Area				Local Repository 					Remote Repository 
+			
+		index.html 		 ---------------> index.html -------------->  index.html:v1.0  -------------->	  index.html:v1.0
+							git add 				   git commit						  git push 
+		index.html 		 ---------------> index.html -------------->  index.html:v1.1  -------------->	  index.html:v1.1
+							git add 				   git commit						  git push 
+		index.html 		 ---------------> index.html -------------->  index.html:v1.2  -------------->	  index.html:v1.2
+							git add 				   git commit						  git push 
+		index.html 		 ---------------> index.html -------------->  index.html:v1.3  -------------->	  index.html:v1.3
+							git add 				   git commit						  git push 
+	
+
+
+	
+	GIT Cli Commands :::
+		
+		- git clone 			# To Copy/Clone the remote repository to local machine 
+		
+		- git add 				# To add the changes from Working Directory to Staging Area 
+		
+		- git commit 			# To Commit the changes from Staging to Local Repository 
+		
+		- git push 				# To Push the Changes from Local Repository to Remote Repository
+		
+		- git fetch/git pull ::
+		
+			--> Both Git Fetch and Git Pull Commands are used to handle the incremental changes from Remote Repository 
+			
+			Git Fetch ::
+				git fetch is used to just check for the incremental changes. If there is any incremental changes present in the remote repository, the information about the incremental changes will be updated only in the Local Repository. The Actual File Changes will NOT be updated in the Working Directory. 
+			
+			Git Pull ::
+				git pull is used to check for the incremental changes. If there is any incremental changes present in the remote repository, the information about the incremental changes will be updated only in the Local Repository and the Actual File Changes will be updated in the Working Directory. 
+
+				git pull = git fetch + git merge 
+
+		
+		- Fork 					# Copy one Remote Repository to another Remote Repository 
+		
+		
+		- git init				# 	To initialize the git repository 
+									Create .GIT Directory 
+									Create Default Branch - master branch.
+								
+	Install GIT :::
+	
+		https://git-scm.com/downloads
+		
+		git --version 
+		
+		
+		Windows Machine :
+		
+			- GIT BASH  --> Based on Linux Bash Shell   ********
+			- GIT CMD 	--> Based on Windows PowerShell 
+			- GIT GUI 	--> GUI Tool 
+	
+	
+	Working with GIT :::	
+	
+		Version Control the Source Code :::
+
+		Working Directory 
+	
+		Project Folder :
+		
+		d: 
+		d:SA-AWS-DevOps-July24/Repo1
+		d:SA-AWS-DevOps-July24/Repo2
+		d:SA-AWS-DevOps-July24/Repo3
+		d:SA-AWS-DevOps-July24/Repo4
+		
+		
+		
+		cd d: 
+		
+		mkdir SA-AWS-DevOps-July24
+		
+		cd SA-AWS-DevOps-July24
+		
+		mkdir Repo1 
+		
+		cd Repo1
+		
+		git init 
+		
+		cd ..
+		
+		mkdir Repo2 
+
+
+Next :::
+
+	GIT Cli Command :::
+	
+	Create Repository 
+	
+	GIT Branching Strategies :::
+	
+	Handling Remote Repositories :::
+	
+	
+		
