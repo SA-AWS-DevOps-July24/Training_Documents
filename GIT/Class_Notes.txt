@@ -680,3 +680,357 @@ Day 23: 28th Aug. 2024
   765  history
 
 		
+
+#######################
+Day 24: 29th Aug. 2024
+#######################		
+
+	GIT Cli Commands :::
+	
+	Working Dir 	---git add---->			Staging_Area 		--->git commit---> 				Local_Repo
+	
+	file1.txt								file1.txt											file1.txt:v1
+	
+	
+	
+	HEAD Pointer ::
+	
+	
+	git reset :::
+	
+		git reset is used to undo the changes from the repository
+		git reset will reset the commit point to the previous commit point 
+		git reset will not create any new commit point for track purpose 
+		git reset is not recommended in the shared repository 
+	
+		Syntax :		
+			- git reset <reset_option> <previous_Commit_ID>
+			
+		Reset Options ::
+		
+			git reset --soft <previous_Commit_ID> :::
+				- git reset will reset the HEAD pointer to the previous commit point.
+				- It will take the changes back to staging area 
+				- The Changes will be available in staging area and working directory					
+		
+			git reset --mixed <previous_Commit_ID> :::
+				- git reset will reset the HEAD pointer to the previous commit point.
+				- It will take the changes back to working directory 
+				- The Changes will be available only in working directory			
+			
+			git reset --hard  <previous_Commit_ID> :::
+				- git reset will reset the HEAD pointer to the previous commit point.
+				- It will permanently delete the files from the system 
+	
+	git revert :::
+	
+		- Git Revert is same as git reset --hard option 		
+		- git revert is used to undo a specific commit 		
+		- git revert will create a new commit point for tracking purpose.		
+		- git revert will maintain the commit history		
+		- git revert is recommended in shared repositories
+		
+		Syntax ::
+			git revert <specific_Commit_ID>
+			
+	
+	
+	
+	GIT Branching Techniques ::::
+	
+		In Distributed VCS, Branches are used to perform parallel Development 
+		
+		
+		Default Branch - master - is considered as a production version of source code.
+		
+	GIT Branching Strategies :::
+	
+		- It is used to maintain the integrity of master branch 
+		
+		
+		Repo1: 
+		
+			master - cm1,cm2,cm3 
+				payment.java 
+				
+				feature_branch - cm1,cm2,cm3
+								 cm1,cm2,cm3,f1cm1,f1cm2,f1cm3
+			
+				
+		Repo1: 
+		
+			master - cm1,cm2,cm3 
+								payment.java 
+
+
+				feature1_branch 	- cm1,cm2,cm3 
+									  cm1,cm2,cm3,f1cm1,f1cm2,f1cm3
+				
+				
+				feature2_branch		- cm1,cm2,cm3  		
+									  cm1,cm2,cm3,f2cm1,f2cm2,f2cm3
+									  
+									  
+		Create Branch 
+
+			git branch 							# Used get the list of branches 
+			
+			git branch <new_branch_name>		# Create New Branch 
+			
+			git switch -c <new_branch_name>		# Create New Branch 
+			
+			git switch <branch_name>			# Switch to any existing branch 
+			
+			git merge 							# Used to Merge the Changes to Target Branch
+												# Should be executed from the target branch 
+												
+												
+												
+			git merge feature1 
+			
+			
+			How Merge Conflict Occurs ::
+			
+				- When more than one user/feature try to update a same line in the same file on the same target branch, merge Conflict Occurs.
+				
+			How to fix the Merge Conflict ::
+			
+				1. Identify the file(s) causing the Merge Conflict 
+				2. Open and review the file content
+				3. Upon review, decide which record should be retained or deleted from that file
+				4. Open the File in edit mode, and delete the header and footer lines, and update the file with required records and save it.
+				5. perform git add and commit to the target branch 
+				
+			Prevent Merge Conflict ::
+			
+				As per DevOps Process, review the Changes before merge 
+				
+				
+  501  cd d:
+  502  cd SA-AWS-DevOps-July24
+  503  ls
+  504  mkdir testrepo1
+  505  cd testrepo1/
+  506  clear
+  507  git init
+  508  clear
+  509  git status
+  510  echo "*.war" >> .gitignore
+  511  ls
+  512  ls -a
+  513  git add .
+  514  git commit -m "Initial Commit"
+  515  clear
+  516  git log --oneline
+  517  ls
+  518  echo "rec1" >> s1.txt
+  519  git add .
+  520  git commit -m "CM1"
+  521  echo "rec1" >> s2.txt
+  522  git add .
+  523  git commit -m "CM2"
+  524  echo "rec1" >> s3.txt
+  525  git add .
+  526  git commit -m "CM3"
+  527  echo "rec1" >> s4.txt
+  528  git add .
+  529  git commit -m "CM4"
+  530  echo "rec1" >> s5.txt
+  531  git add .
+  532  git commit -m "CM5"
+  533  git log --oneline
+  534  ls
+  535  git ls-files
+  536  git status
+  537  git reset --soft 5afd3cd
+  538  git status
+  539  ls
+  540  git ls-files
+  541  git log --oneline
+  542  git commit -m "CM5.1"
+  543  git status
+  544  git log --oneline
+  545  ls
+  546  git ls-files
+  547  clear
+  548  ls
+  549  git log --oneline
+  550  git ls-files
+  551  git reset --soft 5afd3cd
+  552  git status
+  553  git ls-files
+  554  ls
+  555  git log --oneline
+  556  git status
+  557  git commit -m "CM5.1"
+  558  ls
+  559  git ls-files
+  560  git status
+  561  git log --oneline
+  562  git reset --mixed 5afd3cd
+  563  git status
+  564  ls
+  565  git ls-files
+  566  git log --oneline
+  567  git status
+  568  git add .
+  569  git status
+  570  git commit -m "CM5.1"
+  571  clear
+  572  git status
+  573  ls
+  574  git ls-files
+  575  git log --oneline
+  576  git reset --hard 5afd3cd
+  577  git status
+  578  ls
+  579  git ls-files
+  580  git log --oneline
+  581  git reset --hard 00d782a
+  582  git log --oneline
+  583  ls
+  584  git ls-files
+  585  git stattus
+  586  git status
+  587  clear
+  588  git log --oneline
+  589  ls
+  590  git ls-files
+  591  git reset --hard fe11b9c
+  592  ls
+  593  git ls-files
+  594  git status
+  595  git lg --oneline
+  596  git log --oneline
+  597  ls
+  598  git log --oneline
+  599  clear
+  600  ls
+  601  git log --oneline
+  602  echo "rec1" >> f1.txt
+  603  git add .
+  604  git commit -m "cm1"
+  605  echo "rec1" >> f2.txt
+  606  git add .
+  607  git commit -m "cm2"
+  608  echo "rec1" >> f3.txt
+  609  git add .
+  610  git commit -m "cm3"
+  611  echo "rec1" >> f4.txt
+  612  git add .
+  613  git commit -m "cm4"
+  614  echo "rec1" >> f5.txt
+  615  git add .
+  616  git commit -m "cm5"
+  617  clear
+  618  ls
+  619  git log --oneline
+  620  git ls-files
+  621  git status
+  622  git revert 3a60c08
+  623  ls
+  624  git ls-files
+  625  git status
+  626  git log --oneline
+  627  git show 30e9aa8
+  628  git revert 30e9aa8
+  629  git log --oneline
+  630  ls
+  631  git ls-files
+  632  git status
+  633  clear
+  634  ls
+  635  cd ..
+  636  ls
+  637  mkdir testrepo2
+  638  cd testrepo2
+  639  git init
+  640  clear
+  641  ls
+  642  git log --oneline
+  643  echo "rec1" >> f1.txt
+  644  git add .
+  645  git commit -m "cm1"
+  646  clear
+  647  git log --oneline
+  648  git branch
+  649  ls
+  650  git switch -c feature1
+  651  git log --oneline
+  652  ls
+  653  echo "rec1" > s1.txt
+  654  git add .
+  655  git commit -m "f1cm1"
+  656  git log --oneline
+  657  ls
+  658  git status
+  659  git switch master
+  660  ls
+  661  git log --oneline
+  662  git merge feature1
+  663  git log --oneline
+  664  git status
+  665  ls
+  666  cd ..
+  667  ls
+  668  mkdir testrepo3
+  669  cd testrepo3/
+  670  git init
+  671  clear
+  672  git branch
+  673  echo "rec1" >> file1.txt
+  674  git add .
+  675  git commit -m "CM1"
+  676  git branch
+  677  git branch feature1
+  678  git branch
+  679  git branch feature2
+  680  git branch
+  681  git switch -c feature3
+  682  git switch master
+  683  clear
+  684  git log --oneline
+  685  ls
+  686  git switch feature1
+  687  ls
+  688  git log --oneline
+  689  ls
+  690  cat file1.txt
+  691  echo "record2 from feature1_Branch" >> file1.txt
+  692  cat file1.txt
+  693  git add .
+  694  git commit -m "f1cm1"
+  695  git log --oneline
+  696  ls
+  697  cat
+  698  clear
+  699  git switch master
+  700  ls
+  701  cat file1.txt
+  702  git merge feature1
+  703  cat file1.txt
+  704  git log --oneline
+  705  git switch feature2
+  706  git log --oneline
+  707  ls
+  708  cat file1.txt
+  709  echo "record2 from feature2_branch" >> file1.txt
+  710  cat file1.txt
+  711  git add .
+  712  git commit -m "f2cm1"
+  713  git switch master
+  714  cat file1.txt
+  715  git merge feature2
+  716  cat file1.txt
+  717  clear
+  718  git status
+  719  cat file1.txt
+  720  vi file1.txt
+  721  git add .
+  722  git commit -m "Resolved conflicts"
+  723  ls
+  724  cat file1.txt
+  725  git log --oneline
+  726  git status
+  727  cd ..
+  728  history
