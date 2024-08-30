@@ -1034,3 +1034,461 @@ Day 24: 29th Aug. 2024
   726  git status
   727  cd ..
   728  history
+
+
+#######################
+Day 25: 30th Aug. 2024
+#######################	
+
+	Git Branching Features :
+	
+		- git rebase
+		- git merge --squash 
+		- git stash 
+		
+		
+	- git rebase :::
+	
+	
+		- Rebase is used to maintain linear commit history 
+		- Rebase is used to keep the current branch in-sync with target branch 
+		- Rebase can prevent merge-conflicts in the target branch 
+		- As a best practise, it is always recommended to use rebase before merge
+	
+		Repo1:
+		
+			master : c1 
+						c1,f1cm1,f1cm2,f1cm3					# Upon merging feature1 
+						
+						c1,f2cm1,f2cm2,f2cm3,f1cm1,f1cm2,f1cm3	# Upon merging feature2 without rebase 
+						
+						c1,f1cm1,f1cm2,f1cm3,f2cm1,f2cm2,f2cm3	# Upon merging feature2 with proper rebase
+			
+				feature1	- c1				
+								c1,f1cm1,f1cm2,f1cm3
+								
+							git switch master 
+
+							git merge feature1
+							
+								
+				feature2 	- c1 
+								c1,f2cm1,f2cm2,f2cm3
+								
+								
+							git rebase master 
+							
+								c1,f1cm1,f1cm2,f1cm3,f2cm1,f2cm2,f2cm3		#upon rebase 							
+							
+							git switch master 
+							
+							git merge feature2
+							
+				
+
+	- git merge --squash 
+	
+		- Is used to Combine more than one commits into one commit point.
+		
+		Repo1 :
+		
+			master : c1,c2,c3
+
+				c1,c2,c3,f1cm1,2,3,4,5,6,7,8,9,........,100		# Merge without squash 
+						
+				c1,c2,c3,c4	# Merge With Squahs - 'C4' is the combination of all the incremental changes from feature1
+			
+				feature1 : 	c1,c2,c3
+							c1,c2,c3,f1cm1,2,3,4,5,6,7,8,9,........,100
+							
+							
+							git switch master 
+							
+							git merge --squash feature1
+							
+							git commit -m "c4" 
+							
+
+	- git stash 
+		- It used to save the uncommitted changes to the temporary area.
+		
+		
+		git stash save "msg" 		# Create an entry in the stash list 
+		
+		git stash list				# Get the list of item from the stash list 
+		
+		git stash apply				# Apply/Copy the Latest entry from stash list back to staging area 
+		git stash apply stash@{2}	# Apply/Copy a specific entry from stash list back to staging area 
+		
+		git stash pop				# move the Latest entry from stash list back to staging area 
+		git stash pop stash@{2}		# move a specific entry from stash list back to staging area 
+		
+		git stash drop				# Delete the Latest entry from stash list
+		git stash drop stash@{2}	# Delete a specific  entry from stash list
+		
+		git stash clear 			# Clean-up / Delete all the entries from stash list
+		
+		
+		
+	Remote Repository Handling :	
+	
+		github - Remote Repository Server !
+		
+		Azure Repos 
+		
+		AWS CodeCommit 
+		
+		gitlab
+		
+		bitbucket 
+		
+		
+		
+		
+	GIT File Workflow :::
+	
+		Local Machine 																				Remote Server 
+		
+		Working Directory 				Staging Area				Local Repository 					Remote Repository 
+			
+		index.html 		 ---------------> index.html -------------->  index.html:v1.0  -------------->	  index.html:v1.0
+							git add 				   git commit						  git push 
+
+
+	
+	GIT Cli Commands :::
+		
+		- git clone 			# To Copy/Clone the remote repository to local machine 
+		
+		- git add 				# To add the changes from Working Directory to Staging Area 
+		
+		- git commit 			# To Commit the changes from Staging to Local Repository 
+		
+		- git push 				# To Push the Changes from Local Repository to Remote Repository
+		
+		- git fetch/git pull ::
+		
+			--> Both Git Fetch and Git Pull Commands are used to handle the incremental changes from Remote Repository 
+			
+			Git Fetch ::
+				git fetch is used to just check for the incremental changes. If there is any incremental changes present in the remote repository, the information about the incremental changes will be updated only in the Local Repository. The Actual File Changes will NOT be updated in the Working Directory. 
+			
+			Git Pull ::
+				git pull is used to check for the incremental changes. If there is any incremental changes present in the remote repository, the information about the incremental changes will be updated only in the Local Repository and the Actual File Changes will be updated in the Working Directory. 
+
+				git pull = git fetch + git merge 
+
+		
+		- Fork 					# Copy one Remote Repository to another Remote Repository 		
+		
+		
+		
+	Application Developers' Workload / Project Type ?? ! :	
+
+		- Enhancement Project / Bugfixing Project 
+		
+		- New Project Development 
+		
+		
+	How to Create Remote Repository 
+	
+	How to create branch and merge changes in remote repositories
+	
+	
+	Pull Request :::
+	
+		- Will be created by the developers and submitted to the reviewer for approval 
+		
+		git clone <remote_repo_Clone_URL>
+		
+		git clone https://github.com/SA-AWS-DevOps-July24/testrepo1.git
+		
+		git remote -v 					# Get the list of remote repositories linked to the local repository
+		
+		
+		git push -u origin <branch_name>
+		
+		
+		Github Access Token has to be created!
+		
+			asasasdas
+			
+			
+	- New Project Development 
+	
+		- Create a Empty github repo 
+		
+		-
+		
+		git remote -v 			# List remote repos linked to the local repository
+		
+		
+		git remote add origin  https://github.com/SA-AWS-DevOps-July24/testrepo2.git 			# add remote repo to local repo
+		
+		git remote remove origin 						# Remove the remote repo from local repo
+		
+
+
+					
+	Using DevOps Approach ::
+		Developers :
+		-- Create Application Source Code 
+			- Created using IDEs - Eclipse/Pycharm/Intellij/Visual Studio/Visual Studio Code 
+			
+				Every IDE will have git plugins to access remote repository :
+				
+				Visual Studio Code		# https://code.visualstudio.com/download
+					- Open-Source IDE	
+				
+		-- Commit the Source Code to Source Code Repository like github
+
+
+  501  cd d:
+  502  cd SA-AWS-DevOps-July24
+  503  clear
+  504  ls
+  505  mkdir samplerepo1
+  506  cd samplerepo1/
+  507  git init
+  508  clear
+  509  echo "rec1" >> f1.txt
+  510  git add .
+  511  git commit -m "created f1.txt"
+  512  clear
+  513  git branch feature1
+  514  git branch feature2
+  515  git branch
+  516  git switch feature1
+  517  ls
+  518  git log --oneline
+  519  clear
+  520  echo "rec1" >> s1.txt
+  521  git add .
+  522  git commit -m "f1cm1"
+  523  echo "rec1" >> s2.txt
+  524  git add .
+  525  git commit -m "f1cm2"
+  526  echo "rec1" >> s3.txt
+  527  git add .
+  528  git commit -m "f1cm3"
+  529  ls
+  530  git log --oneline
+  531  clear
+  532  git rebase master
+  533  git switch master
+  534  git merge feature1
+  535  git log --oneline
+  536  ls
+  537  clear
+  538  git switch feature2
+  539  ls
+  540  git log --oneline
+  541  echo "rec1" >> e1.txt
+  542  git add .
+  543  git commit -m "f2cm1"
+  544  echo "rec1" >> e2.txt
+  545  git add .
+  546  git commit -m "f2cm2"
+  547  echo "rec1" >> e3.txt
+  548  git add .
+  549  git commit -m "f2cm3"
+  550  echo "rec1" >> e4.txt
+  551  git add .
+  552  git commit -m "f2cm4"
+  553  echo "rec1" >> e5.txt
+  554  git add .
+  555  git commit -m "f2cm5"
+  556  git log --oneline
+  557  git rebase master
+  558  git log --oneline
+  559  git switch master
+  560  git log --oneline
+  561  git merge feature2
+  562  git log --oneline
+  563  git switch feature1
+  564  git log --oneline
+  565  git rebase master
+  566  git log --oneline
+  567  clear
+  568  ls
+  569  git log --oneline
+  570  echo "rec1" >> q1.txt
+  571  git add .
+  572  git commit -m "ic1"
+  573  echo "rec1" >> q2.txt
+  574  git add .
+  575  git commit -m "ic2"
+  576  echo "rec1" >> q3.txt
+  577  git add .
+  578  git commit -m "ic3"
+  579  echo "rec1" >> q4.txt
+  580  git add .
+  581  git commit -m "ic4"
+  582  echo "rec1" >> q5.txt
+  583  git add .
+  584  git commit -m "ic5"
+  585  echo "rec1" >> q6.txt
+  586  git add .
+  587  git commit -m "ic6"
+  588  git log --oneline
+  589  git rebase master
+  590  git switch master
+  591  git log --oneline
+  592  git merge --squash feature1
+  593  git status
+  594  git commit -m "combined commits from feature1"
+  595  git status
+  596  git log --oneline
+  597  ls
+  598  clear
+  599  cd ..
+  600  cd samplerepo2
+  601  mkdir samplerepo2
+  602  cd samplerepo2/
+  603  clear
+  604  git init
+  605  echo "rec1" >> f1.txt
+  606  git add .
+  607  git commit -m "cm1"
+  608  clear
+  609  git branch feature1
+  610  git branch feature2
+  611  git branch feature3
+  612  git branch
+  613  git switch feature1
+  614  echo "rec1" >> w1.txt
+  615  echo "rec2" >> w1.txt
+  616  echo "rec3" >> w1.txt
+  617  git add .
+  618  echo "rec4" >> w1.txt
+  619  git add .
+  620  git status
+  621  cat w1.txt
+  622  git switch feature3
+  623  git status
+  624  git switch master
+  625  git status
+  626  git switch feature1
+  627  clear
+  628  git status
+  629  git stash save "w1.txt"
+  630  git status
+  631  ls
+  632  git ls-files
+  633  git stash list
+  634  echo "rec1" >> w2.txt
+  635  git add .
+  636  git stash save "w2.txt"
+  637  git stash list
+  638  ls
+  639  git switch feature3
+  640  git switch feature1
+  641  git stash apply
+  642  ls
+  643  git ls-files
+  644  cat w2.txt
+  645  git commit -m "w1.txt"
+  646  ls
+  647  git stash list
+  648  git stash drop
+  649  git stash list
+  650  echo "rec1" >> k1.txt
+  651  git add .
+  652  git stash save "k1"
+  653  git stash list
+  654  echo "rec1" >> k2.txt
+  655  git add .
+  656  git stash save "k2"
+  657  echo "rec1" >> k3.txt
+  658  git add .
+  659  git stash save "k3"
+  660  echo "rec1" >> k4.txt
+  661  git add .
+  662  git stash save "k4"
+  663  echo "rec1" >> k5.txt
+  664  git add .
+  665  git stash save "k5"
+  666  git stash list
+  667  git status
+  668  ls
+  669  git stash pop
+  670  git stash list
+  671  git status
+  672  git commit -m "k5"
+  673  git stash list
+  674  git stash apply stash@{2}
+  675  git stash list
+  676  git commit -m "K2"
+  677  git stash list
+  678  git stash drop stash@{2}
+  679  git stash list
+  680  git stash pop stash@{2}
+  681  git commit -m "k1"
+  682  git status
+  683  git stash list
+  684  clear
+  685  git stash list
+  686  git stash clear
+  687  git stash list
+  688  cd ..
+  689  clear
+  690  mkdir remoterepos
+  691  cd remoterepos/
+  692  ls
+  693  clear
+  694  git clone https://github.com/SA-AWS-DevOps-July24/testrepo1.git
+  695  ls
+  696  cd testrepo1/
+  697  ls
+  698  ls
+  699  git status
+  700  git remote -x
+  701  git remote -v
+  702  clear
+  703  git remote -v
+  704  git status
+  705  git branch
+  706  git switch -c local-feature1
+  707  clear
+  708  git log
+  709  clear
+  710  git log --oneline
+  711  ls
+  712  echo "rec1" >> local-file1.txt
+  713  git add .
+  714  git commit -m "local-file1 created!"
+  715  git status
+  716  git push -u origin local-feature1
+  717  clear
+  718  git branch
+  719  git switch main
+  720  ls
+  721  git status
+  722  ls
+  723  git fetch
+  724  git status
+  725  git pull
+  726  ls
+  727  git status
+  728  git pull
+  729  ls
+  730  cd ..
+  731  mkdir testrepo2
+  732  cd testrepo2/
+  733  git init
+  734  clear
+  735  echo "rec1" >> file1.txt
+  736  git add .
+  737  git commit -m "file1.txt"
+  738  git branch -M main
+  739  git branch -M master
+  740  git remote -v
+  741  git remote add origin https://github.com/SA-AWS-DevOps-July24/testrepo2.git
+  742  git remote -v
+  743  git push -u origin master
+  744  git remote -v
+  745  git remote remove origin
+  746  git remote -v
+  747  clear
+  748  cd ..
+  749  history
