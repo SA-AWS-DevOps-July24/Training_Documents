@@ -1,0 +1,145 @@
+#######################
+Day 27: 4th Sep. 2024
+#######################	
+
+	Build Orchestration Tool - Jenkins
+	
+	Jenkins :::
+	
+	Continuous Development & Continuous Integration ::::
+	
+		Using DevOps Approach ::
+			Developers :
+			-- Create Application Source Code 
+			-- Commit the Source Code to Source Code Repository like github
+			
+			Using DevOps Process :
+			Automate ::
+
+			- Build the code - Compile and create artifacts 					
+			- Unit Testing 					
+			- Promote the Application to higher testing Environment					
+			- Notify the Testing/Development Team 	
+
+		Tools :::
+		
+			- Eclipse based IDEs - like Eclipse for Java,Pycharm,Intellij, Visual Studio, Visual Studio Code
+			- Source Code Management Tool - like github/AWS Code Commit/Azure Repos 
+			- Jenkins/AzurePipeline/AWS CodeBuild/gitlab-ci
+			
+			
+	Environment:
+	
+		Dev 
+			Create Source Code!							--> Eclipse/GIT/GITHUB
+			
+		Build 
+			use the code in build enviroment			--> Git 
+			build - compile								--> maven
+			create artitfacts							--> maven
+			unit test 									--> maven,junit
+			promote the artifacts to Test environment   --> Ansible/Deployment plugins/SSH
+		
+		Test 
+			Automated QA Testing 						--> TestNG,Selenium
+			Generate Test Reports 						--> TestNG,Selenium	
+			Validated Test Results 						--> TestNG,Selenium
+			promote the artifacts to Prod environment	--> Ansible/Deployment plugins/SSH 
+		
+	What is Jenkins :::
+	
+		Jenkins is Open-Source Build Orchestration Tool.
+		Used to Automate the End-to-End Application Build and Deployments
+		Using Jenkins we can create CI/CD Pipelines 
+		
+	Jenkins Architecture ::
+	
+		Jenkins is based on Master-Slave Architecture :::
+		
+			Jenkins_Master (VM)				==> Install Jenkins - To Create Jenkins CI/CD Pipeline Projects
+				Jenkins_SlaveNode1 (VM)		==> Perform Application Builds - compile/create artifacts
+						
+						
+		At Enterprise level :::
+		
+			Java Applications 
+			.Net Applications
+			Python Applications 
+
+		Scenario1 :	Application Build and Release frequency is very less.
+		
+			Jenkins_Master (VM) 	==> Create Jenkins CI/CD Pipeline Projects & Execute the Build in same Jenkins_Master Node.
+			
+			
+		Scenario2 : Muliple Applications with high Build and Release frequencies.
+			
+			Jenkins_Master (VM)			==> To Create Jenkins CI/CD Pipeline Projects and schedule to the builds in the slave_nodes
+																	
+				Jenkins_SlaveNode1 (VM)	==> Perform Application Builds - Java Applications 
+				Jenkins_SlaveNode2 (VM)	==> Perform Application Builds - .Net Applications			
+				Jenkins_SlaveNode3 (VM)	==> Perform Application Builds - Python Applications 
+				Jenkins_SlaveNode4 (VM)	==> Perform Application Builds - Angular/NodeJS
+				Jenkins_SlaveNode5 (VM)	==> Perform Application Builds - Ruby 
+				
+				
+	CI/CD Workflow :::
+	
+		SCM_Checkout 
+		Application Build 
+		Unit Testing 
+		Create Artifacts 
+		Promote the Application to Test Environments
+		Notify 
+		Deploy to Prod 
+	
+	
+	Working with Jenkins :::
+	
+		Developers' Perspective :::
+			- All Developers are just the Consumers of Jenkins Tools and Services.
+			- Developers can just execute/cancel/view the Jenkins jobs/Status.
+		
+		DevOps Perspective :::
+		
+			Roles & Responsibilies of DevOps Team :			
+			
+			Jenkins Administration 
+				- Installation of Jenkins
+				- Global System Configurations 
+				- Tools Management 
+				- User Management 
+				- Security Management
+				
+				- Plugins Management 
+				- Credential Management 
+				- Master/Slave Node Configurations
+				- Creation CICD Pipeline Projects 
+				- Onboard Applications to use Jenkins CICD Projects  
+				- Periodic Upgrade of Jenkins and its plugins 
+				- Periodic Backup 
+				- Troubleshooting the Issues!
+				
+				
+	- Installation of Jenkins :::
+	
+		--> Jenkins can be installed in Linux - Ubuntu Machine AMI - v22.04
+				https://www.jenkins.io/doc/book/installing/
+				
+				https://www.jenkins.io/doc/book/installing/linux/
+				
+			Jenkins run as a service, it runs in default port 8080 
+
+
+	- Global System Configurations 
+		-->	Used to setup Global System Configuration and define default properties
+
+	- Tools Management 
+	- User Management 
+	- Security Management 
+	
+Next :::
+	- Plugins Management :::
+		-->	Plugins are extension to Jenkins to intergrate any external tool with Jenkins
+	
+	
+	
