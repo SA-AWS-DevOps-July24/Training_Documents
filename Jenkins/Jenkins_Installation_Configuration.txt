@@ -1,0 +1,57 @@
+Install & Configure Jenkins Server :
+
+	- Refer to that tools/Service's Official Documentation.
+				https://www.jenkins.io/doc/book/installing/linux/
+				
+Launch AWS EC2 Instance - AMI - Ubuntu 20.04v 
+t2.medium/t2.micro - Instance Type 
+				
+#Allow All Traffic for Demo!
+
+Updated Inbound Rule - Port 8080 
+
+1. Install the pre-requisites :::
+
+# Install Jdk:
+
+sudo -i 			
+sudo apt update -y
+sudo apt install openjdk-17-jre -y 						# previous version
+java -version						
+
+2. Install the Actual tool :::
+ 								
+#Install Jenkins:
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install jenkins -y
+
+
+
+3. Perform Post_Installation Activities :::
+
+jenkins --version 
+
+systemctl status jenkins 
+systemctl stop jenkins 
+systemctl start jenkins 
+systemctl restart jenkins 
+systemctl enable jenkins 
+
+/var/lib/jenkins 		# Default Installation Dir of Jenkin on Linux Box
+
+Open web browser :
+
+http://<Public_IP_Address>:8080/
+
+E.g.: http://13.127.8.53:8080/
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
