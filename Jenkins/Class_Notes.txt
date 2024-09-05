@@ -142,4 +142,101 @@ Next :::
 		-->	Plugins are extension to Jenkins to intergrate any external tool with Jenkins
 	
 	
+#######################
+Day 28: 5th Sep. 2024
+#######################		
+	
+	
+				- Plugins Management 
+				- Credential Management 
+				- Master/Slave Node Configurations
+				- Creation CICD Pipeline Projects 
+				- Onboard Applications to use Jenkins CICD Projects  
+				- Periodic Upgrade of Jenkins and its plugins 
+				- Periodic Backup 
+				- Troubleshooting the Issues!
+
+	- Plugins Management :::
+		-->	Plugins are extension to Jenkins to intergrate any external tool with Jenkins
+		
+		
+		VM 	-> Maven Build Tool 
+			-> Jenkins - using Jenkins I want to perform maven build  
+						- So, using Maven Plugins installed in Jenkins, Jenkins will interact with Maven Tool installed in the VM.
+						
+	- Credential Management ::: 
+		- Used to Create the Credentials for the external tools/servers 
+		
+		
+	- Create a Jenkins Project/Job :::
+	
+		- Free-Style Projects 		# It is based on the Manual Configurations 
+		
+		- Pipeline Project 			# It is based on the groovy Scripts to create CI/CD Pipelines 
+		
+		
+		- Handling Variables :::
+	
+			- Environment Variables :::
+				- Pre-defined / reserved keywords that holds the jobs related details.
+			
+			- User-Defined Variables :::
+			
+				a = 5 
+			
+				"${var1}"
+				
+	
+		- Pipeline Project 	
+
+			Pipelines :: ==> 	are written using groovy scripts 
+								used to perform CI/CD Automation.
+			
+				- Scripted Pipelines ::
+				
+						- 
+				
+				- Declarative Pipelines :: Simplified version of Scripted Pipelines 
+		
+		
+			Pipelines are the composed of various stages 
+			
+				Stages are composed of various steps/tasks 
+
+
+	CI/CD Workflow :::
+	
+		SCM_Checkout 
+		Application Build 
+		Unit Testing 
+		Create Artifacts 
+		Promote the Application to Test Environments
+		Notify 
+		Deploy to Prod 				
+
+
+
+		
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+            }
+        }
+        stage('Deploy to Test Environment') {
+            steps {
+                echo 'Perform Deployment'
+            }
+        }
+    }
+}
+
 	
