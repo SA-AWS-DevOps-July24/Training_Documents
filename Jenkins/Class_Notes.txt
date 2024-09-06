@@ -239,4 +239,148 @@ pipeline {
     }
 }
 
+
+
+#######################
+Day 29: 6th Sep. 2024
+#######################	
+
+
+	- Master/Slave Node Configurations
+	- Creation CICD Pipeline Projects 
+	- Onboard Applications to use Jenkins CICD Projects 
 	
+	
+	Scenario2 : Muliple Applications with high Build and Release frequencies.
+		
+		Jenkins_Master (VM)			==> To Create Jenkins CI/CD Pipeline Projects and schedule to the builds in the slave_nodes
+																
+			Jenkins_SlaveNode1 (VM)	==> Perform Application Builds - Java Applications 
+			
+			
+	Environments :::
+	
+	Non-Prod Environments 																	Prod Environment
+
+		Dev 	==> Developers 
+					Create Source Code 
+		
+		Build (VM)	===> Build -> Compile, create artifacts, 
+					 Unit Test the Changes
+					 Promote the Changes to Test Environment
+		
+		Test 															=============>			Prod Servers  
+			QA Testing (VM) 
+					Install Web Application Servers (Tomcat/Nginx)
+	
+	Purpose of Jenkins Master & Slave Nodes :	
+					
+		Jenkins_Master 	(VM)		==> 	To Create Jenkins CI/CD Pipeline Projects and schedule to the builds in the slave_nodes
+			Jenkins_SlaveNode (VM) 	==>		To Perform Application Build & Unit Testing
+
+	Tools to be installed :
+			
+		Jenkins_Master 	(VM)		==>		git,jdk,jenkins	
+        	Jenkins_SlaveNode (VM) 	==>		git,jdk,maven 
+			
+	Configuration of Jenkins Master & Slave Nodes.
+	
+		Jenkins_Master 	(VM)			git,jdk,jenkins	
+		
+        	Jenkins_SlaveNode (VM)		git,jdk,maven
+				- Install the Build Tools 
+				
+				- Create UserName with SSH Keys 
+
+			
+	Create CICD Pipeline ::
+	
+		Pipeline :
+		
+			Stage1 		==> SCM_Checkout
+			
+			Stage2 		==> Application_Build 
+						Maven Goals : 
+							This defines the actions we perform using Maven 
+						
+							● mvn compile 	- to compile the source code
+							● mvn test 		- to compile and execute junit test cases
+							● mvn package 	- to compile, test and create artifacts in the target folder of Project Library
+							● mvn clean 	- to clean the target folder.
+
+							Eg.: 
+							
+							mvn clean package 			
+			Stage3 		==> Deploy to Test Environment 
+			
+
+pipeline {
+     agent { label 'slave1' }
+
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Test Environment') {
+            steps {
+                echo 'Perform Deployment'
+            }
+        }
+    }
+}
+
+
+	Build Triggers :::
+	
+		It used to Automate the Job Exection.
+		
+		-> Build Periodic					# https://crontab.guru/
+		
+			- Used to trigger the jenkins jobs irrespective of code change. - It is not meant for CI/CD.
+			- The build is sheduled based on the crontab 
+			
+			Non-Prod Environments 										Prod Environment
+			 Shd be available only during business hrs 
+				DEV Servers 
+				BUILD
+				QA/UAT 														Prod Servers 
+				
+				
+				8AM - 10PM 
+		
+		
+		-> Github Webhook 
+		
+			- Used to trigger the jenkins Job whenever there is any commit happened in the remote repository
+			- github webhook has be configured in the remote repository by using the jenkins URL
+		
+		
+		-> Poll-SCM 
+		
+			- It is used to trigger the build based on the crontab only if there is any changes happened in the source-code repository.
+			
+			Eg.: 
+			
+				Test Cycles :::
+				
+				
+				8AM - 12PM - 3PM 
+				
+
+
+Next ::
+
+	Target Server - Setup Tomcat Server!
+	Email Notifications!
+
+
+
