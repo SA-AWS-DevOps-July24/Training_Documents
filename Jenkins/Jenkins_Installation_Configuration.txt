@@ -55,3 +55,72 @@ http://<Public_IP_Address>:8080/
 E.g.: http://13.127.8.53:8080/
 
 cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``
+#Configure Slave Node1 for Java Maven App. :
+
+Launch an Ubuntu Machine : v22.04
+
+sudo -i
+
+apt update -y 
+
+Install Java ::
+
+sudo apt update -y 
+sudo apt install openjdk-17-jre -y
+java -version						
+
+Install GIT :
+
+sudo apt install git -y
+
+Install Maven - Build Tool :
+https://maven.apache.org/install.html
+
+sudo apt install maven -y 
+
+Create User in Jenkins Slave Machine & Create SSH Keys 
+
+	SSH Keys --> is composed of public and private keys 
+
+#Add User : 
+
+useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+
+su - devopsadmin
+
+#ssh-keygen
+
+#for Ubuntu ::
+#ssh-keygen -t rsa -b 2048 -m PEM								#ubuntu 20.04
+
+ssh-keygen -t ecdsa -b 521										#ubuntu 22.04 or higher version of ubuntu				
+
+
+ls ~/.ssh 
+
+#You should see following two files:
+
+#id_ecdsa - private key
+#id_ecdsa.pub - public
+
+
+#cat id_rsa.pub > authorized_keys
+
+cat id_ecdsa.pub > authorized_keys
+
+chmod 600 /home/devopsadmin/.ssh/*
+
+	
+
+Login to Jenkins - Manage Jenkins - Attach the Slave Node to jenkins Master
+
+	Goto to Manage Jenkins 
+		Select Nodes 
+			On Nodes Dashboard, Click on New Node
+				Give Node Name, and choose permanent agent.
+
+
+#####################################################################################################
