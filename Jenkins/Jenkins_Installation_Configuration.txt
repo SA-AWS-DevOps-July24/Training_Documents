@@ -124,3 +124,69 @@ Login to Jenkins - Manage Jenkins - Attach the Slave Node to jenkins Master
 
 
 #####################################################################################################
+#####################Install TOMCAT Application Server on Ubuntu :::
+
+Launch New Node - Ubuntu - 22.04 ami 
+
+Enable port 8080
+
+Install Tomcat ::  https://tomcat.apache.org/download-80.cgi
+
+
+sudo -i
+apt update -y
+apt-get install default-jdk -y
+java --version
+cd /opt/
+wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.99/bin/apache-tomcat-8.5.99.tar.gz
+tar -xvzf /opt/apache-tomcat-8.5.99.tar.gz
+mv apache-tomcat-8.5.99 tomcat
+cd tomcat/bin/
+./startup.sh			# Used to Start the Tomcat Server 
+
+
+
+
+Open web browser :
+
+http://<Public_IP_Address>:8080/
+
+E.g.: http://13.127.8.53:8080/
+
+
+###########################################
+
+#Add User : 
+
+useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+
+su - devopsadmin
+
+
+#ssh-keygen
+
+#for Ubuntu ::
+#ssh-keygen -t rsa -b 2048 -m PEM								#ubuntu 20.04
+
+ssh-keygen -t ecdsa -b 521										#ubuntu 22.04 or higher version of ubuntu				
+
+
+ls ~/.ssh 
+
+#You should see following two files:
+
+#id_ecdsa - private key
+#id_ecdsa.pub - public
+
+
+#cat id_rsa.pub > authorized_keys
+
+cat id_ecdsa.pub > authorized_keys
+
+chmod 600 /home/devopsadmin/.ssh/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#make devopsadmin user as a owner to tomcat dir :
+
+chown -R devopsadmin /opt/tomcat
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
