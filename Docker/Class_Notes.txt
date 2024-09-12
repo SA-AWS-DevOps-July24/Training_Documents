@@ -1,0 +1,172 @@
+
+
+
+#######################
+Day 31: 12th Sep. 2024
+#######################	
+
+	Containerization using Docker!
+	
+	Docker!!!
+	
+	Containerization :::
+	
+		--> Containerization is a process of packaging the application along with its dependencies!
+	
+	
+	
+	Virtual Machines :
+	
+		- VMs are hardware level Virtualization 
+		- VMs are created using Hypervisor 
+		- VMs are used to run the Operating Systems
+		- VMs will continue to execute even if there is no task or active applications
+		- VMs consume more space and time to start up.
+		
+	Containers :
+	
+		- Containers are hardware level Virtualization 
+		- Containers are created using Container Engine 
+		- Containers are used to run the the Application. NOT Operating Systems
+		- Containers will immediately go to EXIT state, if there is no task or active applications
+		- Containers consume less space and time to start up
+		- Using Containers we can reduce the no. of VM, But we cannot completely elimate VMs
+	
+	
+		--> Containerization is a process of packaging the application along with its dependencies!	
+
+	Container Use-Cases :::
+		
+	Infra-Structure Perspective :::	
+	
+		--> Containers are used to reduce the number of VMs and save the Infra-Structure Cost!
+		
+			Jenkins_Master (VM)			==> To Create Jenkins CI/CD Pipeline Projects and schedule to the builds in the slave_nodes
+																	
+				Jenkins_SlaveNode1 (VM)	==> Perform Application Builds - Java Applications 
+				Jenkins_SlaveNode2 (VM)	==> Perform Application Builds - .Net Applications			
+				Jenkins_SlaveNode3 (VM)	==> Perform Application Builds - Python Applications 
+				Jenkins_SlaveNode4 (VM)	==> Perform Application Builds - Angular/NodeJS
+				Jenkins_SlaveNode5 (VM)	==> Perform Application Builds - Ruby 
+		
+		--> Using Containers :
+		
+			Jenkins_Master (VM)	
+				- Jenkins_Build_Server (VM)
+					- Install Container Engine  
+						C1			==> Perform Application Builds - Java Applications 
+						C2          ==> Perform Application Builds - .Net Applications	
+						C3          ==> Perform Application Builds - Python Applications
+						C4          ==> Perform Application Builds - Angular/NodeJS
+						C5          ==> Perform Application Builds - Ruby 
+		
+	Developers'/Deployment Perspective ::: 
+	
+		--> Containers are used to package the application along with its dependencies and deploy in target environments!	
+
+
+		Environments:
+		
+			Dev Environment (VM)
+			
+				Developers Create the Source Code 
+					Build - Compile and Create Artifacts 				==>	mywebapp.war 
+					Run the Application and do Unit Testing 
+						--> jdk_11,tomcat_8.0 	- using this jdk and tomcat mywebapp.war got executed and tested
+					Promote the Application to QA / UAT / Prod 
+					
+			QA Environment 	(VM)										==> mywebapp.war
+				Testing Team will Run the Application and do QA Testing 
+						--> jdk_17,tomcat_9.0
+				
+			UAT Environment 
+				Testing Team will Run the Application and do QA Testing 
+			
+
+
+		--> Using Containerization Process :::
+			
+		--> Containerization is a process of packaging the application along with its dependencies!	
+			Using Containerization ::::
+			
+			
+			Dev Environment (VM)
+			
+				Developers Create the Source Code 
+					Build - Compile and Create Artifacts 				==>	mywebapp.war 
+					Run the Application and do Unit Testing 
+						--> jdk_11,tomcat_8.0 	- using this jdk and tomcat mywebapp.war got executed and tested
+						
+					Package the application - (mywebapp.war + jkd_11,tomcat_8.0)	--> Application Images 	
+					
+					Create Application Image --> mywebapp_imgv1.0
+					
+					Publish/Push/Save the Application Image to the Container Registry and version control it.
+						
+						
+			QA Environment 	(VM)								
+				Testing Team will Pull the Application Image from Container Registry and run it as an Application Container.
+					==> mywebapp_imgv1.0		--> (mywebapp.war + jkd_11,tomcat_8.0)
+			
+			
+	Terminolgies :::
+	
+		Container Engine 
+			-- Is used to Create/Manage Container Images and Create/Manage and run Containers	
+		
+		Container Images 
+			--	Is a Static file that defined the properties of the Container and its dependencies 
+			--  Container Images are Non-Executables
+			--  Container Images are composed of various Layers created using the Dockerfile Instructions
+			
+		Containers 
+			--	Containers are the executable units of Container Images
+			-- 	Containers are used to run the applications defined in the Container Images 		
+		
+		Container Registry 
+			--	It is used to save and version control the Container Images 
+				Dockerhub is Container Registry to be used.
+				https://hub.docker.com/			
+		
+		Container Repositories
+			--	Container Repositories	are the subset of Container Registry
+			
+			github 			Docker-Hub_Registry
+				repo1			Docker-hub_Repository1
+				repo2			Docker-hub_Repository2
+			
+			
+	Working with Docker!
+	
+		- Install Docker Engine 
+			# https://docs.docker.com/engine/install/
+			
+			- Launch Ubuntu Machine - v22.04 / Use existing Jenkins Slave Node to Installl Docker Engine
+			
+			- sudo -i 
+			- apt update -y 			
+			- apt install docker.io -y
+		
+		
+		- Docker CLI Commands
+		
+		docker --version
+				
+		docker images 			# To get the list of images in local machine 
+		
+		docker ps 				# To get the list of Active/Running Containers 
+		
+		docker ps -a			# To get the list of all containers
+			
+		Container Registry 
+			--	It is used to save and version control the Container Images 
+				Dockerhub is Container Registry to be used.
+				https://hub.docker.com/			
+		
+		Container Repositories
+			--	Container Repositories	are the subset of Container Registry
+
+		docker pull <Image_Name>	# To download the docker container image from dockerhub registry to lacl machine 
+		
+			docker pull centos:latest
+			docker pull ubuntu:v1.0
