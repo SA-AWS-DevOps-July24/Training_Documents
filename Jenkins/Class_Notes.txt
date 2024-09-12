@@ -383,4 +383,245 @@ Next ::
 	Email Notifications!
 
 
+#######################
+Day 30: 11th Sep. 2024
+#######################	
+
+	Target Server - Setup Tomcat Server!
+	Email Notifications!
+	
+
+pipeline {
+     agent { label 'slave1' }
+
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Test Environment') {
+            steps {
+                echo 'Perform Deployment'
+            }
+        }
+    }
+}
+
+
+	What is Deployment ?
+	
+		--> Deployment is a process of copy the application artifacts from the source machine to the target machine.
+
+	Environments :::
+	
+	Non-Prod Environments 																	Prod Environment
+
+		Dev 	==> Developers 
+					Create Source Code 
+		
+		Build (VM)	===> Build -> Compile, create artifacts, 
+					 Unit Test the Changes
+					 Promote the Changes to Test Environment
+						*.war 
+		
+		Test 															
+			QA Testing (VM) 
+					Install Web Application Servers (Tomcat{8080}/Nginx{80})
+	
+			UAT Testing 
+					Install Web Application Servers (Tomcat{8080}/Nginx{80})			=============>			Prod Servers  
+
+
+
+		Purpose ::
+		
+		Jenkins_Master 	(VM)		==> 	To Create Jenkins CI/CD Pipeline Projects and schedule to the builds in the slave_nodes
+			Jenkins_SlaveNode (VM) 	==>		To Perform Application Build & Unit Testing and create application artifacts 
+			
+		Tomcat_Server (VM)			==> 	To Run the Web-Application for further Testing 
+	
+
+		Required Tools ::
+		
+		Jenkins_Master 	(VM)		==> 	jdk,jenkins,git 
+			Jenkins_SlaveNode (VM) 	==>		git,jdk,maven 	
+			
+		Tomcat_Server (VM)			==> 	jdk,tomcat		#https://tomcat.apache.org/download-80.cgi
+
+
+		Workflow/Integration of Jenkins_Master, Jenkins_SlaveNode1 and Tomcat_Server
+
+
+		
+		
+		Jenkins_Master 	(VM)		==> 	jdk,jenkins,git 
+			Jenkins_SlaveNode (VM) 	==>		git,jdk,maven 	
+			
+		Tomcat_Server (VM)			==> 	jdk,tomcat			
+		
+			Jenkins_Master acts as Controller :
+				- It used to create Jenkins CI/CD Pipeline Projects and schedule to the builds in the slave_nodes
+				- It copy the artifacts from the slave node to the target server 
+
+
+		Use Publish Over SSH Plugins on Jenkins Master to attach the Tomcat_Server to Jenkins_Master 
+		
+		Publish Over SSH Plugins - is  used to connect to remote server and copy the artifacts 
+		
+		Configure the required Connection Parameters to attach the Tomcat Server in Jenkins Master
+		
+
+	What is Deployment ?
+	
+		--> Deployment is a process of copy the application artifacts from the source machine to the target machine.
+		
+		
+		Source Machine 										============>						Target Machine 
+		
+			Jenkins_SlaveNode																		Tomcat_Server 
+
+		
+		Source PATH :																				Target PATH :
+		
+			/target/*.war																				opt/tomcat/webapps
+			
+		Upon Deployment::
+		
+			/target/*.war									-------------->								opt/tomcat/webapps/*.war
+																										opt/tomcat/webapps/target/*.war
+
+
+pipeline {
+     agent { label 'slave1' }
+
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Test Environment') {
+            steps {
+                script{
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'SA_WD_Tomcat_Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
+    }
+}
+
+		
+sshPublisher(publishers: [sshPublisherDesc(configName: 'SA_WD_Tomcat_Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])		
+	
+	
+	
+	Email Notifications :::::::
+	
+		In Jenkins Pipeline Jobs, Email Notifications can be done as a post build action.
+		
+		
+		Stage{}
+		post{
+			success 
+			failure 
+			abort
+		}
+		
+	To Setup the Email Notifications, First we need to set the Email Server in the Jenkins System configuration :
+
+
+How to setup the Email Server in the Jenkins Config:
+
+goto manage jenkins -> system configuration 
+
+goto Email Notification 
+		
+SMTP Server :
+smtp.gmail.com
+
+SMTP Authentication
+
+SMTP Port :: 465
+
+Login to Gmail :::
+
+Click Manage Account Settings
+
+@Left side panel - select Security 
+
+MFA --> mobile#
+
+App Password = 16 bytes of App Password. vazr vauf xhd bnl l
+
+What ? window
+Which Appln - email			
+		
+
+pipeline {
+    agent { label 'slave1' }
+
+    stages {
+        stage('SCM Checkout') {
+            steps {
+                echo 'Perfomr SCM Check-Out'
+				echo 'Cloning Java Maven App Code'
+				git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+             post {
+                failure {
+                  sh "echo 'Send mail on failure'"
+					mail bcc: 'l@gmail.com', body: 'Jenkins Jobs Status ', cc: 'l@gmail.com', from: '', replyTo: '', subject: 'SCM-Checkout Failed ', to: 'l@gmail.com'
+					
+					
+                }
+              }
+        }
+        stage('Java Application Build') {
+            steps {
+                echo 'Perform Java Maven Application Build'
+                sh 'mvn clean package'
+            }
+             post {
+                failure {
+                  sh "echo 'Send mail on failure'"
+					mail bcc: 'l@gmail.com', body: 'Jenkins Jobs Status ', cc: 'l@gmail.com', from: '', replyTo: '', subject: 'App Build Failed ', to: 'l@gmail.com'
+                }
+              }
+        }
+        stage('Deploy to Tomcat_Server') {
+            steps {
+ 				script {
+ 				    sshPublisher(publishers: [sshPublisherDesc(configName: 'SA-Tomcat_Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/mvn-hello-world.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])					
+ 				}
+                
+            }
+             post {
+                failure {
+                  sh "echo 'Send mail on failure'"
+					mail bcc: 'l@gmail.com', body: 'Jenkins Jobs Status ', cc: 'l@gmail.com', from: '', replyTo: '', subject: 'App Deployment Failed ', to: 'l@gmail.com'
+                }
+                success {
+                  sh "echo 'Send mail on Successful'"
+					mail bcc: 'l@gmail.com', body: "jenkins-${JOB_NAME}-${BUILD_NUMBER}", cc: 'l@gmail.com', from: '', replyTo: '', subject: 'App Deployment Successful ', to: 'l@gmail.com'
+                }
+              }
+        }
+    }
+}
+
 
