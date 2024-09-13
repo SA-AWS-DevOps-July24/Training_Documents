@@ -1,6 +1,5 @@
 
 
-
 #######################
 Day 31: 12th Sep. 2024
 #######################	
@@ -31,6 +30,7 @@ Day 31: 12th Sep. 2024
 		- Containers will immediately go to EXIT state, if there is no task or active applications
 		- Containers consume less space and time to start up
 		- Using Containers we can reduce the no. of VM, But we cannot completely elimate VMs
+		- Container run in its own isolated address spac, the scope of the container application is within the container 
 	
 	
 		--> Containerization is a process of packaging the application along with its dependencies!	
@@ -151,13 +151,15 @@ Day 31: 12th Sep. 2024
 		- Docker CLI Commands
 		
 		docker --version
-				
+		
+		
 		docker images 			# To get the list of images in local machine 
 		
 		docker ps 				# To get the list of Active/Running Containers 
 		
 		docker ps -a			# To get the list of all containers
-			
+		
+		
 		Container Registry 
 			--	It is used to save and version control the Container Images 
 				Dockerhub is Container Registry to be used.
@@ -166,7 +168,88 @@ Day 31: 12th Sep. 2024
 		Container Repositories
 			--	Container Repositories	are the subset of Container Registry
 
+
+
 		docker pull <Image_Name>	# To download the docker container image from dockerhub registry to lacl machine 
 		
 			docker pull centos:latest
 			docker pull ubuntu:v1.0
+			
+			
+#######################
+Day 32: 13th Sep. 2024
+#######################	
+
+	docker pull <Image_Name> 				# TO Download the latest version of Container Image 
+	
+	docker pull <Image_Name>:<tag>			# TO Download the specific version of Container Image 
+	
+	
+	docker run <Image_Name>					# To Create and run the Container 
+	
+	Container Execution Modes ::
+	
+		- Foreground / Attached Mode 		# Default Mode 
+		
+				docker run <image_name> 
+				
+				Eg.: 
+				
+					docker run centos sleep 20 
+		
+		- Background / Detached Mode 
+			
+				docker run -d <image_name> 
+				Eg.: 
+				
+					docker run -d centos sleep 20 	
+		
+		- Interactive Mode 
+		
+				docker run -d <image_name> 
+				Eg.: 
+				
+					docker run -it centos bash 			
+
+	
+	docker start <container_id>						# To Start the Container 
+	
+	docker stop <container_id>						# To Stop the container 
+	
+	docker exec -it <container_id> bash 			# To Login to the running Container 
+	
+	docker rm <container_id>						# To remove/delete the Container 
+	
+	docker rmi <image_name>							# To remove/delete the Image from local machine
+	
+	
+	Port Mapping / Port Binding ::::
+	
+		- It is used to expose the container to access thru internet 
+		
+		- It is a process of mapping the container port with the host port.
+	
+	Run Application inside the Container!
+	
+		docker run -it tomcat:8.0 bash
+		
+		docker run -it -p <host_Port>:<container_Port> tomcat:8.0
+		
+		Eg:
+		
+		docker run -it -p 8089:8080 tomcat:8.0
+	
+		-p <host_Port>:<container_Port>
+		
+		
+	QA_Server :::
+	
+		Installed Tomcat ::
+		
+		8080 --> Execute only one application 
+		
+		service1 -- 8080
+		
+		service2 -- 8089
+		
+		
