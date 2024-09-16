@@ -252,4 +252,127 @@ Day 32: 13th Sep. 2024
 		
 		service2 -- 8089
 		
+
+#######################
+Day 33: 16th Sep. 2024
+#######################	
+
+
+	Docker Volumes ::::
+	
+	
+		Container :::
+		
+			- Runs in an isolated address space.
+			
+		Monolith
+		Micro-Service
+		3-tier Applications
+			
+			
+		Container
+			
+			Stateless Applications
+				- Application that will not have any state of execution
+				- Applications that will not create any output/need any input.
+		
+			Stateful Applications ::
+				- Application that will have state of execution
+				- Applications that requires some input nad generate some output
+			
+			
+			
+		User_Login/SignIn Services :::
+		
+		3 - Tier Application Layers :::
+		
+			Front-End - User Interface 
+			
+			Application Layer - Business Logic 
+			
+			Back-End Layer - DataBase 
+			
+			
+		docker volume :::
+			
+			- Is used to create permanent Volumes that can be attached to any container to maintain the persistant data accross the Applications running thru containers. 
+			
+			
+		docker volume create <vol_name>
+		
+		docker volume inspect <vol_name>
+		
+		docker run -it centos bash 
+		
+		docker run -it --mount source=sa-wd-devops-vol1,destination=/sa-wd-devops-vol1 centos bash
+		
+	
+	
+	Create Container Images ::::
+	
+	
+		docker commit ::
+		
+			- To Create a New Container Image based on the properties of existing Container.
+			
+			Syntax :
+
+				docker commit <existing_container_id> <dockerhub_repo_name>/New_Image_Name>:<tag_Name>
+
+			Eg.: 
+				docker commit 6070980df5f2 loksaieta/sa-javaappbuildimg:v1.0
+		
+			
+		
+		docker build ::
+		
+			- To create a new Container Image based on the Dockerfile reference.
+			- Dockerfile composed of Instructions to Create Docker Container Images
+			- Application Developers create the Dockerfile and update in the Source Code Repository. 
+			
+		
+		vi Dockerfile 
+		
+		FROM ubuntu 
+		RUN apt update -y 
+		RUN apt install git -y 
+		RUN apt install maven -y 
+		
+			Syntax :
+			
+			docker build -t <dockerhub_repo_name>/New_Image_Name>:<tag_Name> .		# '.' refers to the Dockerfile path
+			
+			Eg.:
+			
+			docker build -t loksaieta/sa-javamvnimg .		# '.' refers to the Dockerfile path
+			
+		Write Dockerfile :::
+		
+			Docker File Instructions :::
+			
+			FROM 									# To Identify the Base Image
+			RUN 									# To run the package manager
+			COPY 									# To Copy the file from host volume to container volume
+			CP 										# To Copy the file within the container volumes 
+			ADD 									# To Copy the file from Host Volume as well as from URL
+			ENV 									# To define the Environment Variable 
+			ARG 									# To pass Arguements to the Steps in Dockerfile 
+			EXPOSE									# To Define the Container Port 
+			WORKDIR									# To set the current working directory within the Container 
+			CMD										# To set the default start-up command to the container 
+													  This Command can be changed at run-time.
+			ENTRYPOINT								# To set the default start-up command to the container 
+													  This Command cannot be changed at run-time.			
+			
+			
+			
+			Dockerfile :::
+			
+			FROM tomcat:8.0
+			COPY ./target/*.war /usr/local/tomcat/webapps
+			EXPOSE 8080		
+			
+			docker build -t loksaieta/sa-webappimg:v1.0 .			# run this command from the Dockerfile location.
+			docker run -it -p 8089:8080 loksaieta/sa-webappimg:v1.0
+			
 		
