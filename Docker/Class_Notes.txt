@@ -376,3 +376,258 @@ Day 33: 16th Sep. 2024
 			docker run -it -p 8089:8080 loksaieta/sa-webappimg:v1.0
 			
 		
+
+#######################
+Day 34: 18th Sep. 2024
+#######################	
+
+
+	Container Orchestration ::::
+	
+		Overview of ;
+			Docker Compose
+			Docker Swarm 
+			
+		Kubernetes
+		
+	Containers :::
+	
+	
+	3-Tier Application Service :
+	
+		User_SignIn Service :
+	
+			Front-End			-->		C1.0 
+			
+			Application_Layer 	-->		C2.0
+			
+			Database Layer 		-->		C3.0
+			
+			
+			
+			docker run c1.0_image
+			
+			docker run c2.0_image
+			
+			docker run c3.0_image
+			
+			
+		Need run the containers as a service! 
+		
+		How to execute more than once container as a service ???
+		
+		Docker Compose
+			- Is an extension/Plugin to Docker Engine.
+			- Is used to run multiple containers as a Service!
+			- Docker Compose uses the Yaml file to create the Service definitions
+			
+		User_SignIn_Service:
+			C1.0 
+            C2.0            
+            C3.0
+				
+			
+			Any Container that is part of a Service :
+		
+				should be in-sync with other container within the service 
+				
+				
+				Start/Stop all these container at the same time.
+		
+		
+		
+		Work with Docker Compose ::
+		
+			Install Docker_Compose
+			
+			https://docs.docker.com/compose/install/linux/
+			
+# Manual Installation of Docker Compose :::
+			
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+mkdir -p $DOCKER_CONFIG/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+
+chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+	
+docker compose version
+
+vi docker-compose.yaml
+
+
+
+### Yaml Files are based on Keys & Values -- key:value Pairs
+
+version: '3'
+services:
+  webserv1:
+    image: "tomcat:8.0"
+    ports:
+      - 8098:8080
+  dbserv1:
+    image: "redis:alpine"
+	
+docker compose up 
+
+docker compose down 
+
+
+	Docker Swarm ::::
+
+	Container Orchestration Tool ::::
+	
+		- Docker Swarm is one the Container Orchestration Tools.
+		- It is meant only for Docker Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- We cannot Do Auto-Scaling or Load Balancing!
+
+
+
+	3-Tier Application Service :
+	
+		User_SignIn Service :
+	
+			Front-End			-->		C1.0,C1.1,C1.2,C1.3,C1.4 
+			
+			Application_Layer 	-->		C2.0,C2.1,C2.2,C2.3,C2.4
+			
+			Database Layer 		-->		C3.0,C3.1,C3.2,C3.3,C3.4
+
+
+
+
+	Prod-Environment
+	
+		Production server1,2,3,4,5,6 
+
+
+
+	Web Application:
+	
+		5000 Users to access my website at the same time 
+		
+			100 Container Instances 
+
+		10000 
+
+			200 Container Instances ?				# Scale-Up the Container Instances 
+
+		5000 
+
+			100 Container Instances ?				# Scale-Down the Container Instances 
+
+Summary :::
+
+		Containerization
+		VM (vs) Container
+		How install Container Engine 
+		Docker CLi Commands 
+		3 Mode of Docker run command 
+		exec 
+		persistant volumes 
+		Create Images - docker commit and build command 
+		Dockerfile Instructions 
+		Docker Compose & Swarm 
+
+
+Next :
+	Kubernetes :::::
+	
+
+	
+#######################
+Day 34: 18th Sep. 2024
+#######################	
+	
+				
+	Kubernetes ::::
+	
+		- It is a Open-Source Container Orchestration Tool 
+		- Kubernetes is used to Deploy any type of Containers.
+		- It is used to ensure high availability of the Applications/services running thru Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- It supports Auto-Scaling & Load Balancing.
+		
+	Managed Services ::
+
+		AWS 	- ECS/ECR/EKS 
+		Azure 	- ACS/ACR/AKS 
+			
+	GOOGLE !	
+		
+	Kubernetes Architecture 
+	
+	Kubernetes Components
+	
+	Install Kubernetes
+	
+	DevOps ::::
+
+
+
+Docker Swarm ::::
+
+	Container Orchestration Tool ::::
+	
+		- Docker Swarm is one the Container Orchestration Tools.
+		- It is meant only for Docker Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- We cannot Do Auto-Scaling or Load Balancing!
+		
+		
+			Service :::
+			
+				Front_End			C1 / Replicas of C1 - 3 Replicas 
+				
+				Application_Layer	C2 
+				
+				Back_End (DataBase) C3 
+				
+				
+	Kubernetes ::::
+	
+		- It is a Open-Source Container Orchestration Tool 
+		- Kubernetes is used to Deploy any type of Containers.
+		- It is used to ensure high availability of the Applications/services running thru Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- It supports Auto-Scaling & Load Balancing.
+		
+		
+	Working with Kubernetes :::
+	
+		- Used to deploy the Containerized Application Services to the Target Environments 
+		
+		Docker Images ::::
+		
+		
+		Container Registry :::
+		
+			- Used to manage the container Images 
+			- DockerHub
+			
+	Continous Integration/Continous Deployment Workflow :::
+	
+		1. Create Source Code 
+		2. Application  Build 
+		3. Application Image Build using Dockerfile 
+		4. Publish the Application Image to Container Registry 
+		
+		5. Deploy the Application Images to the Target Environments using Kubernetes
+		
+		
+	
+	
+		1. Publish/Push the Application Images to Container Registry.
+		
+Next :
+			How to Publish/Push the Application Images to Container Registry ?
+			How to Deploy to Kubernetes Cluster?
+			How to Ensure High Availability of Application by creating replicas?
+		
+			Kubernetes Architecture ???
+			
+			Kubernetes Components/Terminologies/Concepts ???
+			
+			Install Kubernetes ???
+				
+			
