@@ -630,4 +630,189 @@ Next :
 			
 			Install Kubernetes ???
 				
+				
+#######################
+Day 35: 19th Sep. 2024
+#######################		
+		
+	Docker ::
+		
+		Publish/Push the Application Images to Container Registry. 
+				
+			vi Dockerfile 			
+
 			
+			FROM tomcat:8.0
+			COPY ./target/*.war /usr/local/tomcat/webapps
+			EXPOSE 8080		
+			
+			docker build -t loksaieta/sa-webappimg:v1.0 .			# run this command from the Dockerfile location.
+
+			docker run -it -p 8089:8080 loksaieta/sa-webappimg:v1.0
+	
+	
+		Publish/Push the Application Images to Container Registry. 
+			
+			Login to DockerHub using Docker CLI.
+				- DockerHub LoginID 
+				- DockerHub Access Token 
+					- Create Access Token in DockerHub 
+					
+			docker login -u loasxsdksaieta
+						
+			Password: dcasdfasdfasdfasdfasdfasdfasdf
+			
+			
+					
+			docker push loksaieta/sa-webappimg:v1.0
+			
+			docker pull loksaieta/sa-webappimg:v1.0
+		
+		
+		
+		
+	Thru Jenkins pipeline, create container images and Publish to Container registry.	
+
+		Jenkins ::		with master/slave Nodes!
+		
+		Pipeline :		
+			SCM_Checkout 
+			Application_Build 
+			Deploy Application Artifacts to Target Environment
+				
+		
+pipeline {
+     agent { label 'slave1' }
+
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Test Environment') {
+            steps {
+                script{
+                    sshPublisher(publishers: [sshPublisherDesc(configName: 'SA_WD_Tomcat_Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
+    }
+}
+
+
+	Objective :::
+	
+		Jenkins pipeline, perform application build, create container images and Publish to Container registry.	
+		
+		
+	Resources - Servers/Tools Needed :
+	
+	
+		Servers :::
+		
+			Jenkins_Master							--> # To create CICD Pipeline Jobs and schedule it to run in Slave Nodes
+			
+				Build_Server-Jenkins_Slave 									--> # Compile the Source Code 
+				(Perform Application Build and Docker Build)					# Perform Unit Testing 
+																				# Create Artifacts 
+																				# Create Application Image 
+																				# Publish Application Image to DockerHub Registry
+		
+		Tools ::::
+	
+			Jenkins_Master						--->	# jdk, jenkins, git 				
+		    
+            	Build_Server-Jenkins_Slave 		--->	# git, jdk, maven, docker
+				
+
+		Maintain DockerHub Credentials in the Jenkins Credential Manager 
+			goto jenkins dashboard 
+				-- Manage Jenkins 
+					-- Credential 
+						-- using dockerhub username and access token 
+						
+
+pipeline {
+     agent { label 'slave1' }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('dockerloginid')
+	}
+		
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                echo 'Perform Docker Build'
+				sh "docker build -t loksaieta/sa-wd-webapp:${BUILD_NUMBER} ."
+				sh 'docker image list'
+            }
+        }
+        stage('Login to Dockerhub') {
+            steps {
+                echo 'Login to DockerHub'				
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                
+            }
+        }
+        stage('Publish the Image to Dockerhub') {
+            steps {
+                echo 'Publish to DockerHub'
+				sh "docker push loksaieta/sa-wd-webapp:${BUILD_NUMBER}"                
+            }
+        }
+    }
+}
+
+
+Docker :::
+
+		Containerization
+		VM (vs) Container
+		How install Container Engine 
+		Docker CLi Commands 
+		3 Mode of Docker run command 
+		exec 
+		persistant volumes 
+		Create Images - docker commit and build command 
+		Dockerfile Instructions 
+		Docker Compose & Swarm 
+		
+		Create Jenkins CICD Pipeline to perform application build, create container images and Publish to Container registry.	
+
+	
+	Dev 
+	
+	Build 		Create Docker Images 
+	
+	QA / UAT / Prod 	# Deployed using Kubernetes
+	
+	
+Next :::
+
+	Kubernetes ::::
+	
+		Kubernetes Architecture
+		
+		Kubernetes Components/Terminologies/Concepts
+		
+		Install Kubernetes			
