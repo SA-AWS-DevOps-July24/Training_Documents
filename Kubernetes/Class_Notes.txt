@@ -1,0 +1,206 @@
+
+#######################
+Day 36: 20th Sep. 2024
+#######################	
+
+Kubernetes ::::
+
+	Environments 
+	
+	Non-Prod-Environments												Prod-Environment
+	
+		DEV 
+		
+		BUILD 		
+		
+		QA 		==> docker pull/run
+		
+		UAT 	==> docker pull/run 			=========>					PROD_Server1	==> docker pull/run		--> LIVE Server!
+																			PROD_Server2	==> docker pull/run
+																			PROD_Server3	==> docker pull/run
+																			PROD_Server4	==> docker pull/run
+																			PROD_Server5	==> docker pull/run
+		
+		
+	Kubernetes ::::
+	
+		- It is a Open-Source Container Orchestration Tool 
+		- Kubernetes is used to Deploy any type of Containers.
+		- It is used to ensure high availability of the Applications/services running thru Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- It supports Auto-Scaling & Load Balancing.
+		- Self-Healing
+		
+	
+		Kubernetes Architecture :::
+		
+			- Client/Server Architecture
+			
+			
+		Kubernetes_Master					# Used to Create and Schedule the Deployments to Kubernetes_WorkNodes
+		
+			Kubernetes_WorkNode1			# Target Servers 
+			Kubernetes_WorkNode2
+			Kubernetes_WorkNode3
+			Kubernetes_WorkNode4
+			Kubernetes_WorkNode5
+			
+			
+		Kubernetes Architecture
+			Kubernetes_Master					# Used to Create and Schedule the Deployments to Kubernetes_WorkNodes
+			
+				Kubernetes_WorkNode1			# Target Servers 
+				Kubernetes_WorkNode2
+				Kubernetes_WorkNode3
+		
+		
+		
+		Kubernetes Components ::::
+
+			API_Server 				--> # Acts as an interface to the kubernetes 
+			
+			ETCD 					--> # Single point of Source for Kubernetes Components 
+			
+			Scheduler				--> # To identify the Healthy Node for Deployments
+			
+			Controller Manager 		--> # To run the pods in its desired state 
+			
+			
+			Kubelet 				--> # Is a Kubernetes Agent used to Create & Deploy the Pods
+			
+			KubeProxy				--> # Is used to enable pod networking by create Pod IP Address			
+			
+			CRI - Container RunTime Interface (Container-D)
+									--> # It is used identify the Image from Container Registry for deployment
+				
+				
+		
+		Kubernetes Concepts / Terminologies ::::
+		
+		
+			Kubernetes_Master			# Used to Create and Schedule the Deployments to Kubernetes_WorkNodes
+			
+			Kubernetes_WorkNodes		# Target Servers 
+
+			Kubectl 					# Is Command Line Utility, used to interact with Kubernetes Master 
+			
+			Container Images 
+				--	Is a Static file that defined the properties of the Container and its dependencies 
+				--  Container Images are Non-Executables
+				--  Container Images are composed of various Layers created using the Dockerfile Instructions
+				
+			Containers 
+				--	Containers are the executable units of Container Images
+				-- 	Containers are used to run the applications defined in the Container Images 		
+			
+			Container Registry 
+				--	It is used to save and version control the Container Images 
+					Dockerhub is Container Registry to be used.
+					https://hub.docker.com/			
+			
+			Container Repositories
+				--	Container Repositories	are the subset of Container Registry
+			
+			
+			Pod							# Is Atomic Unit of Schedule - Any Smalled Task you run in Kubernetes is executed as Pod.
+										# Used to Run the Container(s)
+										# As a best practise, it is recommended to have One Container in a Pod.
+			
+			Kubelet 					# Is a Kubernetes Agent used to Create & Deploy the Pods
+			
+			CRI 						# Container Run-Time Interface - "Container-D"
+										# It is used identify the Image from Container Registry for deployment
+			
+		
+			Manifest File				# Is a AppConfig file, that defines the properties of the pods to be deployed in kubernetes
+										# It is written using *.yaml/*.json format by the developers and maintained in the Source Code Repositories during CICD Pipeline Automation Process 
+		
+		
+			Cluster 					# Is collection of WorkerNodes 
+			
+				
+				Kubernetes_Master		
+				
+					Kubernetes_Cluster
+						Kubernetes_WorkNode1
+						Kubernetes_WorkNode2
+						Kubernetes_WorkNode3
+						
+				Kubernetes_Master		
+				
+					Kubernetes_Cluster1
+						Kubernetes_WorkNode1
+						Kubernetes_WorkNode2
+						Kubernetes_WorkNode3				
+
+					Kubernetes_Cluster2
+						Kubernetes_WorkNode1
+						Kubernetes_WorkNode2
+						Kubernetes_WorkNode3	
+
+				Kubernetes_Master
+					Kubernetes_Master1		
+					
+						Kubernetes_Cluster1
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3				
+
+						Kubernetes_Cluster2
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3
+
+					Kubernetes_Master2		
+					
+						Kubernetes_Cluster1
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3				
+
+						Kubernetes_Cluster2
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3
+
+						
+		Core Kubernetes Concepts :::
+		
+			Pods 
+			
+			Kubectl 
+				
+				Syntax:
+				
+					kubectl <command> <Kubernetes_Object_Type> <Name> <Parameters/Flag>
+			
+					kubectl get pods mypod1 -o wide
+					
+					kubectl get Deployment mydeploy 
+					
+					Eg.: Kubectl Commands :
+					
+					create / get / exec / expose / describe
+					
+					
+			Controller Object 
+				ReplicaSet 
+				Deployment 
+			
+			Services
+				NodePort Service 
+				ClusterIP 
+				LoadBalancer
+
+			Volumes
+				HostPath Volumes 
+			
+			Namespaces 
+		
+		
+Next ::
+		
+		Installation & Configuration of Kubernetes_Master & Kubernetes_WorkNodes 
+
+		Working with Kubernetes Objects / Concepts 
+
