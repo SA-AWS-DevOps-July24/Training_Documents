@@ -1,0 +1,288 @@
+############################################################################################################
+
+#Kube-Master(Controller)  - VM 			# Ubuntu v22.04
+#	Kube-Worker1
+#	Kube-Worker2 
+
+#https://kubernetes.io/docs/setup/
+#https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+	
+#Add Port: 0 - 65535
+
+#Allow All Traffic for Demo!
+
+#Master Nodes :
+####  6443, 2379-2380, 10250, 10259, 10257
+
+Worker Nodes :
+####  10250, 30000-32767(NodePort Range)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+###On Both Master and Worker Nodes:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+sudo -i
+
+apt update -y
+
+#Set the appropriate hostname for each machine.
+#-----------------------------------------------
+sudo hostnamectl set-hostname "kmaster-node"
+exec bash
+
+reboot
+
+sudo hostnamectl set-hostname "worker-node1"
+exec bash
+
+reboot
+
+sudo hostnamectl set-hostname "worker-node2"
+exec bash
+
+reboot
+
+
+#To allow kubelet to work properly, we need to disable swap on both machines.
+
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+#Install Docker :
+
+apt install docker.io -y
+
+#Step 1. Install containerd			Is a CRI 
+#To install containerd, follow these steps on both VMs:
+
+#Load the br_netfilter module required for networking.
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+#To allow iptables to see bridged traffic, as required by Kubernetes, we need to set the values of certain fields to 1.
+
+sudo tee /etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+#Apply the new settings without restarting.
+
+sudo sysctl --system
+
+#Install curl.
+
+sudo apt install curl -y	
+
+#Get the apt-key and then add the repository from which we will install containerd.
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+#Update and then install the containerd package.
+
+sudo apt update -y 
+sudo apt install -y containerd.io
+
+#Set up the default configuration file.
+
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+
+#Next up, we need to modify the containerd configuration file and ensure that the cgroupDriver is set to systemd. To do so, #edit the following file:
+
+sudo vi /etc/containerd/config.toml
+
+#Scroll down to the following section:
+
+#[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+#And ensure that value of SystemdCgroup is set to true Make sure the contents of your section match the following:
+
+#[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+#    BinaryName = ""
+#    CriuImagePath = ""
+#    CriuPath = ""
+#    CriuWorkPath = ""
+#    IoGid = 0
+#    IoUid = 0
+#    NoNewKeyring = false
+#    NoPivotRoot = false
+#    Root = ""
+#    ShimCgroup = ""
+##    SystemdCgroup = true
+
+#Finally, to apply these changes, we need to restart containerd.
+
+sudo systemctl restart containerd
+sudo systemctl status containerd
+
+
+#Step 2. Install Kubernetes
+#With our container runtime installed and configured, we are ready to install Kubernetes.
+
+#Add the repository key and the repository.
+
+sudo apt-get update
+
+# apt-transport-https may be a dummy package; if so, you can skip that package
+
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+
+
+# If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+# sudo mkdir -p -m 755 /etc/apt/keyrings
+#mkdir /etc/apt/keyrings
+
+sudo mkdir -p -m 755 /etc/apt/keyrings
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+# This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update
+
+sudo apt-get install -y kubelet kubeadm kubectl
+
+#Finally, enable the kubelet service on both systems so we can start it.
+
+sudo systemctl enable kubelet
+
+#######################################################################################################
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+###On Master Node:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#Step 3. Setting up the cluster
+#With our container runtime and Kubernetes modules installed, we are ready to initialize our Kubernetes cluster.
+
+#Run the following command on the master node to allow Kubernetes to fetch the required images before cluster initialization:
+
+sudo kubeadm config images pull
+
+#Initialize the cluster
+
+#sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem
+
+#The initialization may take a few moments to finish. Expect an output similar to the following:
+
+#Your Kubernetes control-plane has initialized successfully!
+#To start using your cluster, you need to run the following as a regular user:
+
+#root : visudo 
+
+#su - devopsadmin 
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+#Alternatively, if you are the root user, you can run:
+
+#export KUBECONFIG=/etc/kubernetes/admin.conf
+
+#You should now deploy a pod network to the cluster. Run kubectl apply -f [podnetwork].yaml with one of the options listed at Kubernetes.
+
+#Then you can join any number of worker nodes by running the following on each as root:
+
+#kubeadm join 102.130.122.60:6443 --token s3v1c6.dgufsxikpbn9kflf \
+        --discovery-token-ca-cert-hash sha256:b8c63b1aba43ba228c9eb63133df81632a07dc780a92ae2bc5ae101ada623e00
+
+#You will see a kubeadm join at the end of the output. Copy and save it in some file. We will have to run this command on the worker node to allow it to join the cluster. If you forget to save it, or misplace it, you can also regenerate it using this command:
+
+#sudo kubeadm token create --print-join-command
+
+#Now create a folder to house the Kubernetes configuration in the home directory. We also need to set up the required permissions for the directory, and export the KUBECONFIG variable.
+#mkdir -p $HOME/.kube
+#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#export KUBECONFIG=/etc/kubernetes/admin.conf
+
+#Deploy a pod network to our cluster. This is required to interconnect the different Kubernetes components.
+
+kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+
+
+#Expect an output like this:
+
+#podsecuritypolicy.policy/psp.flannel.unprivileged created
+#clusterrole.rbac.authorization.k8s.io/flannel created
+#clusterrolebinding.rbac.authorization.k8s.io/flannel created
+#serviceaccount/flannel created
+#configmap/kube-flannel-cfg created
+#daemonset.apps/kube-flannel-ds created
+
+#Use the get nodes command to verify that our master node is ready.
+
+kubectl get nodes
+
+#Also check whether all the default pods are running:
+
+kubectl get pods --all-namespaces
+
+#You should get an output like this:
+
+NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
+kube-system   coredns-6d4b75cb6d-dxhvf              1/1     Running   0          10m
+kube-system   coredns-6d4b75cb6d-nkmj4              1/1     Running   0          10m
+kube-system   etcd-master-node                      1/1     Running   0          11m
+kube-system   kube-apiserver-master-node            1/1     Running   0          11m
+kube-system   kube-controller-manager-master-node   1/1     Running   0          11m
+kube-system   kube-flannel-ds-jxbvx                 1/1     Running   0          6m35s
+kube-system   kube-proxy-mhfqh                      1/1     Running   0          10m
+kube-system   kube-scheduler-master-node            1/1     Running   0          11m
+
+#We are now ready to move to the worker node. Execute the kubeadm join from step 2 on the worker node. You should see an output similar to the following:
+
+#This node has joined the cluster:
+#* Certificate signing request was sent to apiserver and a response was received.
+#* The Kubelet was informed of the new secure connection details.
+#Run kubectl get nodes on the control-plane to see this node join the cluster.
+
+#If you go back to the master node, you should now be able to see the worker node in the output of the get nodes command.
+
+kubectl get nodes
+
+#And the output should look as follows:
+
+NAME          STATUS   ROLES                  AGE     VERSION
+master-node   Ready    control-plane,master   18m40s   v1.24.2
+worker-node   Ready    <none>                 3m2s     v1.24.2
+
+#Finally, to set the proper role for the worker node, run this command on the master node:
+
+#kubectl label node worker-node node-role.kubernetes.io/worker=worker
+
+#To verify that the role was set:
+
+kubectl get nodes
+
+#The output should show the worker node’s role as follows:
+
+NAME          STATUS   ROLES                  AGE     VERSION
+master-node   Ready    control-plane,master   5m12s   v1.24.1
+worker-node   Ready    worker                 2m55s   v1.24.1
+
+
+sudo kubeadm token create --print-join-command # To generate New Token along with Kubeadm Join Command.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+###Only in Worker Nodes:
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+kubeadm join 172.31.8.101:6443 --token 7nd74g.qf0o7ntrb9im3hqr \
+        --discovery-token-ca-cert-hash sha256:20a690f48ba814666bf93da0a3460e53b46992e339a515bc2dd4f4a1bbf5d4b1
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
