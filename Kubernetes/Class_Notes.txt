@@ -204,3 +204,105 @@ Next ::
 
 		Working with Kubernetes Objects / Concepts 
 
+
+#######################
+Day 37: 23rd Sep. 2024
+#######################	
+
+	
+	Installation & Configuration of Kubernetes_Master & Kubernetes_WorkNodes 
+
+	Managed Services :	- Paid Service!
+	
+		AWS 	- ECS/ECR/EKS 
+		
+		Azure 	- ACS/ACR/AKS 
+		
+		GCP 	- GCR/GKE	
+		
+	
+	Open-Source Kubernetes :::
+	
+		https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/
+		
+		
+		Kubernetes_Master			(VM)
+			Kubernetes_WorkNode1	(VM)
+			Kubernetes_WorkNode2	(VM)
+			
+			
+		Minikube 		--> 	1 Node Configuration
+			VM -> 
+			
+		Kubeadm -->
+		
+		
+	Installation of Kubernetes using Kubeadm :::	
+	
+		1. Launch 3 VMs on AWS Cloud (Ubuntu v22.04) --> (1 Master Node, 2 WorkerNodes)
+		
+		In all the Nodes(i.e., Master Node and WorkerNodes):
+		
+			2. Allow all traffic for all the nodes - just for this demo
+			3. Change the HostName of all the Nodes
+			4. Disable swap configuration in all the nodes
+			5. Install Docker in all the nodes
+			6. Install CRI - 'Container-D' in all the nodes
+			7. Install Kubeadm,kubelet,kubectl 
+			8. Enable Kubelet	
+		   
+		Only on Master Node:
+		
+			9. Execute Kubeadm Init Command 		# To initialize Kubernetes Master Node
+			10. Enable user Access to Kubernetes
+			11. Install flannel Network plugins for kubeproxy
+
+		Only on WorkerNodes:		
+		
+			12. Execute Kubeadm Join Command 		# To attach the Worknodes with Kubernetes Master Node.
+			
+				kubeadm join 172.31.8.101:6443 --token 7nd74g.qf0o7ntrb9im3hqr \
+        --discovery-token-ca-cert-hash sha256:20a690f48ba814666bf93da0a3460e53b46992e339a515bc2dd4f4a1bbf5d4b1
+
+		
+	Deploy a new pod in Kubernetes cluster :::
+	
+	1. Write a manifest file - save as *.yaml 
+	
+		- Yaml files are based on key:value pairs 
+	
+	2. Use kubectl command to create/deploy the pod using the manifest file
+	
+	
+
+
+How to install and configure kubernetes Master and workernodes 
+
+Write a manifest file to create a pod 
+
+Using kubectl to create a pod 
+
+get/describe/login
+
+expose pod using nodeport services 
+
+access the application running inside the pod using web browser
+
+delete pod and svc 
+
+
+Next :: 
+
+	Controller Object 
+		ReplicaSet 
+		Deployment 
+	
+	Services
+		NodePort Service 
+		ClusterIP 
+		LoadBalancer
+
+	Volumes
+		HostPath Volumes 
+	
+	Namespaces 
