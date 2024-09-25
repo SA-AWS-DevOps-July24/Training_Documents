@@ -306,3 +306,62 @@ Next ::
 		HostPath Volumes 
 	
 	Namespaces 
+
+
+
+#######################
+Day 38: 25th Sep. 2024
+#######################	
+
+	Controller Object :::
+		ReplicaSet 
+		Deployment 
+
+
+	ReplicaSet :::
+	
+		--> Replicaset is used to execute the specific no. of pods in the cluster.
+		--> Replicaset uses the Set Based Operator
+		--> Used to replicate the pods and able to scale up/down
+		--> The Replicasets will be automatically created, while creating Deployment Controller Object.
+	
+	Deployment Controller Object :::
+	
+		--> It is used to deploy the pods and ensure high availability of pods by creating pod replicas 
+		--> 1. Create Muliple instance/replicas/copies of pods 
+			2. Used to Scale-Up / Scale-Down the Pods 
+			3. Used to Upgrade the application pods 
+			4. Used to Down-grade/roll-back the application pods
+		--> The upgrade/down-grade of application pods can be done without any downtime. 
+		--> To achieve zero-downtime during upgrade/down-grade, By Default, it used Rolling-Update Deployment Strategy.
+		
+	UseCase :::
+	
+		- Deploy 3 instance pod using Deployment Controller Object 	--> Nginx_previous_version
+		- 
+		
+		
+	Output ::
+	
+		- Deployment Object 
+		
+		- Replicaset 
+		
+		- Pods 
+	
+	
+	Web Application :::
+	
+		Launched a Website!
+		
+			--> 3 instances of pod to deploy this application 
+			
+				100 Users can access my application 
+				
+				1000 ++++
+				2000 ++++
+				
+				
+				Scale-up the pod instances !
+				Scale-down the pod instances !
+	
