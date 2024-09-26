@@ -365,3 +365,146 @@ Day 38: 25th Sep. 2024
 				Scale-up the pod instances !
 				Scale-down the pod instances !
 	
+#######################
+Day 39: 26th Sep. 2024
+#######################	
+
+	Deployment Controller Object :::
+	
+		--> It is used to deploy the pods and ensure high availability of pods by creating pod replicas 
+		--> 1. Create Muliple instance/replicas/copies of pods 
+			2. Used to Scale-Up / Scale-Down the Pods 
+			3. Used to Upgrade the application pods 
+			4. Used to Down-grade/roll-back the application pods
+		--> The upgrade/down-grade of application pods can be done without any downtime. 
+		--> To achieve zero-downtime during upgrade/down-grade, By Default, it used Rolling-Update Deployment Strategy.	
+
+	
+
+		- Upgrade the application pods 
+		- Down-grade/roll-back the application pods
+		
+		
+	What is the need for Kubectl describe Command ???
+	
+	- Kubectl Describe Command is used to capture the complete information about the kubenetes objects
+	- Kubectl Describe Command provides the complete list of events based on the kubernetes object. 
+	- Kubectl Describe Command is used to diagonize/debug/analyze the kubernetes objects 
+
+
+
+	Developer created --> webappimg:v1.0 ==> Publish to container Registry	==> Deployed to kubernetes
+	Developer created --> webappimg:v2.0 ==> Publish to container Registry	==> Deployed to kubernetes
+	
+	
+	Deployment Strategy :::
+	
+		nginx-deploy ---> nginx:stable-otel(v1.0)	# Current version of Application Image 
+		
+			pod1	---> nginx:stable-otel(v1.0)		# Current version of Application Image
+			pod2	---> nginx:stable-otel(v1.0)		# Current version of Application Image
+			pod3 	---> nginx:stable-otel(v1.0)		# Current version of Application Image
+	
+	
+	
+
+		Upgrade the Application Image from nginx:stable-otel(v1.0) to nginx:stable-pearl(v2.0)
+
+		nginx-deploy ---> nginx:stable-pearl(v2.0)	# Current version of Application Image 
+
+			pod1	---> nginx:stable-pearl(v2.0)		# Current version of Application Image
+			pod2	---> nginx:stable-pearl(v2.0)		# Current version of Application Image
+			pod3 	---> nginx:stable-pearl(v2.0)		# Current version of Application Image
+
+
+		--> To achieve zero-downtime during upgrade/down-grade, By Default, it used Rolling-Update Deployment Strategy.	
+
+		During the Upgrade, if anything goes wrong, we can quickly roll-back to previous version
+		
+		
+		First will see how to deploy any new version of image, for roll-back 
+
+
+		roll-back - When will go for roll-back ???
+		
+			Whenever the deployment fails, will go for roll-back/undo the changes 
+		
+			when pod is not running as expected
+			when we need to use previous version 
+			
+			
+			
+	Kubernetes Services :::
+	
+		Services are used to enable the communication to the pods :::
+		
+		
+		- Cluster-IP Service:
+			- It is used to enable the communication between the pods within the cluster 
+		
+		- Node-Port Service 
+			- It is used to expose the pods to internet
+			- Uses the port range : 30000 to 32767 
+		
+		- Load Balancer Service
+
+			- Is used to reduce the number of IPs address to be maintained for NodePort Service.
+			
+			- Load Balancer Service Created on top of the NodePort Service, will receives the request from end user thru internet and Route the request the corresponding nodeport service and access the pod within that.		
+		
+		
+		3-tier application :
+		
+			- Front-End
+			
+			- Application-Layer 
+			
+			- Data-Base Layer
+			
+			
+Next :::
+
+	Volume - Kubernetes Hostpath Volume
+
+	Kubernetes Namespaces
+
+	Demo : Using this Deployment controller Object and Service : using jenkins.
+	
+	
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loksai-eta-deploy
+  labels:
+    app: loksai-eta-deploy-lbl
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: loksai-eta-app
+  template:
+    metadata:
+      labels:
+        app: loksai-eta-app
+    spec:
+      containers:
+      - name: loksai-eta-container
+        image: loksaieta/loksai-eta-app
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loksai-eta-np-service
+  labels:
+    app: loksai-eta-app
+spec:
+  selector:
+    app: loksai-eta-deploy-lbl
+
+  type: NodePort
+  ports:
+  - nodePort: 31028
+    port: 8080
+    targetPort: 8080
