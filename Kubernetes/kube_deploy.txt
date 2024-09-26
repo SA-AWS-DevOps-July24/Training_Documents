@@ -35,6 +35,22 @@ kubectl get rs -l app=nginx-deploy
 kubectl get po -l app=nginx-app
 kubectl describe deploy nginx-deploy
 
+*******************************************************************
+# 3. Testing: Rollback update 
+
+kubectl set image deploy nginx-deploy nginx-container=nginx:stable-pearl
+kubectl rollout status deployment/nginx-deploy
+
+kubectl rollout undo deployment/nginx-deploy
+kubectl rollout status deployment/nginx-deploy
+kubectl describe deploy nginx-deploy | grep -i image
+
+*******************************************************************
+# 4. Testing: Update Version of "nginx:stable-otel" to "nginx:stable-perl"
+
+kubectl set image deploy nginx-deploy nginx-container=nginx:stable-perl
+kubectl rollout status deployment/nginx-deploy
+kubectl get deploy
 
 *******************************************************************
 # 5. Testing: Scale UP
@@ -44,12 +60,15 @@ kubectl get deploy
 kubectl get po -o wide
 
 *******************************************************************
+
 # 6. Testing: Scale DOWN
 
 kubectl scale deployment nginx-deploy --replicas=3
 kubectl get deploy
 kubectl get po -o wide
    
+*******************************************************************
+
 *******************************************************************
 
 # 7. Cleanup
