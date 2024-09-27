@@ -508,3 +508,240 @@ spec:
   - nodePort: 31028
     port: 8080
     targetPort: 8080
+
+
+
+#######################
+Day 40: 27th Sep. 2024
+#######################
+
+	Kubenetes Namespaces :::
+		
+	Kubernetes Volumes :::
+	
+	Kubernetes Integration with Jenkins - Demo
+
+
+	- Kubernetes Volumes :::
+	
+		Persistant Volumes ::
+		
+			--> Is used to maintain the persistant data.
+			
+		Hostpath Volume :::
+		
+			- Same as Docker Volume.
+			
+			- Difference is hostpath volume is created at the pod level not at the container level.
+			
+			- Used to pass the input files to pods and restore the output from pods.
+			
+			
+	
+	- Kubernetes Namespace :::
+	
+		- Is the Logical Partition of Kubernetes Cluster
+		
+		
+		Environments:
+		
+			Dev 
+			
+			QA 
+			
+			UAT 
+			
+			Prod 
+			
+		kubectl create namespace dev 			# Create Namespace
+	
+vi nginx-devpod.yaml
+	
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  namespace: appteam2
+  labels:
+    app: nginx
+    tier: dev
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+
+    ports:
+    - containerPort: 80
+			
+			kubectl create -f nginx-devpod.yaml
+			
+			kubectl get pods --namespace=dev
+			
+			kubectl get pods --all-namespaces
+			
+			kubectl delete pod nginx-pod --namespace=dev			# Used to delete the pod created in this namespace
+			
+	Note: During real-Project Discussion, will show how to use kubernetes namespaces 
+	
+	
+	
+	Kubernetes Integration with Jenkins - Demo ::::
+	
+	Project: 
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loksai-eta-deploy
+  labels:
+    app: loksai-eta-deploy-lbl
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: loksai-eta-app
+  template:
+    metadata:
+      labels:
+        app: loksai-eta-app
+    spec:
+      containers:
+      - name: loksai-eta-container
+        image: loksaieta/sa-wd-webapp
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loksai-eta-np-service
+  labels:
+    app: loksai-eta-app
+spec:
+  selector:
+    app: loksai-eta-deploy-lbl
+
+  type: NodePort
+  ports:
+  - nodePort: 31028
+    port: 8080
+    targetPort: 8080
+
+
+	How to implement this using Jenkins CICD Pipeline :
+	
+	
+	
+	Objective :::
+	
+		Jenkins pipeline, perform application build, create container images,  Publish application image to Container registry and deploy to kubernetes cluster 
+		
+		
+	Resources - Servers/Tools Needed :
+	
+	
+		Servers :::
+		
+			Jenkins_Master													--> # To create CICD Pipeline Jobs and schedule it to run in Slave Nodes
+			
+				Build_Server-Jenkins_Slave 									--> # Compile the Source Code 
+				(Perform Application Build and Docker Build)					# Perform Unit Testing 
+																				# Create Artifacts 
+																				# Create Application Image 
+																				# Publish Application Image to DockerHub Registry
+			
+			Kubernetes_Master												--> Schedule Pod Deployments 
+				Kubernetes_WorkNode1										--> Execute the Pods 
+				Kubernetes_WorkNode2										--> Execute the Pods
+
+			
+		Tools ::::
+	
+			Jenkins_Master						--->	# jdk, jenkins, git 
+            	Build_Server-Jenkins_Slave 		--->	# git, jdk, maven, docker
+			Kubernetes_Master					---> 	# All Kubernetes Components
+            	Kubernetes_WorkNode1
+            	Kubernetes_WorkNode2
+
+		Maintain DockerHub Credentials in the Jenkins Credential Manager 
+			goto jenkins dashboard 
+				-- Manage Jenkins 
+					-- Credential 
+						-- using dockerhub username and access token 	
+						
+		
+		
+		Integration of Kubernetes Master Node with Jenkins Master Node.
+		
+			- Using Publish over ssh plugins, integrate Kubernetes_Master Node to Jenkins Master Node
+			- And Execute kubectl create command using Publish over ssh plugins
+			
+			--> 1. Create a devopsadmin - User in Kubernetes_Master
+			--> 2. Create SSH Keys to devopsadmin - User
+			--> 3. Ensure that devopsadmin - User have access to execute kubectl commands
+			--> 4. Use, the Kubernetes - Master Node's - Private IP Address,User_Name and Credential to config in Jenkins - Publish Over SSH
+			--> 5. Create a Pipeline Deployment Stage using Publish Over SSH Plugins step
+					- To copy the kubernetes manifest file - *.yaml file from jenkins_Slave Node to Kubernetes Master Node.
+					- To execute a command : kubectl create -f kdeploy.yaml
+					
+	
+							kubectl create -f kdeploy.yaml			# Used to create a new kubernetes object 
+							
+							kubectl apply -f kdeploy.yaml			# Used to create/replace a kubernetes object 
+	
+	
+sshPublisher(publishers: [sshPublisherDesc(configName: 'SA_WD_Kubernetes_Master', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f kubedeploy.yaml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+	
+	
+pipeline {
+     agent { label 'slave1' }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('dockerloginid')
+	}
+		
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/java-mvn-springbootapp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                echo 'Perform Docker Build'
+				sh "docker build -t loksaieta/sa-wd-webapp:${BUILD_NUMBER} ."
+				sh "docker tag loksaieta/sa-wd-webapp:${BUILD_NUMBER} loksaieta/sa-wd-webapp:latest"
+				sh 'docker image list'
+            }
+        }
+        stage('Login to Dockerhub') {
+            steps {
+                echo 'Login to DockerHub'				
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                
+            }
+        }
+        stage('Publish the Image to Dockerhub') {
+            steps {
+                echo 'Publish to DockerHub'
+				sh "docker push loksaieta/sa-wd-webapp:latest"                
+            }
+        }
+        stage('Deploy to Kubernetes Cluster') {
+            steps {
+				script {
+				sshPublisher(publishers: [sshPublisherDesc(configName: 'SA_WD_Kubernetes_Master', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f kubedeploy.yaml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+			}				          
+            }
+        }
+    }
+}	
+
