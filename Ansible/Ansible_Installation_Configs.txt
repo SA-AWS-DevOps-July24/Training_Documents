@@ -1,0 +1,131 @@
+Ansible Installation & Configurations:
+
+Launch - Ubuntu - v22.04 | 3 EC2 Instances... 1 for Ansible Controller & 2 as Nodes - ubuntu v22.04
+
+SSH connections :::
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#Login to Ansible Node1 & Node2. Perform below activities:
+
+#Add User in Ansible Nodes : 
+
+sudo -i
+
+apt update -y 
+
+useradd ansibleadmin -s /bin/bash -m -d /home/ansibleadmin 
+
+passwd ansibleadmin
+
+#Enter New Password:
+#Confirm Password:
+
+#Goto:
+
+vi /etc/ssh/sshd_config
+
+#Enable Password Authentication to Yes and save the file
+#Execute Below command to update the changes.
+
+service ssh reload
+
+#As a root user edit below file:
+
+$ visudo
+
+#add the below mentioned line in the file and save it.
+ 
+ansibleadmin ALL=(ALL) NOPASSWD: ALL
+
+su - ansibleadmin
+
+ls -a 
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#Login to Ansible Controller:
+https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html
+
+https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
+
+sudo -i
+
+sudo apt update -y
+
+sudo apt install software-properties-common -y
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt update -y
+sudo apt install ansible -y
+
+ansible --version
+
+#go to /etc/ansible
+
+#host - Default inventory file
+#config
+#roles 
+
+#Add User in Ansible Controller : 
+
+useradd devopsadmin -s /bin/bash -m -d /home/devopsadmin
+
+#useradd devopsadmin
+
+su - devopsadmin	
+
+#ssh-keygen -t rsa -b 1024 -m PEM
+
+#ssh-keygen -R rsa -b 1024 -m PEM
+ssh-keygen -t ecdsa -b 521										#ubuntu 22.04 or higher version of ubuntu				
+
+ls ~/.ssh 
+
+#You should see following two files:
+
+#id_ecdsa - private key
+#id_ecdsa.pub - public
+
+
+#Goto Node1&2, within ansibleadmin home directory, create .ssh directory
+
+vi authorized_keys
+
+#paste the id_ecdsa.pub of devopsadmin user from controller machine to authorized_keys file in Ansible Node1 
+
+chmod 600 /home/ansibleadmin/.ssh/*
+
+
+# Use the private IP addr. of AN1 and AN2
+
+ssh ansibleadmin@172.31.34.144
+ssh ansibleadmin@172.31.45.232
+
+chown -R devopsadmin:devopsadmin /etc/ansible
+
+#chmod 600 /home/ansibleadmin/.ssh/*
+
+
+###update vi etc/ansible/hosts
+
+
+[testnodes]
+samplenode1 ansible_ssh_host=172.31.34.144 ansible_ssh_user=ansibleadmin
+samplenode2 ansible_ssh_host=172.31.45.232 ansible_ssh_user=ansibleadmin
+
+
+Eg.::: 
+
+samplenode3 ansible_ssh_host=172.31.38.135 ansible_ssh_user=ansibleadmin
+samplenode4 ansible_ssh_host=172.31.38.39 ansible_ssh_user=ansibleadmin
+
+[devnodes]
+devnode1 ansible_ssh_host=172.31.5.190 ansible_ssh_user=ansibleadmin
+devnode2 ansible_ssh_host=172.31.6.228 ansible_ssh_user=ansibleadmin
+
+
+[webappservers]
+webappserver1 ansible_ssh_host=172.31.9.49 ansible_ssh_user=ansibleadmin
+webappserver2 ansible_ssh_host=172.31.9.209 ansible_ssh_user=ansibleadmin
+webappserver3 ansible_ssh_host=172.31.9.209 ansible_ssh_user=ansibleadmin
