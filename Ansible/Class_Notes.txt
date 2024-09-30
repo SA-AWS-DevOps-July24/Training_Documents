@@ -1,0 +1,117 @@
+
+#######################
+Day 41: 30th Sep. 2024
+#######################
+
+	Configuration Management System using Ansible ::::
+	
+	Terrafrom :
+	
+	
+	IAC - Infra-Structure As Code 
+	
+	Infra-Structure 
+	
+		Infra-Structure Provisioning 	- Process of creating servers 		- Terraform 
+
+		Infra-Structure Configurations 	- Process of managing the servers 	- Ansible 
+	
+	Configuration Management System using Ansible :::
+	
+		- Install / Uninstall / Upgrade any Packages 
+	
+	Configure 20 Test Servers :
+	
+	20 Developers Joined the Team :
+	
+		- Provision/Create the dev environment 
+		
+		- Install the required development tools 
+		
+		
+	Working with Ansible :
+	
+		- Why we need Ansible ?
+		
+		- Ansible Architecture 
+			- Master & Client Architecture:
+			
+		- Ansible Components 
+			
+			- Ansible Controller 
+				- Install Ansible 
+				- Maintain the Ansible Modules and Inventory file 
+				
+			- Ansible Nodes :
+				- Target Machines/Clients that can be configured through Ansible Controller 
+				
+			Inventory file :
+				- Used to define the Ansible Nodes details
+				- Host Name, User Name and Credentials - SSH Keys / Password 
+				
+			Ansible Modules :
+				- It is a script or function that gets injected into the target machine.
+				- These Modules are based of Python Scripts 
+				- Ansible Inject/push the modules from the Ansible Controller Machine into the Ansible Nodes, perform the desired Task, and Once the Task is over, it will delete that module from that target machine. 
+				
+					Ansible_Controller 										Ansible_Node1 
+					
+						setup_Java_BuildServer.sh		======================>	Copy setup_Java_BuildServer.sh and Execute this script in Ansible Node1
+							apt install git 
+							apt install jdk
+							apt install maven
+							
+							
+				- Ansible Use the Push Mechanism 
+				
+				
+			Ansible is Agentless.
+				
+				
+			- Ansible Config File :
+			
+				- Is used to define the default properties of Ansible 
+				
+			- Ansible Adhoc Commands :
+			
+				- It is used to execute a module in the target machine.
+				
+					Eg.: 
+					
+					Target Server :
+					
+						install git :
+							- apt install git -y				
+			
+			- Ansible Playbooks :
+			
+				- Used to execute the series of task/Modules in the target machine.
+				- Ansible Playbooks should be reusable 
+				- Ansible Playbooks are written using *.yaml Scripts 
+				
+					Eg.: 
+						Target Server : 
+						
+							Setup the Jenkins Slave_Node :
+							
+								- apt install git -y 
+								- apt install jdk -y 
+								- apt install maven -y 
+								- apt install docker.io -y 
+
+
+		- Installation & Configurations of Ansible Controller and Nodes 
+
+		- Create Ansible Inventory File 
+	
+Next  ::
+		- Ansible Concepts ::
+				- Ansible Adhoc Commands 
+				
+				- Ansible Playbooks 
+
+				- Ansible Variables 
+				
+				- Ansible Handlers 
+				
+				- Ansible Roles 
