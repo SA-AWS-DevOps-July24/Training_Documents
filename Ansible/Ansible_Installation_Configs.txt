@@ -129,3 +129,312 @@ devnode2 ansible_ssh_host=172.31.6.228 ansible_ssh_user=ansibleadmin
 webappserver1 ansible_ssh_host=172.31.9.49 ansible_ssh_user=ansibleadmin
 webappserver2 ansible_ssh_host=172.31.9.209 ansible_ssh_user=ansibleadmin
 webappserver3 ansible_ssh_host=172.31.9.209 ansible_ssh_user=ansibleadmin
+
+
+
+#**************************************************************************************************************************
+#hosts file is the default Inventory file for ansible 
+#**************************************************************************************************************************
+#Access thru Ansible Controller :
+#**************************************************************************************************************************
+
+ansible <hosts_name> -m <module_name> -i <inventory_file>
+
+ansible testnodes -m ping 
+
+ansible devnodes -m ping 
+
+
+ansible dev_server_grp1 -m ping -i dev_servers
+
+#host machines can be identified using :
+#all | group_name | individual_host_name
+
+
+###update vi /etc/ansible/host
+
+[testnodes]
+samplenode1 ansible_ssh_host=172.31.41.32 ansible_ssh_user=ansibleadmin
+samplenode2 ansible_ssh_host=172.31.39.17 ansible_ssh_user=ansibleadmin
+
+##################################################################################
+
+#**************************************************************************************************************************
+#Access thru Ansible Controller :
+#**************************************************************************************************************************
+Ansible Modules: Eg.: 
+ansible testnodes -m ping
+
+ansible all -m ping ### will ping all hosts from /etc/ansible/hosts file
+
+ansible samplenode1 -m ping
+ansible samplenode2 -m ping
+
+#or using user defined Inventory file
+#ansible ansible-node1 -m ping -i myinventoryfile.txt
+
+
+ansible samplenode1 -m ping -i myinventoryfile.txt
+
+#**************************************************************************************************************************
+
+ansible samplenode2 -m ping
+
+ansible samplenode1 -m shell -a "sleep 5 ; echo 'hi'"
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Ansible Facts!
+
+ansible samplenode1 -m setup
+ansible samplenode1 -m setup -a "filter=ansible_mounts"
+
+
+ansible testnodes -m setup -a "filter=ansible_distribution"
+
+
+##Transfer a file from Ansible Controller to Target Nodes using copy Module
+
+ansible samplenode1 -m copy -a "src=/etc/ansible/file1.txt dest=/home/ansibleadmin"
+
+ansible samplenode1 -m copy -a "src=/etc/ansible/s1.txt dest=/home/ansibleadmin backup=yes"
+
+
+
+##Transfer a file from Ansible Nodes to Ansible Controller using fetch Module
+ansible samplenode1 -m fetch -a "src=/home/ansibleadmin/filefrom_AN1.txt dest=/home/devopsadmin"
+
+
+### List all modules:
+ansible-doc -l
+### No. of modules:
+ansible-doc -l | wc -l
+### Search for specific modules:
+ansible-doc -l | grep shel
+### To know about any specific modules:
+ansible-doc shell
+
+
+https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html
+
+
+
+
+Ansible Playbooks :::
+
+*.yaml scripts 		==> Key-value pair
+
+- Playbook creation
+
+
+
+Playbooks :::::
+
+	- *.yaml Script
+	- Defines the Tasks/Modules to be executed in target nodes.
+	- Reusability
+	
+	
+Build Server :::
+
+	- install jdk 
+	- install git 
+	- install maven
+
+
+#**************************************************************************************************************************
+#Ansible Variables !
+#shell : echo $var1 
+
+in yaml : "{{var1}}"
+
+
+ansible samplenode1 -m setup
+
+debug - 
+	msg 	- used to print the constant value and variable data
+	var 	- used to print only the variable data
+
+key:Value pair 
+
+#debugmod.yaml / *.yml
+
+---
+ - hosts: testnodes
+   tasks:
+   - debug:  
+      msg:
+       - "The os distribution is: {{ansible_distribution}}" 
+       - "THe os name is: {{ansible_system}}"
+       - "The os family is: {{ansible_os_family}}"
+	   
+	   
+	Execute :::
+	
+			ansible-playbook debugmod.yaml 
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~ test_var-datatype.yaml
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#test_var-datatype.yaml
+---
+ - hosts: samplenode1
+   vars:
+    x: 23
+    my_num: 45.67
+    my_name: Loksai
+    my_b: YES   
+   tasks:
+   - debug:
+      msg:
+       - "The value of x is: {{x}}"
+       - "THe value of my_num: {{my_num}}"
+       - "The value of my_name : {{my_name}}"
+       - "THe value of my_b is: {{my_b}}"
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#/etc/ansible/variables/myvarfile1.yaml
+    x: 26
+    my_num: 45.00067
+    my_name: Loksai_ETA
+    my_b: YES
+
+#test_var-datatype1.yaml
+---
+ - hosts: samplenode1
+   vars_files:
+     - /etc/ansible/variables/myvarfile1.yaml
+   tasks:
+   - debug:
+      msg:
+       - "The value of x is: {{x}}"
+       - "THe value of my_num: {{my_num}}"
+       - "The value of my_name : {{my_name}}"
+       - "THe value of my_b is: {{my_b}}"
+
+
+
+---
+ - hosts: testnodes
+   become: yes
+   tasks:
+   - name: Manage nginx tool
+     apt:
+       name: nginx
+       state: present
+
+
+#######################################
+	#sudo apt install git 
+
+	#sudo yum install git 
+
+	apt: 
+		name : <tool_name>
+		state: <state of action>
+		
+		state: present / absent / latest
+	   
+
+	Package Management :
+	
+		install/Uninstall/update 
+########################################
+
+
+#var3.yaml
+---
+ - hosts: "{{ host_name }}"
+   become: yes
+   tasks:
+   - name: Manage "{{ tool_name }}" service
+     apt:
+       name: "{{ tool_name }}"
+       state: "{{ tool_state }}"
+
+ansible-playbook var3.yaml -e "host_name=testnodes tool_name=nginx tool_state=absent"
+
+
+################################################################################
+
+Handling Variables :::
+
+	--> Hardcoding the variables --> vars:
+	--> Using Variables files    --> vars_files: 	#recommended approach
+	--> Passing Extra values     --> -e 
+
+Handling Variables in Ansible :::
+
+	- Environment variables -- accessible using Setup Module.
+	
+	- Hardcoding the values in playbook 
+		using vars :
+	
+	- Using External Variable files :
+		using var_files
+
+	- Using -e to pass the values at run time.
+
+#################################################################################
+## Using When Condition :::
+
+
+---
+  - hosts: "{{ host_name }}"
+    become: yes
+    tasks:
+      - name: Manage "{{ tool_name }}" on Debian
+        apt:
+          name: "{{ tool_name }}"
+          state: "{{pkg_state}}"
+        when: ansible_os_family == "Debian"
+      - name: Manage "{{ tool_name }}" on Redhat
+        yum:
+          name: "{{ tool_name }}"
+          state: "{{pkg_state}}"
+        when: ansible_os_family == "RedHat"	
+
+ansible-playbook var3.yaml -e "host_name=samplenode1 tool_name=maven pkg_state=present"
+
+##############################################################################################
+
+
+
+
+Loops :
+
+---
+  - hosts: samplenode1
+    become: yes
+    tasks:
+      - apt:
+         name: git
+         state: present
+      - apt:
+         name: maven
+         state: present
+      - apt:
+         name: nginx
+         state: present
+
+
+
+
+Loops :::
+
+---
+  - hosts: samplenode1
+    gather_facts: false
+    become: yes
+    tasks:
+      - apt:
+         name: "{{item}}"
+         state: absent
+        loop:
+          - git
+          - maven
+          - nginx
+
+##################################################################################
