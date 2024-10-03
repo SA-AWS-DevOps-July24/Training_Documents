@@ -115,3 +115,50 @@ Next  ::
 				- Ansible Handlers 
 				
 				- Ansible Roles 
+
+
+#######################
+Day 42: 3rd Oct. 2024
+#######################
+
+
+	- Ansible Concepts ::
+			- Ansible Adhoc Commands 
+			
+			- Ansible Playbooks 
+
+			- Ansible Variables 
+			
+			- Ansible Handlers 
+			
+			- Ansible Roles 	
+			
+			
+	- Ansible Adhoc Commands :
+	
+		- It is used to execute a module in the target machine.	
+	
+	- Ansible Playbooks :::
+
+	
+		- Used to execute the series of task/Modules in the target machine.
+		- Ansible Playbooks should be reusable 
+		- Ansible Playbooks are written using *.yaml Scripts 
+		
+		
+		Varibles :::
+		
+			Environment Variables - Keywords 
+			
+				
+			
+			User-Defined Variables 
+			
+			
+Next :: 						
+
+	- Ansible Handlers 
+			
+	- Ansible Roles 	
+			
+	- Terraform 
