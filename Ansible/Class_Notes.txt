@@ -162,3 +162,45 @@ Next ::
 	- Ansible Roles 	
 			
 	- Terraform 
+
+
+#######################
+Day 43: 4th Oct. 2024
+#######################
+
+	- Ansible Handlers :::
+	
+		Handlers --> are used to control the flow of playbook execution, based on the previous modules
+		This can be done thru notify key.
+
+		Handlers are same as tasks.
+		But, it gets executed only if we notify.
+
+
+Install git :
+
+Install Maven :
+
+Install Tomcat :
+													GIT 			Maven 				Tomcat 				MYSQL
+
+	- Install the Pre-requisites				-->  NA 			JDK					1. JDK 				Pre-requisites
+	
+	- Install the Actual Tool 					-->  install git 	Install Maven 		2. Tomcat 			Install MYSQL 
+	
+	- Perform Post Installation Activities 		-->  NA 			NA 					3. Start Tomcat		Start MYSQL Server 
+	
+	
+	Software Package : 
+	
+		- Tool 
+		
+		- Service 
+
+		
+	
+	Ansible Roles ::::
+	
+	
+	
+	
