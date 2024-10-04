@@ -1,0 +1,69 @@
+#######################
+Day 43: 4th Oct. 2024
+#######################
+
+
+Terraform :::
+
+	- Is a IAC Tool - Used to Provision the Infra-Structure
+	
+	- Terraform uses HCL - Hashi-Corp Declarative Language (JSON file format)
+	
+	- Terraform Working Model 
+	
+		--> Identify the Scope of the Infra-Structure (AWS/Azure)
+		
+		--> Write the Terraform Script 
+		
+		--> Perform Terraform Init 	- Initialize the Terraform Providers 	
+									- To Download Terraform Provider to Terraform Project
+		
+		--> Perform Terraform Plan - Preview the Terraform Script 
+		
+		--> Perform Terraform Apply - To Implement the actual Changes to the target infra-structure
+		
+		
+	Working with Terraform :::
+	
+		- Install Terraform 		--> Local Windows Machine / Linux Machine 
+		
+				https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+				
+				https://developer.hashicorp.com/terraform/install
+				
+
+				Using Manual Approach - Install Terraform on local windows machine 
+				
+					- Download Windows AMD64 Version Terraform -- zipfile 
+						- Right Click and Extract all 
+							- Get the Extracted Terraform Folder 
+								- Get the terraform - binary file 
+								
+					- Setup Environment Variable for terraform binary file 
+						- from windows start menu, search for enviroment variable 
+							- click of edit enviroment variable setting 
+								- find system properties dialog 
+									- select enviroment variables button
+										- On Environment Variables Dialog 
+											- goto to System Variable 
+												- Select path variable and edit 
+													- Click on New 
+														- add C:\Softwares\terraform_1.7.2_windows_amd64
+															- apply the changes and close the settings
+				
+		- Install Visual Studio Code 	- IDE used to create Terraform Projects 
+			
+				https://code.visualstudio.com/download
+				
+		
+		- Open Visual Studio Code - Create Terraform Project 
+				
+Next :::					
+		
+	--> Define the Terraform Script 
+		
+	--> Provision the Resources 
+		
+	--> Concepts related to Terraform 
+	
+	--> Prometheus and Grafana
