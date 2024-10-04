@@ -438,3 +438,82 @@ Loops :::
           - nginx
 
 ##################################################################################
+Handlers --> are used to control the flow of playbook execution, based on the previous modules
+		This can be done thru notify key.
+
+		Handlers are same as tasks.
+		But, it gets executed only if we notify.
+
+
+
+Handlers :::
+
+	Handlers are used to control the flow of execution of tasks.
+	
+	Tasks 1 :::
+	
+	QA_Server 
+	
+		Tomcat :::
+				
+			1. Install the Pre-requisites		# jdk 			# jdk 
+			2. Install the actual tool 			# tomcat 		# jenkins 
+			3. Configure/setup the tool			# start tomcat  # unlock jenkins and setup
+
+
+
+#################################################################################################
+
+Ansible Roles :::
+
+		Are used to organize the Ansible Components 
+		
+		for Reusability
+		
+		Use git remote repositories to maintain the Ansible Roles.
+		
+			variable/handlers/defaults/secrets/tasks
+			
+			Playbooks 
+			
+			
+		Roles can be created using :::
+		
+			- ansible-galaxy init testrole1 
+				
+
+Working with Handlers using Ansible Roles :::
+
+
+ansible-galaxy init testrole1
+
+---
+# tasks file for testrole1
+      - name: Install-nginx
+        apt:
+          name: nginx
+          state: present
+        notify:
+        - start-nginx
+
+
+---
+# handlers file for testrole1
+    - name: start-nginx
+      service:
+          name: nginx
+          state: started
+
+
+---
+- hosts: samplenode1
+  become: yes
+  roles:
+    - role: testrole1
+
+
+---
+- hosts: {{host_name}}
+  become: yes
+  roles:
+    - role: {{role_name}}	
