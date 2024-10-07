@@ -1,0 +1,53 @@
+	
+#######################
+Day 44: 7th Oct. 2024
+#######################	
+		
+	Fundamentals of Prometheus and Grafana
+	
+	Continuous Monitoring :
+		- It is used to monitor the infra-structure and Applications based on the monitorig frequency
+		
+		- Infra-Structure Monitoring
+			- Prometheus/Grafana/Dyna-trace/Nagios/Splunk
+			- Used ot Monitor the CPU/Memory utilizations
+			
+		- Application Monitoring 
+		
+			- AppDynamics / DataDog	
+			
+	- Production Support / Monitoring Team 		==> 24/7 need for production
+			
+	Production Server :::	-> req. no. of cpus, ram ..
+	
+		- Deploy the applications
+	
+	
+	
+		Prometheus 	==> Monitoring Tool 
+		
+		Grafana 	==> Visualization Tool 
+	
+	
+	Architecture of Monitoring Tool :::
+	
+		- Prometheus Architecture
+		
+			- Time Series Database 		===================> 	Grafana 
+			
+			- PromQL
+			
+		- Install and Configure Prometheus and Grafana 
+				run as a web services 
+				
+				https://prometheus.io/download/
+		
+		
+		
+		- Create Monitoring Dashboards using Grafana 
+		
+Next :
+
+			Setup Prometheus, Node Exporter & Grafana
+			Create Grafana Dashbroads 
+	
