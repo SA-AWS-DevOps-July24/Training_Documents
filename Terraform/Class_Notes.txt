@@ -67,3 +67,66 @@ Next :::
 	--> Concepts related to Terraform 
 	
 	--> Prometheus and Grafana
+
+
+
+	
+#######################
+Day 44: 7th Oct. 2024
+#######################	
+	
+	- Terraform Working Model 
+	
+		--> Identify the Scope of the Infra-Structure (AWS/Azure)
+		
+		--> Write the Terraform Script 
+		
+		--> Perform Terraform Init 	- Initialize the Terraform Providers 	
+									- To Download Terraform Provider to Terraform Project
+		
+		--> Perform Terraform Plan - Preview the Terraform Script 
+		
+		--> Perform Terraform Apply - To Implement the actual Changes to the target infra-structure	
+	
+	
+	
+	How to provision EC2 Instance and other assosicated resources on AWS using Terraform 
+
+		- Open Visual Studio Code - Create Terraform Project 
+		
+			On Visual Studio Code : Install Terraform Extension for Visual Studio Code 
+	
+				HashiCorp Terraform
+	
+	
+		Create AWS Access Key and AWS Secret Key 
+	
+	
+	Using Terraform :
+		
+		>> Create/Add Resources			+
+		
+		>> Change/Modify Resources		~
+		
+		>> Delete/Destroy Resources 	-
+		
+		
+		
+	Terraform State File 	
+		==> Is used by Terraform to maintain the state of the resources in the target infra-structure.
+	
+		==> Preserve the Terraform State File !!!!
+		
+		
+	terraform apply -auto-approve
+	
+	terraform import <resource_id>!
+	
+		- Generate a state file
+		
+		
+	
+	Terraform 	==> Resource Provisioning 
+	
+	Ansible 	==> Configuration Management Tools
+	
