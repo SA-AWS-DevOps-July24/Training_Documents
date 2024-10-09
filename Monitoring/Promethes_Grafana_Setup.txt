@@ -1,0 +1,186 @@
+#Install Prometheus & Grafana :
+
+### Goto https://prometheus.io/download/
+
+wget https://github.com/prometheus/prometheus/releases/download/v2.48.0-rc.0/prometheus-2.48.0-rc.0.linux-amd64.tar.gz
+
+
+tar -zxvf prometheus-2.48.0-rc.0.linux-amd64.tar.gz
+
+
+###===> Create following file:
+
+sudo vi /etc/systemd/system/prometheus.service
+#-------------------------------------------------------------------------
+
+[Unit]
+Description=Prometheus Server
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User=root
+Restart=on-failure
+
+ExecStart=/root/prometheus-2.48.0-rc.0.linux-amd64/prometheus --config.file=/root/prometheus-2.48.0-rc.0.linux-amd64/prometheus.yml
+
+[Install]
+WantedBy=multi-user.target
+
+#-------------------------------------------------------------------------
+
+sudo systemctl daemon-reload
+sudo systemctl status prometheus
+sudo systemctl start prometheus
+systemctl enable prometheus
+
+<prometheus-external-ip>:9090
+http://43.204.238.185:9090/
+13.235.80.50
+
+3.110.190.177:9090
+####*************************************	**********************************
+
+
+#Install Grafana :
+
+### Goto https://grafana.com/grafana/download
+
+###select OSS Edition.
+#Choose Linux
+
+##  Linux Distribution :
+
+Red Hat, CentOS, RHEL, and Fedora(64 Bit)SHA256: 
+
+wget https://dl.grafana.com/oss/release/grafana-9.1.2-1.x86_64.rpm
+
+sudo yum install grafana-9.1.2-1.x86_64.rpm -y
+
+
+sudo /bin/systemctl enable grafana-server.service
+sudo /bin/systemctl start grafana-server.service
+sudo /bin/systemctl status grafana-server.service
+
+<grafana-external-ip>:3000
+http://43.204.238.185:3000/
+
+3.110.190.177:3000
+default user name & password : admin & admin
+
+
+###*********************************************************************
+
+###Install Node Exporters:
+
+### Goto https://prometheus.io/download/
+
+## Search for Node Exporter:
+##Copy Link Linux address
+### https://github.com/prometheus/node_exporter/releases/download/v1.4.0-rc.0/node_exporter-1.4.0-rc.0.linux-amd64.tar.gz
+
+
+###Goto the server you wish to monitor and install Node Exporter :
+
+https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+
+wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0-rc.0/node_exporter-1.4.0-rc.0.linux-amd64.tar.gz
+
+tar -zxvf node_exporter-1.4.0-rc.0.linux-amd64.tar.gz
+
+###===> Create following file:
+
+sudo vi /etc/systemd/system/node_exporter.service
+#-------------------------------------------------------------------------
+
+[Unit]
+Description=Prometheus Server
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User=root
+Restart=on-failure
+
+ExecStart=/root/node_exporter-1.4.0-rc.0.linux-amd64/node_exporter
+
+[Install]
+WantedBy=multi-user.target
+
+#-------------------------------------------------------------------------
+
+sudo systemctl daemon-reload
+sudo systemctl status node_exporter
+sudo systemctl start node_exporter
+
+hostname
+
+hostname -i
+
+### copy the IP Address of the server you wish to monitor
+
+## Goto to Prometheus Server ::
+
+### installation path 
+cd /root/prometheus-2.38.0.linux-amd64
+
+vi prometheus.yml
+## Add the target with valid node_exporter port as mentioned below:
+
+- targets: ["172.31.7.220:9100"]
+
+
+## Restart Prometheus:
+
+sudo systemctl restart prometheus
+sudo systemctl status prometheus
+
+###Goto Prometheus server :
+
+<prometheus-external-ip>:9090
+http://13.232.146.141:9090/
+
+## in the query field type up and click on execute to see the list of servers up for monitoring
+
+
+##*******************************************************************************************************
+
+###Create Prometheus Data Source in Grafana
+
+###Goto Grafana 
+
+##<grafana-external-ip>:3000
+##http://13.232.146.141:3000/
+
+Click on settings button --> Data Source --> Add Data Source --> Select Prometheus
+
+http://13.127.218.51/:9090/
+
+http://43.204.38.168:9090/
+
+Enter in the Name field as Prometheus
+Enter in the url field as the prometheus-server url with port eg.: <prometheus-external-ip>:9090 | http://13.232.146.141:9090/
+
+Click on Save & Test --- for Data Source is working 
+Click on Back Button
+See the Prometheus Data Source Created 
+
+
+Test in Prometheus-server query 
+
+https://prometheus.io/docs/prometheus/latest/querying/examples/
+
+sum by(mode)(irate(node_cpu_seconds_total{mode!="idle"}[5m])) > 0
+
+sum by(mode)(irate(node_cpu_seconds_total{mode!="idle"}[5m])) > 0
+
+Goto grafana and cl
+
+time() - node_boot_time_seconds{}
+
+100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m])) / avg_over_time(node_memory_MemTotal_bytes[10m])))
+
+
+AppDynamics ==> 
+DynaTrace 	==> 
+
