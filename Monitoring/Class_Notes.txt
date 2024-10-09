@@ -51,3 +51,19 @@ Next :
 			Setup Prometheus, Node Exporter & Grafana
 			Create Grafana Dashbroads 
 	
+
+
+#######################
+Day 45: 9th Oct. 2024
+#######################		
+
+
+	Setup Prometheus, Node Exporter & Grafana
+	
+	Monitoring Server 	--> Install Prometheus & Grafana 
+	
+	Target_Server		--> Install Node_Exporter
+	
+	AC * A_Nodes 
+	
+	
