@@ -1,0 +1,472 @@
+
+Dockerfile Commands:
+
+FROM
+
+ENV
+
+WORKDIR
+
+ENTRYPOINT
+
+CMD
+
+COPY
+
+ADD
+
+RUN
+
+EXPOSE
+
+
+1. FROM
+
+Definition: Specifies the base image to use for creating the Docker image. Example:
+Dockerfile
+
+FROM python:3.8-slim
+
+2. WORKDIR
+
+Definition: Sets the working directory inside the Docker container. Example:
+Dockerfile
+
+WORKDIR /usr/src/app
+
+3. COPY
+
+Definition: Copies files from the host machine to the Docker container. Example:
+Dockerfile
+
+COPY . .
+
+4. RUN
+
+Definition: Executes commands inside the Docker container during the image build process. Example:
+Dockerfile
+
+RUN apt-get update && apt-get install -y libpq-dev
+
+5. CMD
+
+Definition: Specifies the command to run when the Docker container starts. Example:
+Dockerfile
+
+CMD ["python", "app.py"]
+
+6. EXPOSE
+
+Definition: Informs Docker that the container listens on the specified network ports at runtime. Example:
+The EXPOSE command does not actually publish the port. To actually publish the port when running the container, use the -p flagon docker run to publish and map one or more ports.
+Dockerfile
+
+EXPOSE 5000
+
+7. ENV
+
+Definition: Sets environment variables. Example:
+ENV
+
+ENV <key> <value>
+
+This command used to set the environment variables that is required to run the project.
+
+ENV sets the environment variables, which can be used in the Dockerfile and any scripts that it calls. These are persistent with the container too and they can be referenced at any time.
+
+ENV HTTP_PORT="9000"
+
+Dockerfile
+
+ENV DEBUG True
+    (or)
+ENV NGINX_VERSION 1.19.0
+RUN apt-get update && \
+    apt-get install -y nginx=$NGINX_VERSION
+
+8. ENTRYPOINT
+
+Definition: Configures a container that will run as an executable. Example:
+Dockerfile
+
+ENTRYPOINT ["./start.sh"]
+
+9. ARG
+
+Definition: Defines a variable that users can pass at build-time to the builder with the docker build command. Example:
+Dockerfile
+
+ARG VERSION=latest
+RUN echo "Building version $VERSION"
+
+FROM node:14
+
+# Define build-time argument
+ARG NODE_ENV=production
+
+# Use the argument in a RUN command
+RUN if [ "$NODE_ENV" = "development" ]; \
+    then npm install; \
+    else npm install --only=production; \
+    fi
+
+Here, ARG NODE_ENV=production sets a default value for NODE_ENV. You can override this value when building the image:
+shell
+
+docker build --build-arg NODE_ENV=development -t my-node-app .
+
+
+10. LABEL
+
+Definition: Adds metadata to an image. Example:
+Dockerfile
+
+LABEL version="1.0"
+
+11. VOLUME
+
+Definition: a volume is a persistent storage location that exists outside of the container. Volumes are useful for storing data that needs to persist even if the container is stopped or removed.
+Dockerfile
+
+VOLUME ["/data"]
+
+12. MAINTAINER
+
+This statement is a kind of documentation, which defines the author who is creating this Dockerfile or who should you contact if it has bugs.
+
+Example:
+
+MAINTAINER Firstname Lastname <example@geeksforgeeks.com>
+
+13. ADD
+
+The ADD command is used to add one or many local files or folders from the source and adds them to the filesystem of the containers at the destination path.
+
+It is Similar to COPY command but it has some additional features:
+
+    If the source is a local tar archive in a recognized compression format, then it is automatically unpacked as a directory into the Docker image.
+    If the source is a URL, then it will download and copy the file into the destination within the Docker image. However, Docker discourages using ADD for this purpose.
+
+ADD rootfs.tar.xz /
+ADD http://example.com/big.tar.xz /usr/src/things/
+
+Both CMD and ENTRYPOINT instructions define what command gets executed when running a container. There are a few rules that describe their co-operation.
+
+    Dockerfile should specify at least one of CMD or ENTRYPOINT commands.
+    ENTRYPOINT should be defined when using the container as an executable.
+    CMD should be used as a way of defining default arguments for an ENTRYPOINT command or for executing an ad-hoc command in a container.
+    CMD will be overridden when running the container with alternative arguments.
+
+ENTRYPOINT vs CMD in Dockerfile
+
+Both ENTRYPOINT and CMD define the command that runs when a container starts. Here's when you use each:
+ENTRYPOINT
+
+Use ENTRYPOINT to specify a command that will not be overridden by docker run command line arguments. It's ideal for setting up the primary command for your container. Example:
+Dockerfile
+
+ENTRYPOINT ["python", "app.py"]
+
+This ensures app.py always runs when the container starts.
+CMD
+
+Use CMD to provide default arguments for the ENTRYPOINT command or to specify a command that can be overridden. Example:
+Dockerfile
+
+CMD ["--help"]
+
+If paired with ENTRYPOINT, CMD provides arguments:
+Dockerfile
+
+ENTRYPOINT ["python", "app.py"]
+CMD ["--debug"]
+
+This runs python app.py --debug, but you can override --debug when you run the container:
+shell
+
+docker run my-image --production
+
+Combining ENTRYPOINT and CMD
+
+Best used together when you need a default command with optional arguments:
+Dockerfile
+
+ENTRYPOINT ["python", "app.py"]
+CMD ["--default-option"]
+
+When to use which:
+
+    ENTRYPOINT: When you need a specific command that users should not change.
+
+    CMD: When you need default arguments for the ENTRYPOINT or a default command that users can override.
+
+Hope this clears it up! Let me know if there’s more you’re curious about.
+You
+there is only cmd and no rum instruction in dockerfile what happen
+Copilot
+
+If you only have a CMD instruction and no ENTRYPOINT in a Dockerfile, CMD provides the command that will run when a container is started. If you run the container without specifying a different command, Docker defaults to the CMD instruction.
+Example:
+Dockerfile
+
+FROM ubuntu:latest
+CMD ["echo", "Hello, World!"]
+
+When this container starts, it will execute echo "Hello, World!" by default. However, if you override it when running the container, like this:
+shell
+
+docker run my-image cat /etc/os-release
+
+It will run cat /etc/os-release instead of echo "Hello, World!".
+
+In essence, CMD is a default instruction, easily overridden. If the command provided by CMD is meant to be the primary function of the container, ENTRYPOINT would be more appropriate. Any specific case you have in mind for a Dockerfile?
+
+-------------
+Example 1: Basic Web App
+Dockerfile
+
+FROM nginx:latest
+
+ENV NGINX_PORT=80
+
+WORKDIR /usr/share/nginx/html
+
+COPY . .
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+CMD ["-g", "daemon off;"]
+
+--------------
+
+Example 2: Python Flask Application
+Dockerfile
+
+FROM python:3.8-slim
+
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+ENTRYPOINT ["flask"]
+
+CMD ["run"]
+
+--------------
+
+Example 3: Node.js Application
+Dockerfile
+
+FROM node:14
+
+ENV NODE_ENV=production
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 8080
+
+ENTRYPOINT ["node"]
+
+CMD ["server.js"]
+
+----------------
+
+Example 4: Java Application
+Dockerfile
+
+FROM openjdk:11-jre-slim
+
+ENV APP_HOME=/usr/app
+
+WORKDIR $APP_HOME
+
+COPY . .
+
+RUN ./mvnw install
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar"]
+
+CMD ["app.jar"]
+
+----------------
+
+Example 5: Go Application
+Dockerfile
+
+FROM golang:1.17
+
+ENV GO111MODULE=on
+
+WORKDIR /go/src/app
+
+COPY . .
+
+RUN go build -o main .
+
+EXPOSE 8080
+
+ENTRYPOINT ["./main"]
+
+CMD []
+--------------
+
+
+docker compose:
+
+Docker Compose YAML File Structure
+
+A Docker Compose YAML file allows you to define and run multi-container Docker applications. Here's a detailed breakdown of its structure:
+1. Version
+
+Defines the version of the Compose file format.
+yaml
+
+version: '3.8'
+
+Different versions support different features. Always choose the version compatible with your Docker Engine.
+2. Services
+
+Specifies the containers to run. Each service is like a single container configuration.
+yaml
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+3. Service Configuration Options
+
+image: Specifies the Docker image to use.
+yaml
+
+image: nginx:latest
+
+build: Defines build instructions for creating an image.
+yaml
+
+build:
+  context: ./path/to/build
+  dockerfile: Dockerfile
+
+ports: Exposes and maps ports.
+yaml
+
+ports:
+  - "8080:80"
+
+volumes: Mounts host paths or volumes.
+yaml
+
+volumes:
+  - /host/path:/container/path
+
+environment: Sets environment variables.
+yaml
+
+environment:
+  - MYSQL_ROOT_PASSWORD=example
+
+depends_on: Specifies dependencies.
+yaml
+
+depends_on:
+  - database
+
+4. Networks
+
+Defines networks for communication between services.
+yaml
+
+networks:
+  my-network:
+
+5. Volumes
+
+Defines named volumes for persistent storage.
+yaml
+
+volumes:
+  my-volume:
+
+Full Example
+yaml
+
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    environment:
+      - NGINX_PORT=80
+    depends_on:
+      - database
+
+  database:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+
+networks:
+  my-network:
+
+In this example:
+
+    web service uses the nginx image, maps port 8080 to 80, mounts a volume, sets an environment variable, and depends on the database service.
+
+    database service uses the mysql image, sets an environment variable, and mounts a volume for data persistence.
+
+    volumes defines a named volume db-data.
+
+    networks defines a custom network my-network.
+    
+    
+ version: '3.8'
+
+services:
+  myapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my_custom_container_name
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/usr/src/app
+    environment:
+      - NODE_ENV=production
+    command: node server.js
+
+
+
