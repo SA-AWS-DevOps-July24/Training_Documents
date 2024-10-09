@@ -1,0 +1,110 @@
+#######################
+Day 45: 9th Oct. 2024
+#######################		
+	
+	Overview of DevOps on Cloud - AWS / Azure DevOps Services!
+
+	1. Overview of AWS DevOps and Azure DevOps
+	2. Code Build
+	3. Code Commit
+	4. Code Deploy
+	5. Code Pipeline
+	6. Overview of Cloud Formation
+	
+		Open-Source DevOps Tools : github/jenkins/docker/kubernetes/ansible/terraform
+		
+		
+		DevOps Service from Cloud Service Providers : Managed Services :
+		
+			-> Azure DevOps Services 		#  1st Preference!
+			
+			-> AWS DevOps Services 			# 
+			
+	DevOps Implementation :::
+	
+	How to Choose the DevOps Services (Open-Source vs Managed_Services) ?
+	
+	- Need to do a detailed DevOps Assessment!
+	
+		- Based on the DevOps Assessment, we can recommended the DevOps Tools & Services.
+					
+	DevOps Assessment ???
+	
+		DevOps Lead/Architect/Consultant ::
+
+			--> Interact with all the stakeholders.
+			
+			--> Tools 
+			
+			--> Current Development/Build/Test/Deployment Process 
+			
+			--> Build and Release Environments and Frequencies 
+			
+			--> Key Performance Metrics
+				- MTTR 
+		
+			--> IAAS / PAAS / SAAS ---> Customers/Client & Vendor/AWS Cloud Service Provider 
+
+		DevOps Assessment Report with the recommendations!
+		
+			How to provide the recommendations to implement DevOps.
+			
+				AWS DevOps Services 
+				
+				Open-Source DevOps Services 
+		
+		
+	DevOps :::
+	
+		DevOps is a Software Development Strategy which helps to promote the collaboration between the Teams like Development Team and Operations Team to achieve Continuous Development, Continuous Integration, Continuous Testing, Continuous Delivery, Continuous Deployment, Continuous Monitoring in more automated fashion.
+		
+	How to Implement DevOps ?
+	
+		Teams involved in the overall SDLC Process :
+		
+			DevOps Team 
+				Infra-Structure Management Team 
+				Application Development Team 
+				Testing Team
+				Release Management Team
+				Production Support Team 
+				Production Monitoring Team 
+				IT Security Team 
+		
+		Environments :::
+		
+			Non-Prod Environments					Production Environments
+			
+				Dev 
+				Build 
+				Test 
+					QA 
+					UAT 			============>		Production Servers
+	
+	
+
+	AWS DevOps Services						Open-Source DevOps Tools 					Azure DevOps Services 
+	                                        
+	                                        
+	- Code Commit 							- github/bitbucket/gitlab-ci 				- Azure Repository
+		                                    
+	- Code Build 							- Jenkins 									- Azure Pipelines 
+		                                    
+	- Code Deploy 							- Jenkins									- Azure Pipelines 
+		                                    
+	- Code Pipeline 						- Jenkins									- Azure Pipelines 
+		                                    
+	- Code Artifacts	 					- JFrog Artifactory 						- Azure Artifacts 
+		                                    
+	- Elastic Container Service(ECS)		- Docker 									- Azure Container Service(ACS)
+		                                    
+	- Elastic Container Registry(ECR)		- Docker Container Registry(DockerHub)		- Azure Container Registry(ACR)
+		                                    
+	- Elastic Kubernetes Service(EKS)		- Kubernetes 								- Azure Kubernetes Service(AKS)
+																							
+	- Jira(Appln. Lifecycle Mgmt)			- Jira(Appln. Lifecycle Mgmt)				- Azure Boards (Appln. Lifecycle Mgmt)
+
+
+	Infra-Structure Management :
+	
+	- Cloudformation						- Terraform/Ansible							- Azure Resource Manager(ARM)
