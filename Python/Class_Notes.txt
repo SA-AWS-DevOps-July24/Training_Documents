@@ -1,0 +1,249 @@
+
+#######################
+Day 46: 10th Oct. 2024
+#######################		
+
+	Fundamentals of Python :::
+
+	1. Overview of Python
+	2. Features, Benefits, Uses of Python
+	3. Installation and Setup of Python Environment
+	4. Various Types of Sequencesin Python
+	5. File Operations
+	6. Python Functions
+	7. OOPs Concepts
+	8. Modules
+	9. Errors and Exception Handling
+	10. Python Console based application and Web Application using Flask
+	11. Deploying and Consuming Python Applications
+		
+	Shell Scripting ??
+	
+	Programming Languages 	==> Used to Develop Business Applications 
+	
+	(vs) 
+	
+	Scripting Languages 	==> Used to perform any process automation 
+	
+	
+	Use-Cases :::
+	
+		Scripting Languages :::
+		
+		
+	Common Features or Concepts ???
+	
+	
+	Integrated Development Environment for Python - IDLE
+	
+	Pycharm 
+	
+	Visual Studio Code 
+	
+	
+	Validation Program :
+	
+	The User Credentials -- for login_page 
+	- Involves Database validation 
+	
+		- Programming Languages - Java/C#
+		
+	Validation Program :
+	
+		Client Side Scripting 
+		
+		- Scripting Languages 
+	
+		xxxx@yyyy.com
+		
+		xxxx 
+		
+		xxx#asdf.com 
+		
+		xxx@adfs
+		
+		
+	Tools --> 
+	
+	Logical Thinking!
+	
+	
+	Programming/Scripting Logic ????
+	
+	Python -- Tools 
+	
+	
+	Problem Statement ::
+		- 
+		
+		What are all the steps involved to Create the program / source code?
+				
+		Analyze the Requirement 
+		Design the solution 
+			-> Algorithms 
+				- Step-by-Step process to achieve any task 
+				- Written in high-level language. It is independent of any Programming/Scripting Languages
+				- Algorithms should always be an optimized one
+				- It should be reusable and easily maintainable
+				
+			-> PsudoCode 
+				- Step-by-Step process to achieve any task
+				- It is based on the programming/Scripting Language 
+					
+			-> Program workflow - Flowcharts -- graphical views 
+			
+		Create a program/source code using actual programming/Scripting Language
+		
+	1.	
+		a = 60 
+		
+		b = 30 
+		
+		c = 87
+		
+		
+		Which is greatest number ?		result is ' c '
+		
+		Algorithm to find the greatest of these three numbers :
+		
+		
+	2.
+	
+		a = 70 
+		
+		b = 40 
+		
+		Swap the number :
+		
+		==> Output  : a = 40  & b = 70 
+		
+			a,b = b,a			# Is this valid ?
+			
+
+
+			use new variable c ?
+			
+			c = a 
+			
+			a = b 
+			
+			b = c 
+			
+	3. 
+		
+		a = *
+		
+		b = $
+		
+		Swap a and b :
+		
+		==> Output  : a = $  & b = * 	
+
+
+	4. 
+	
+		a = *
+		
+		
+		Print :
+		
+			* 
+			
+	
+	
+	5. 	a = *
+	
+		Print output :
+		
+			*
+			*	*
+			*	*	*
+			*	*	*	*
+			*	*	*	*	*
+			
+			
+	6. 	a = *
+	
+		Print output :
+		
+		*	*	*	*	*
+			*	*	*
+				*
+			*	*	*	
+		*	*	*	*	*
+		
+		
+	7. 	a = 1
+
+		Print output :
+		
+		1
+		
+		2	2
+		
+		3	3	3
+		
+		4	4	4	4
+		
+		5	5	5	5	5
+		
+		
+		
+	Working with Python :::
+
+		- Install Python 				# https://www.python.org/downloads/
+		
+		- Install IDE - Visual Studio Code 
+			
+			
+			
+	Data ::
+	
+	
+	variable 	 a = 5
+		
+	variable 	 b = "Hello"	
+	
+	
+	
+	
+	Functions :::
+	
+		-	Function is a collection of variables and commands used to perform any task.
+		
+		
+		>>>print("Hello")	1000 times ?
+			Hello 
+		
+		Varibles 
+			==> Local Varibles that are defined within the functions 
+			==> Global Variables that are defined outside the functions
+		
+		Scope of the Variable is based on the declaration.
+		
+		
+		
+		z = 100;
+		
+		print(z)			# will work ==> 100
+		
+		def sum()			# Function Definition 
+		{
+			a = 5 
+			b = 10 
+			print(a)		# will work 
+			c = a + b 		# 15!
+			global z
+			print(z)		# 100
+			z = 300	
+			print(z)		# 300
+			
+		}
+		
+		print(a) 		# will not work	| Function call
+		print(z)		# 300	# Updated data 
+		
+		
+		
+		
+		
