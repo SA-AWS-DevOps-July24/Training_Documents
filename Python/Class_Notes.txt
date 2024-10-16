@@ -246,4 +246,293 @@ Day 46: 10th Oct. 2024
 		
 		
 		
+#######################
+Day 47: 14th Oct. 2024
+#######################		
+		
+	Python Fundamentals :::
+	
+	
+			ansible_facts{
+				os_family : "Debian";
+				os_Type	  : "Linux"
+			}
+			
+			
+			
+		Email_ID = "asdfasdfa@asdf.com"
+
+		Comm_Address = """asdfasdfasdfasd
+						asdfasdfasdfasdf
+						adfsdfasdfasdfasdf"""
+		
+		
+		
+		
+		Var1 = ansible_facts 
+		
+		x = 5 
+		
+		
+		
+		print str1 ==> # Print entire value 
+		
+		
+		Array 			# Is a group of variables with same name and datatype.
+						# Each Element in array is identified by an index
+						# Index are used to uniquely identify the elment in array.
+						
+			Eg.: a[5]	a = {1,2,3,4,5}
+			
+						a[0] = 1
+						
+						a[1] = 2 
+						
+						a[4] = 5
+			
+			
+		In python, we have list that is similar to array 	
+					List can have different types of data.
+					
+			
+				list1 = [1,2,3,"hi","Hello"]
+					
+		sum(int a, int b)
+		{
+			c = a + b 
+		}		
+		
+		
+		List 			===> [1,2,"hello"]		# Updatable
+		
+		Set 			===> {1,2,3,4}			# Unique, Updatable 
+		
+		Tuple 			===> (1,2,3,4)			# Non-Updatable 
+		
+		Dictionary		===> {key1:value1,key2:value2} # Json file handling
+		
+	if 
+	{
+		if
+		{	
+			if 
+			{
+			
+			}
+		}
+		
+	}	
+		
+sa-instance1[5] = 
+		
+resource "aws_instance" "sa-instance1" {
+  
+  ami           = "ami-0dee22c13ea7a9a67"		
+  instance_type = "t2.micro"
+  key_name      = "ali-key"
+  count			= 5
+
+  tags = {
+    Name = "Terrfaorm-TestInstance1"
+  }
+}
+resource "aws_instance" "sa-instance2" {
+  
+  ami           = "ami-0dee22c13ea7a9a67"		
+  instance_type = "t2.medium"
+  key_name      = "ali-key"
+
+  tags = {
+    Name = "Terrfaorm-TestInstance1"
+  }
+}
+sir in the above resource "aws_instance" "sa-instance1"
+can you explain this line?
+this is from terraform module
+		
+	
+		
+#######################
+Day 48: 16th Oct. 2024
+#######################			
+	
+	On Visual Studio Code 
+	
+		Install Python extension for Visual Studio Code 
+		
+
+x = 5
+y = 6
+print("Value of x:", x)
+print("Value of y:", y)
+print(8)
+print(x)
+		
+		
+x = input("Number: ")
+
+if x < 0 or x > 10:
+	print("Invalid number")
+else:
+	print("Good choice")
+		
+		
+		
+		
+	year						2024	 
+		months 						12 
+			weeks						4
+				days 						7
+		
+		
+		
+
+numbers = [2,3,4,5,6]			# index start from 0. i.e., -> i[0]=2,i[1]=3,i[2]=4.....i[4]=6
+n=len(numbers)					# 5
+
+for(i=0;i<n;i++)				# i = 0; 0 < 5 ==> True, print 
+	print(i)					# 0,
+	print(numbers[i])			# 2,
+								# Add 1 to i ==> 
+								# i = 1; 1 < 5 ==> True, print 
+								# 1,
+	                            # 3,
+		                        # Add 1 to i ==>
+								# i = 2; 2 < 5 ==> True, print 
+								# 2,
+	                            # 4,
+		                        # Add 1 to i ==>			
+								# i = 3; 3 < 5 ==> True, print 
+								# 3,
+	                            # 5,
+		                        # Add 1 to i ==>		
+								# i = 4; 4 < 5 ==> True, print 
+								# 4,
+	                            # 6,
+		                        # Add 1 to i ==>	
+								# i = 5; 5 < 5 ==> False, EXIT from loop 	
+	
+		
+list1 = [1,2,3,4,5,6,7,8,9,10]			
+n=len(list1)					
+		
+for(i=0;i<n;i++)			
+	print(i)				
+	print(list1[i])	
+	
+	s=list[i]						1 
+	
+	r=s%2 
+	
+	if r = 0
+		print s
+
+	
+	output: {1,2,3,4,5,6,7,8,9,10}
+	
+	Even Numbers : {2,4,6,8,10}
+	
+	
+	
+	Object Oriented Programming :
+	
+		- Class 	-> Collection of Functions and Variables 
+		
+		- Object 	-> Instance of Class
+		
+		Class devOps {
+				aws()			# Modules - Functions 
+				azure()
+			}
+
+		Class devOps1 {
+				aws()
+				azure()
+			}
+			
+		devOps d;
+		
+		d.aws()
+		
+		d.azure()
+	
+		
+		devOps1 d1;
+		
+		d1.aws()
+		
+		d1.azure()	
+		
+		
+		Inheritance ==> 
+		
+		Class1
+		{
+			function1()
+			function2()
+		}
+		
+		Class2 : Class1
+		{
+			function3()
+			function4()
+		}	
+
+		Class1 obj1
+		
+			obj1.function1()
+			obj1.function2()
+		
+		Class2 obj2
+		
+			obj2.function1()
+			obj2.function3()
+			obj2.function4()
+			
+def sum(list):
+    sum = 0
+    for e in list:
+        sum = sum + e
+    return sum
+mylist = [1,2,3,4,5]
+print(sum(mylist))
+	
+		How to develop Web Applications using Python.
+
+s1.json 
+
+{
+    "name" : "XYZ",
+    "Dept" : "IT"
+}
+
+pyconsoleapp1.py
+
+filename = "s1.json"
+with open(filename) as f:
+    lines = f.readlines()
+    print(lines)
+i = 1
+for line in lines:
+    print(str(i) + " " + line),
+    i = i + 1
+
+
+py ./pyconsoleapp1.py
+
+
+
+Next ::::
+	
+	Web Application Server -> flask & Django Web Application Framework to develop web apps.
+		
+		
+	flask WAS 
+		
+		localhost web application 
+			
+			
+	
+	Core Projects ::::		
+		
 		
