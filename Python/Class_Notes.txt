@@ -536,3 +536,86 @@ Next ::::
 	Core Projects ::::		
 		
 		
+			
+#######################
+Day 49: 17th Oct. 2024
+#######################				
+
+	Python Web Application using flask Web Application Server.
+	
+	Prepare the python project to create web application 
+	
+	Flask WAS 
+	
+	Demo using Python Web Application
+	
+	
+	Capstone Project Discussion:
+	
+	
+	1. Python web application :
+		
+		Open Visual Studio Code 
+		Create Project Folder :
+				
+##################################
+
+Folder Structure :
+
+	My-WebApp-Project
+		app.py
+		templates
+			sample.html
+			
+##################################
+		
+		Open New Terminal :			
+			
+			Install : 	Web Application Framework
+				pip install flask
+		
+			Create app.py 
+		
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+
+def sample():
+	return render_template("sample.html")
+
+if "__name__" == "__main__":
+	app.run(debug=True)	
+	
+	
+		Create "templates" folder at root level :::
+				Create Html files :: eg. sample.html 
+				
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>www.loksaieta.com</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="jumbotron" style="background-color:white">
+	  <img src="https://octodex.github.com/images/spidertocat.png" alt="Spidertocat"
+		   class="img-responsive center-block" style="width:250px"/>
+	  <h2 class="text-center">Hello Everyone</h2>
+	  <p class="text-center"> Python Demo...</p>
+  </div>
+</body>
+</html>	
+
+
+		set FLASK_APP=sample
+	
+		python -m flask run	
+		
+		
+	
+	#python boto3 / terraform / cloudformation
+		
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
