@@ -1,0 +1,257 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#######################
+Day 49: 17th Oct. 2024
+#######################	
+		
+	Capstone Project ::::
+	
+		Domain Knowledge :
+		
+			- Banking / Retail / HealthCare / Insurance / Auto 
+			
+			
+#######################
+Day 50: 18th Oct. 2024
+#######################	
+
+		Monolith Application Architecture :::
+		
+			- Application is tightly coupled.
+			- It is not easy to split and deploy any function independently 
+			
+			- Only Continuous Delivery can be possible with the Monolith Application Architecture
+			
+		Micro-Service Based Application Architecture ::
+		
+			- Application is loosely coupled.
+			- The functions/Modules are called as microservice 
+			- Each Micro-Service can be independently created, test, and deployed to prod, without any manual intervension
+			
+			- Continuous Deployment can be possible with the Micro-Service Based Application Architecture
+
+
+
+
+	DevOps Assessment :
+	
+		- Interact with all the teams and collect the detailed requirements 
+		
+		
+		
+	Phase 1 :
+		-> 	Infra-Structure Provisioning and Configurations 
+				- Using Terraform and Ansible 
+				- Using AWS Console 
+		
+	
+	Phase 2 :
+		-> 	Automation of Application Builds & Deployments  
+				- Using Jenkins CICD Pipelines
+		
+		
+	Phase 3 :
+		-> 	Monitoring of Infra-Structure
+				- Using Prometheus & Grafana
+				
+				
+	What are the Servers(VM) needed ?
+	
+	What are the tools to be configured in each server ?
+	
+	What are the stages of CICD Pipeline ?
+				
+
+
+Implementation Procedures/Steps :::			
+
+##################################### For More Details refer to ::: Class Notes & Recording of ==> Day 40: 27th Sep. 2024
+
+
+	1. List of Server(VMs)?
+	
+		- Infra-Structure Perspective 
+		
+			- Create AWS EC2 Instances 			- Terraform
+			- Configure the servers				- Ansible
+		
+		
+		- DevOps Perspective		- Create CI/CD Pipeline to automate build and deployments
+		
+			- Jenkins_Master Node 				# VM1
+				Jenkins_Slave Node				# VM2
+			Kubernetes_Master 					# VM3
+				Kubernetes_WorkerNode1			# VM4
+				Kubernetes_WorkerNode2			# VM5
+				
+				
+		- Production Support/Monitor Teams' Perspective 
+		
+			- Monitor the Kubernetes Cluster/Jenkins_Slave_Nodes using Prometheus & Grafana
+			
+
+		Servers :::
+		
+			Jenkins_Master													--> # To create CICD Pipeline Jobs and schedule it to run in Slave Nodes
+			
+				Build_Server-Jenkins_Slave 									--> # Compile the Source Code 
+				(Perform Application Build and Docker Build)					# Perform Unit Testing 
+																				# Create Artifacts 
+																				# Create Application Image 
+																				# Publish Application Image to DockerHub Registry
+			
+			Kubernetes_Master												--> Schedule Pod Deployments 
+				Kubernetes_WorkNode1										--> Execute the Pods 
+				Kubernetes_WorkNode2										--> Execute the Pods
+
+			
+	2. Tools ::::
+	
+		Jenkins_Master						--->	# jdk, jenkins, git 
+			Build_Server-Jenkins_Slave 		--->	# git, jdk, maven, docker
+		Kubernetes_Master					---> 	# All Kubernetes Components
+			Kubernetes_WorkNode1
+			Kubernetes_WorkNode2
+
+		Maintain DockerHub Credentials in the Jenkins Credential Manager 
+			goto jenkins dashboard 
+				-- Manage Jenkins 
+					-- Credential 
+						-- using dockerhub username and access token 	
+						
+		
+		Integration of Kubernetes Master Node with Jenkins Master Node.
+		
+			- Using Publish over ssh plugins, integrate Kubernetes_Master Node to Jenkins Master Node
+			- And Execute kubectl create command using Publish over ssh plugins
+			
+			--> 1. Create a devopsadmin - User in Kubernetes_Master
+			--> 2. Create SSH Keys to devopsadmin - User
+			--> 3. Ensure that devopsadmin - User have access to execute kubectl commands
+			--> 4. Use, the Kubernetes - Master Node's - Private IP Address,User_Name and Credential to config in Jenkins - Publish Over SSH
+			--> 5. Create a Pipeline Deployment Stage using Publish Over SSH Plugins step
+					- To copy the kubernetes manifest file - *.yaml file from jenkins_Slave Node to Kubernetes Master Node.
+					- To execute a command : kubectl apply -f kubernetesdeploy.yaml
+
+	Check list :
+
+		Input Source Code Repository :	https://github.com/StarAgileDevOpsTraining/star-agile-banking-finance.git
+				
+		Firstly, fork the repository and use your own repository in the pipeline	
+		
+		1. Launch all the Required VMs 					==> AWS AMI - Ubuntu v22.04 - (Create using Terraform/AWS Console)
+		2. Ensure all the Required Ports are enabled using Security Group(Inbound Rules)
+		3. Install all the Required Tools in each VM 	==> Manual / Ansible Playbooks 
+		4. Create User in all the Required VMs with proper ssh keys to enable authentication 
+		5. Setup the connection between the servers 
+		6. Validate the Connection
+		7. Create CICD Pipeline with all these 6 stages 
+		8. Validate the CICD Pipeline for Application Build, Docker Images, and Deployments in Kubernetes
+
+		Enhance the project using github webhook(Make the code changes and trigger the build) & Email Notification
+	
+	
+	
+	3. CICD Pipeline Stages :::
+	
+		- SCM Checkout 
+		
+		- Application Build 
+		
+		- Application Image Build
+		
+		- Login to DockerHub 
+
+		- Publish Application Image to DockerHub Container Registry
+		
+		- Deploy the Application Images to Target Environments(DEV/STAGE/PROD) using Kubernetes
+
+		
+pipeline {
+     agent { label 'slave1' }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('dockerloginid')
+	}
+		
+    stages {
+        stage('SCM_Checkout') 
+            steps {
+                echo 'Perform SCM Checkout'
+                git 'https://github.com/SA-AWS-DevOps-July24/BankingApp.git'
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo 'Perform Application Build'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                echo 'Perform Docker Build'
+				sh "docker build -t loksaieta/bankapp-eta-app:${BUILD_NUMBER} ."
+				sh "docker tag loksaieta/bankapp-eta-app:${BUILD_NUMBER} loksaieta/bankapp-eta-app:latest"
+				sh 'docker image list'
+            }
+        }
+        stage('Login to Dockerhub') {
+            steps {
+                echo 'Login to DockerHub'				
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                
+            }
+        }
+        stage('Publish the Image to Dockerhub') {
+            steps {
+                echo 'Publish to DockerHub'
+				sh "docker push loksaieta/bankapp-eta-app:latest"                
+            }
+        }
+        stage('Deploy to Kubernetes Cluster') {
+            steps {
+				script {
+				sshPublisher(publishers: [sshPublisherDesc(configName: 'SA_WD_Kubernetes_Master', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f kubernetesdeploy.yaml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+			}				          
+            }
+        }
+    }
+}	
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bankapp-eta-deploy
+  labels:
+    app: bankapp-eta-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bankapp-eta-app
+  template:
+    metadata:
+      labels:
+        app: bankapp-eta-app
+    spec:
+      containers:
+      - name: bankapp-eta-container
+        image: loksaieta/bankapp-eta-app
+        ports:
+        - containerPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bankapp-eta-np-service
+  labels:
+    app: bankapp-eta-app
+spec:
+  selector:
+    app: bankapp-eta-app
+
+  type: NodePort
+  ports:
+  - nodePort: 31030  
+    port: 8082
+    targetPort: 8082
