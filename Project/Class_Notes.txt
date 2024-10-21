@@ -255,3 +255,81 @@ spec:
   - nodePort: 31030  
     port: 8082
     targetPort: 8082
+
+
+
+#######################
+Day 51: 21st Oct. 2024
+#######################	
+
+	Demo Banking Project :
+	
+	Jenkins FAQs 
+	
+	Docker FAQs
+	
+	
+	Core Concepts 
+	
+	Hands-On Experience on Core Concepts 
+	
+	FAQs 
+	
+	Project --> 
+	
+		What is the project is all about ?
+		
+		What are all the Tools used in the project?
+		
+		What is your roles & Responsibilies in your project ?
+		
+		What are the Challenges faced ?
+		
+	E_Mail Notifications in Jenkins pipeline stages 
+	
+	
+	
+Use Case ::
+
+	Scenario 1:
+	
+		Pipeline 1 : Infra-Structure Provisioning & Configurations 
+	
+			- SCM_Checkout --> Create New_Test_Server(Terraform) --> Configure New_Test_Server(Ansible)
+			
+		Pipeline 2 : CICD
+		
+			- SCM_Checkout --> Application Build --> Deploy the Changes to New_Test_Server --> Automated_Testing 
+																									|
+																									|
+																							  Generate Test Reports
+	
+	Scenario 2:
+	
+		Pipeline 1 : Test Server Provisioning,Configurations & CICD  
+	
+		SCM_Checkout --> Application_Build --> 	Create New_Test_Server(Terraform) --> Configure New_Test_Server(Ansible)
+																									|
+																									|
+																									|
+																					Deploy the Changes to New_Test_Server
+																									|
+																									|
+																									|
+																							Automated_Testing
+																									|
+																									|
+																									|
+																						Generate & Email the Test Reports 
+																									|
+																									|
+																									|
+																							Destroy New_Test_Server
+																									
+																						
+			
+	
+	
+	
+		
+		
